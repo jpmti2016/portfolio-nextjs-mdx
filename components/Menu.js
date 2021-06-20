@@ -10,10 +10,10 @@ export default function Menu({ toggle, setToggle, mobile = false }) {
         className="p-2"
         onClick={mobile ? () => setToggle((prev) => !prev) : () => {}}
       >
-        <Link href="/">
+        <Link href={{ pathname: "/", hash: "welcome" }}>
           <a
             className={`${
-              asPath === "/" || asPath === `/#top`
+              asPath === "/#welcome"
                 ? "underline nav-item sm:text-sm lg:text-xl"
                 : "no-underline nav-item sm:text-sm lg:text-xl"
             }`}
@@ -26,10 +26,10 @@ export default function Menu({ toggle, setToggle, mobile = false }) {
         className="p-2"
         onClick={mobile ? () => setToggle((prev) => !prev) : () => {}}
       >
-        <Link href="/projects">
+        <Link href={{ pathname: "/", hash: "projects" }}>
           <a
             className={`${
-              asPath === "/projects" || asPath === `/projects#top`
+              asPath === "/#projects"
                 ? "underline nav-item sm:text-sm lg:text-xl"
                 : "no-underline nav-item sm:text-sm lg:text-xl"
             }`}
@@ -58,10 +58,10 @@ export default function Menu({ toggle, setToggle, mobile = false }) {
         className="p-2"
         onClick={mobile ? () => setToggle((prev) => !prev) : () => {}}
       >
-        <Link href="/about">
+        <Link href={{ pathname: "/", hash: "about" }}>
           <a
             className={`${
-              asPath === "/about" || asPath === "/about#top"
+              asPath === "/#about"
                 ? "underline nav-item sm:text-sm lg:text-xl"
                 : "no-underline nav-item sm:text-sm lg:text-xl"
             }`}

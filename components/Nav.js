@@ -16,10 +16,10 @@ export default function Nav() {
   return (
     <nav className="sticky top-0 z-50 w-full px-4 bg-gray-200 dark:bg-gray-900 sm:items-center sm:flex sm:flex-row sm:py-6 md:px-24 md:text-xl font-fira">
       <div className="flex flex-row items-center justify-center w-full p-2 sm:w-auto">
-        <Link href="/about">
+        <Link href={{ pathname: "/", hash: "about" }}>
           <a
             className={`${
-              asPath === "/about"
+              asPath === "/#about"
                 ? "nav-item sm:text-sm lg:text-xl underline rounded-full p-0 m-0"
                 : "nav-item sm:text-sm lg:text-xl no-underline rounded-full p-0 m-0"
             }`}
@@ -29,6 +29,7 @@ export default function Nav() {
                 src={jpmti2016}
                 className="rounded-full"
                 layout="responsive"
+                alt="Yampier Medina avatar"
               />
             </div>
           </a>
