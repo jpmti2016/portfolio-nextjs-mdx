@@ -1,3 +1,102 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Fira Code", monospace;
+    font-style: normal;
+    font-weight: 100 700;
+    font-display: optional;
+    src: url(/fonts/FiraCode-VariableFont_wght.woff) format("woff");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+      U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+      U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: "Playfair Display", serif;
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: optional;
+    src: url(/fonts/PlayfairDisplay-VariableFont_wght.woff) format("woff");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+      U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+      U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: "Roboto Slab", serif;
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: optional;
+    src: url(/fonts/RobotoSlab-VariableFont_wght.woff) format("woff");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+      U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+      U+2215, U+FEFF, U+FFFD;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-block px-4 py-1 mb-2 font-medium tracking-wider uppercase rounded-lg font-fira;
+  }
+
+  .btn:focus {
+    @apply outline-none ring;
+  }
+
+  .btn-blue {
+    @apply text-gray-100 bg-blue-700;
+  }
+
+  .btn-blue:hover {
+    @apply bg-blue-800;
+  }
+
+  .btn-blue:active {
+    @apply bg-blue-900;
+  }
+
+  .btn-gray {
+    @apply ml-2 text-gray-800 bg-gray-400;
+  }
+
+  .btn-gray:hover {
+    @apply bg-gray-500;
+  }
+
+  .btn-gray:active {
+    @apply bg-gray-500;
+  }
+
+  .nav-item {
+    @apply block px-1 py-1 mt-1 text-lg tracking-wide uppercase rounded-md sm:p-4 hover:text-gray-100 hover:bg-gray-800;
+  }
+
+  .social {
+    @apply relative;
+  }
+
+  .container {
+    @apply p-4 mx-auto;
+  }
+
+  @screen sm {
+    .container {
+      @apply py-16;
+    }
+  }
+
+  @screen md {
+    .btn {
+      @apply px-5 py-2;
+    }
+
+    .btn-gray {
+      @apply ml-3;
+    }
+
+    .container {
+      @apply p-24;
+    }
+  }
+}
