@@ -40,6 +40,7 @@ export default function Nav() {
           </span>
         </div>
         <button
+          aria-label="toggle dark mode"
           className="ml-4 font-semibold rounded-full sm:ml-8 dark:text-yellow-600 dark:hover:text-yellow-400 dark:bg-gray-900 hover:text-gray-600"
           onClick={() => {
             setTheme(theme === "light" ? "dark" : "light");

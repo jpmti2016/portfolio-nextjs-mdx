@@ -11,7 +11,7 @@ export default function Layout({ children }) {
       <Footer />
       <div className="fixed z-10 p-1 bg-gray-300 rounded-sm bottom-4 right-4 dark:bg-gray-700">
         <Link href="#welcome">
-          <a className="">
+          <a className="" aria-label="back to top">
             <ArrowUpIcon className="w-4 h-4 sm:h-10 sm:w-10" />
           </a>
         </Link>
