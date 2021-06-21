@@ -1,14 +1,19 @@
-import Head from "next/head";
 import Image from "next/image";
 import trackingmyfinance from "../public/images/trackingmyfinance559_402.jpg";
 import githubjobs from "../public/images/github-jobs_559.jpg";
 import personalportfolio from "../public/images/personal-portfolio_559.jpg";
 import imagegallery from "../public/images/image-gallery_559.jpg";
 import cssgridalbum from "../public/images/css-grid-album_559.jpg";
+import { NextSeo } from "next-seo";
 
 export default function Home() {
   return (
     <>
+      {/* SEO */}
+      <NextSeo
+        title="Yampier Medina personal website (software engineer)"
+        description="I am a Software engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me."
+      />
       {/* Welcome */}
       <section id="welcome" className="bg-gray-100 dark:bg-gray-800">
         <div className="flex pt-24 pb-32">
