@@ -1,8 +1,8 @@
 import Head from "next/head";
-import { asPath } from "next/router";
+import { useRouter } from "next/router";
 
 export default function Blog() {
-  const { router } = useRouter();
+  const { asPath } = useRouter();
   const meta = {
     title: "Amazing blog title",
     description: "Amazing blog description",
