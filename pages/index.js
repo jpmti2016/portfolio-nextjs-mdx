@@ -13,8 +13,8 @@ export default function Home() {
       <NextSeo
         title="Yampier Medina personal website (software engineer)"
         description="I am a Software engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me."
-        url="https://portfolio-nextjs-mdx-kcjeqcm0m-jpmti2016.vercel.app"
-        image="https://portfolio-nextjs-mdx-kcjeqcm0m-jpmti2016.vercel.app/personal-portfolio_559.jpg"
+        url="https://portfolio-nextjs-mdx.vercel.app/"
+        image="https://portfolio-nextjs-mdx.vercel.app/public/images/personal-portfolio_559.jpg"
       />
       {/* Welcome */}
       <section id="welcome" className="bg-gray-100 dark:bg-gray-800">
