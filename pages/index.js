@@ -4,18 +4,48 @@ import githubjobs from "../public/images/github-jobs_559.jpg";
 import personalportfolio from "../public/images/personal-portfolio_559.jpg";
 import imagegallery from "../public/images/image-gallery_559.jpg";
 import cssgridalbum from "../public/images/css-grid-album_559.jpg";
-import { NextSeo } from "next-seo";
+import { Head } from "next/head"
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const { router } = useRouter();
+  const meta = {
+    title="Yampier Medina personal website (software engineer)",
+        description="I am a Software engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me.",
+        type:"website",
+        site_name: "Yampier Medina",
+        image:"https://portfolio-nextjs-mdx.vercel.app/images/personal-portfolio_559.jpg",
+        date: '2021-07-15'
+  }
   return (
     <>
       {/* SEO */}
-      <NextSeo
-        title="Yampier Medina personal website (software engineer)"
-        description="I am a Software engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me."
-        url="https://portfolio-nextjs-mdx.vercel.app/"
-        image="https://portfolio-nextjs-mdx.vercel.app/public/images/personal-portfolio_559.jpg"
-      />
+      <Head>
+        <title>{meta.title}</title>
+        <meta name="robots" content="follow, index" />
+        <meta content={meta.description} name="description" />
+        <meta
+          property="og:url"
+          content={`https://portfolio-nextjs-mdx.vercel.app/${router.asPath}`}
+        />
+        <link
+          rel="canonical"
+          href={`https://portfolio-nextjs-mdx.vercel.app/${router.asPath}`}
+        />
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:site_name" content={meta.site_name} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:image" content={meta.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@jpmti2016" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:image" content={meta.image} />
+        {meta.date && (
+          <meta property="article:published_time" content={meta.date} />
+        )}
+      </Head>
       {/* Welcome */}
       <section id="welcome" className="bg-gray-100 dark:bg-gray-800">
         <div className="flex pt-24 pb-32">
