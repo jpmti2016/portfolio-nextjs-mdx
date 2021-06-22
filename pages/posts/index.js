@@ -14,18 +14,18 @@ export default function Blog() {
           description: "Open Graph Description",
           images: [
             {
-              url: "https://portfolio-nextjs-mdx-kcjeqcm0m-jpmti2016.vercel.app/personal-portfolio.jpg",
+              url: "https://portfolio-nextjs-mdx-kcjeqcm0m-jpmti2016.vercel.app/public/images/personal-portfolio.jpg",
               alt: "Og Image Alt Second",
             },
             {
-              url: "https://portfolio-nextjs-mdx-kcjeqcm0m-jpmti2016.vercel.app/natureatyourfeet.jpg",
+              url: "https://portfolio-nextjs-mdx-kcjeqcm0m-jpmti2016.vercel.app/public/images/natureatyourfeet.jpg",
               alt: "Og Image Alt",
             },
             {
-              url: "https://portfolio-nextjs-mdx-kcjeqcm0m-jpmti2016.vercel.app/trackingmyfinance.jpg",
+              url: "https://portfolio-nextjs-mdx-kcjeqcm0m-jpmti2016.vercel.app/public/images/trackingmyfinance.jpg",
             },
             {
-              url: "https://portfolio-nextjs-mdx-kcjeqcm0m-jpmti2016.vercel.app/image-galery.jpg",
+              url: "https://portfolio-nextjs-mdx-kcjeqcm0m-jpmti2016.vercel.app/public/images/image-galery.jpg",
             },
           ],
           site_name: "SiteName",
