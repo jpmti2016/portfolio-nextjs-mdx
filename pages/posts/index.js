@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
+import { asPath } from "next/router";
 
 export default function Blog() {
   const { router } = useRouter();
@@ -20,11 +20,11 @@ export default function Blog() {
         <meta content={meta.description} name="description" />
         <meta
           property="og:url"
-          content={`https://portfolio-nextjs-mdx.vercel.app/${router.asPath}`}
+          content={`https://portfolio-nextjs-mdx.vercel.app/${asPath}`}
         />
         <link
           rel="canonical"
-          href={`https://portfolio-nextjs-mdx.vercel.app/${router.asPath}`}
+          href={`https://portfolio-nextjs-mdx.vercel.app/${asPath}`}
         />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content={meta.site_name} />
