@@ -7,7 +7,6 @@ export default function Blog() {
         title="Amazing blog title"
         description="Amazing blog description"
         url="https://portfolio-nextjs-mdx.vercel.app/posts"
-        image="https://portfolio-nextjs-mdx.vercel.app/github-jobs.jpg"
         openGraph={{
           url: "https://portfolio-nextjs-mdx.vercel.app/posts",
           title: "Open Graph Title",
