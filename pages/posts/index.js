@@ -7,25 +7,25 @@ export default function Blog() {
         title="Amazing blog title"
         description="Amazing blog description"
         url="https://portfolio-nextjs-mdx.vercel.app/posts"
-        image="https://portfolio-nextjs-mdx.vercel.app/public/images/github-jobs.jpg"
+        image="https://portfolio-nextjs-mdx.vercel.app/github-jobs.jpg"
         openGraph={{
           url: "https://portfolio-nextjs-mdx.vercel.app/posts",
           title: "Open Graph Title",
           description: "Open Graph Description",
           images: [
             {
-              url: "https://portfolio-nextjs-mdx.vercel.app/public/images/personal-portfolio.jpg",
+              url: "https://portfolio-nextjs-mdx.vercel.app/images/personal-portfolio.jpg",
               alt: "Og Image Alt Second",
             },
             {
-              url: "https://portfolio-nextjs-mdx.vercel.app/public/images/natureatyourfeet.jpg",
+              url: "https://portfolio-nextjs-mdx.vercel.app/images/natureatyourfeet.jpg",
               alt: "Og Image Alt",
             },
             {
-              url: "https://portfolio-nextjs-mdx.vercel.app/public/images/trackingmyfinance.jpg",
+              url: "https://portfolio-nextjs-mdx.vercel.app/images/trackingmyfinance.jpg",
             },
             {
-              url: "https://portfolio-nextjs-mdx.vercel.app/public/images/image-galery.jpg",
+              url: "https://portfolio-nextjs-mdx.vercel.app/images/image-galery.jpg",
             },
           ],
           site_name: "SiteName",
