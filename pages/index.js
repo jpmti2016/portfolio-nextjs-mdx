@@ -4,7 +4,7 @@ import githubjobs from "../public/images/github-jobs_559.jpg";
 import personalportfolio from "../public/images/personal-portfolio_559.jpg";
 import imagegallery from "../public/images/image-gallery_559.jpg";
 import cssgridalbum from "../public/images/css-grid-album_559.jpg";
-import { Head } from "next/head";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 export default function Home() {
