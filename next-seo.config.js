@@ -5,7 +5,8 @@ export default {
     url: "https://portfolio-nextjs-mdx.vercel.app/",
     site_name: "Yampier Medina personal website (software engineer)",
     title: "Yampier Medina personal website (software engineer)",
-    image="https://portfolio-nextjs-mdx.vercel.app/public/images/github-jobs.jpg",
+    image:
+      "https://portfolio-nextjs-mdx.vercel.app/public/images/github-jobs.jpg",
     description:
       "I am a Software engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me.",
     url: "https://portfolio-nextjs-mdx.vercel.app",
