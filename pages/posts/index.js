@@ -1,17 +1,17 @@
-import { Head } from "next/head"
+import { Head } from "next/head";
 import { useRouter } from "next/router";
 
 export default function Blog() {
   const { router } = useRouter();
   const meta = {
-    title="Amazing blog title",
-        description="Amazing blog description",
-        url="https://portfolio-nextjs-mdx.vercel.app/posts",
-        type:"website",
-        site_name: "Yampier Medina",
-        image:"https://portfolio-nextjs-mdx.vercel.app/images/github-jobs.jpg",
-        date: '2021-07-08'
-  }
+    title: "Amazing blog title",
+    description: "Amazing blog description",
+    url: "https://portfolio-nextjs-mdx.vercel.app/posts",
+    type: "website",
+    site_name: "Yampier Medina",
+    image: "https://portfolio-nextjs-mdx.vercel.app/images/github-jobs.jpg",
+    date: "2021-07-08",
+  };
   return (
     <div>
       <Head>

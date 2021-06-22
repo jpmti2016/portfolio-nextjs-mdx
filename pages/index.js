@@ -4,19 +4,21 @@ import githubjobs from "../public/images/github-jobs_559.jpg";
 import personalportfolio from "../public/images/personal-portfolio_559.jpg";
 import imagegallery from "../public/images/image-gallery_559.jpg";
 import cssgridalbum from "../public/images/css-grid-album_559.jpg";
-import { Head } from "next/head"
+import { Head } from "next/head";
 import { useRouter } from "next/router";
 
 export default function Home() {
   const { router } = useRouter();
   const meta = {
-    title="Yampier Medina personal website (software engineer)",
-        description="I am a Software engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me.",
-        type:"website",
-        site_name: "Yampier Medina",
-        image:"https://portfolio-nextjs-mdx.vercel.app/images/personal-portfolio_559.jpg",
-        date: '2021-07-15'
-  }
+    title: "Yampier Medina personal website (software engineer)",
+    description:
+      "I am a Software engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me.",
+    type: "website",
+    site_name: "Yampier Medina",
+    image:
+      "https://portfolio-nextjs-mdx.vercel.app/images/personal-portfolio_559.jpg",
+    date: "2021-07-15",
+  };
   return (
     <>
       {/* SEO */}
