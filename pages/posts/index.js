@@ -1,7 +1,12 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 
-export default function Blog() {
+export default function Blog({ posts }) {
   const { asPath } = useRouter();
   const meta = {
     title: "Amazing blog title",
@@ -41,6 +46,31 @@ export default function Blog() {
         )}
       </Head>
       Blog
+      {posts.map((post) => (
+        <li key={post.filePath}>
+          <Link href={`/posts/${post.filePath.replace(/\.mdx?$/, "")}`}>
+            <a>{post.data.title}</a>
+          </Link>
+        </li>
+      ))}
     </div>
   );
+}
+
+export function getStaticProps() {
+  const posts = postFilePaths.map((filePath) => {
+    console.log("post file path", filePath);
+    const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
+    const { content, data } = matter(source);
+
+    return {
+      content,
+      data,
+      filePath,
+    };
+  });
+
+  return {
+    props: { posts },
+  };
 }

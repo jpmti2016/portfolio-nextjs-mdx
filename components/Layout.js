@@ -5,9 +5,9 @@ import Footer from "./Footer";
 
 export default function Layout({ children }) {
   return (
-    <div>
+    <div id="welcome">
       <Nav />
-      <main>{children}</main>
+      <main className="min-h-screen sm:py-6 md:text-xl">{children}</main>
       <Footer />
       <div className="fixed z-10 p-1 bg-gray-300 rounded-sm bottom-4 right-4 dark:bg-gray-700">
         <Link href="#welcome">
