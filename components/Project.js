@@ -1,13 +1,13 @@
 import Image from "next/image";
+import { MDXRemote } from "next-mdx-remote";
 
 export default function Project({
   title,
   image,
   stack,
-  description,
   demo,
   info,
-  content,
+  mdxSource,
 }) {
   return (
     <div className="flex flex-col p-4 bg-gray-200 shadow-lg dark:bg-gray-900 sm:p-4">
@@ -38,7 +38,9 @@ export default function Project({
           ))}
         </p>
       </div>
-      <div className="mt-2 text-lg sm:mt-4">{content}</div>
+      <div className="mt-2 prose md:prose-lg sm:mt-4">
+        <MDXRemote {...mdxSource} />
+      </div>
       <div className="mt-4 text-sm sm:pt-6 sm:text-base sm:mt-auto">
         <a
           className="shadow-lg btn btn-blue"

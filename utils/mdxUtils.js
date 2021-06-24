@@ -1,9 +1,6 @@
 import fs from "fs";
 import path from "path";
 
-console.log("cwd", process.cwd());
-console.log("data/projects", path.join(process.cwd(), `data/projects`));
-
 export const POSTS_PATH = path.join(process.cwd(), "posts");
 
 export const postFilePaths = fs
