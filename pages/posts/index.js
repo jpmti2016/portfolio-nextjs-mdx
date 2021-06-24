@@ -18,7 +18,7 @@ export default function Blog({ posts }) {
     date: "2021-07-08",
   };
   return (
-    <div>
+    <div className="px-4 py-10 sm:px-20">
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
@@ -49,7 +49,9 @@ export default function Blog({ posts }) {
       {posts.map((post) => (
         <li key={post.filePath}>
           <Link href={`/posts/${post.filePath.replace(/\.mdx?$/, "")}`}>
-            <a>{post.data.title}</a>
+            <a className="text-blue-500 underline hover:text-blue-700">
+              {post.data.title}
+            </a>
           </Link>
         </li>
       ))}
