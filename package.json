@@ -10,6 +10,7 @@
   "dependencies": {
     "@heroicons/react": "^1.0.1",
     "@tailwindcss/typography": "^0.4.1",
+    "dayjs": "^1.10.5",
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
     "next": "11.0.0",

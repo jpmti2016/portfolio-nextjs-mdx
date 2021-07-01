@@ -171,7 +171,7 @@ export default function Home({ projects }) {
               Projects
             </h2>
             <div className="space-y-6 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-8 ">
-              {projects.map((project) => (
+              {projects?.map((project) => (
                 <Project
                   key={project.id}
                   {...project.data}
