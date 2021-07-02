@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote";
+import MDXComponents from "./MDXComponents";
 
 export default function Project({
   title,
@@ -28,7 +29,7 @@ export default function Project({
           {/* <Image src={image} alt="css grid album" layout="responsive" /> */}
         </div>
         <p className="inline-block font-fira">
-          {stack.map((tech) => (
+          {stack?.map((tech) => (
             <span
               key={tech}
               className="inline-block px-2 mr-1 text-xs font-semibold tracking-wide uppercase bg-gray-100 rounded-full dark:bg-gray-800 sm:mb-1"
@@ -39,7 +40,7 @@ export default function Project({
         </p>
       </div>
       <div className="mt-2 prose md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:mt-4">
-        <MDXRemote {...mdxSource} />
+        <MDXRemote {...mdxSource} components={{...MDXComponents}}/>
       </div>
       <div className="mt-4 text-sm sm:pt-6 sm:text-base sm:mt-auto">
         <a

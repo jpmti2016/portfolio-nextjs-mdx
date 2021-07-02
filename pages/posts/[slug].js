@@ -16,9 +16,9 @@ export default function Post({ source, frontMatter }) {
   return (
     <div className="px-4 py-10 sm:px-32 xl:px-48 2xl:px-56">
     <Head>
-        <title>{frontMatter.title}</title>
+        <title>{frontMatter?.title}</title>
         <meta name="robots" content="follow, index" />
-        <meta content={frontMatter.description} name="description" />
+        <meta content={frontMatter?.description} name="description" />
         <meta
           property="og:url"
           content={`https://www.jpmti2016.com/posts/${asPath}`}
@@ -27,18 +27,18 @@ export default function Post({ source, frontMatter }) {
           rel="canonical"
           href={`https://www.jpmti2016.com/posts/${asPath}`}
         />
-        <meta property="og:type" content={frontMatter.type} />
-        <meta property="og:site_name" content={frontMatter.site_name} />
-        <meta property="og:description" content={frontMatter.description} />
-        <meta property="og:title" content={frontMatter.title} />
-        <meta property="og:image" content={frontMatter.image} />
+        <meta property="og:type" content={frontMatter?.type} />
+        <meta property="og:site_name" content={frontMatter?.site_name} />
+        <meta property="og:description" content={frontMatter?.description} />
+        <meta property="og:title" content={frontMatter?.title} />
+        <meta property="og:image" content={frontMatter?.image} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@jpmti2016" />
-        <meta name="twitter:title" content={frontMatter.title} />
-        <meta name="twitter:description" content={frontMatter.description} />
-        <meta name="twitter:image" content={frontMatter.image} />
-        {frontMatter.date && (
-          <meta property="article:published_time" content={frontMatter.date} />
+        <meta name="twitter:title" content={frontMatter?.title} />
+        <meta name="twitter:description" content={frontMatter?.description} />
+        <meta name="twitter:image" content={frontMatter?.image} />
+        {frontMatter?.date && (
+          <meta property="article:published_time" content={frontMatter?.date} />
         )}
       </Head>
  
@@ -51,7 +51,7 @@ export default function Post({ source, frontMatter }) {
           </Link>
         </nav>
         <div>
-          <div>{dayjs(frontMatter.date).format('MMMM-DD-YYYY')}</div>
+          <div>{dayjs(frontMatter?.date).format('MMMM-DD-YYYY')}</div>
         </div>
       </header>
       <main className="prose md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:max-w-3xl">

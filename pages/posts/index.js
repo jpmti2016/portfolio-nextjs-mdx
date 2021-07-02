@@ -5,6 +5,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
+import dayjs from "dayjs";
 
 export default function Blog({ posts }) {
   const { asPath } = useRouter();
@@ -18,7 +19,7 @@ export default function Blog({ posts }) {
     date: "2021-07-08",
   };
   return (
-    <div className="px-4 py-10 sm:px-20">
+    <div className="px-4 py-6 sm:px-32 xl:px-48 2xl:px-56 sm:max-w-6xl">
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
@@ -27,10 +28,7 @@ export default function Blog({ posts }) {
           property="og:url"
           content={`https://www.jpmti2016.com/${asPath}`}
         />
-        <link
-          rel="canonical"
-          href={`https://www.jpmti2016.com/${asPath}`}
-        />
+        <link rel="canonical" href={`https://www.jpmti2016.com/${asPath}`} />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content={meta.site_name} />
         <meta property="og:description" content={meta.description} />
@@ -45,15 +43,31 @@ export default function Blog({ posts }) {
           <meta property="article:published_time" content={meta.date} />
         )}
       </Head>
-      Blog
+      <h1 className="mb-4 text-4xl font-bold sm:mt-10 sm:mb-16">Blog</h1>
       {posts?.map((post) => (
-        <li key={post?.filePath}>
+        <div
+          key={post?.filePath}
+          className="p-4 no-underline bg-gray-200 rounded-md shadow-lg dark:bg-gray-800 ring-1 ring-gray-800 dark:ring-gray-200"
+        >
           <Link href={`/posts/${post?.filePath.replace(/\.mdx?$/, "")}`}>
-            <a className="text-blue-500 underline hover:text-blue-700">
-              {post?.data?.title}
+            <a className="no-underline">
+              <div className="">
+                <div>
+                  <h2 className="text-xl font-semibold sm:text-3xl">
+                    {post?.data?.title}
+                  </h2>
+                </div>
+
+                <p className="text-base">
+                  {dayjs(post?.data?.lastUpdated).format("MMM-DD-YYYY")}
+                </p>
+                <p className="pt-4 text-base sm:text-lg">
+                  {post?.data?.description}
+                </p>
+              </div>
             </a>
           </Link>
-        </li>
+        </div>
       ))}
     </div>
   );

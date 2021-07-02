@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React from "react";
 
 import Head from "next/head";
 import fs from "fs";
@@ -172,11 +173,9 @@ export default function Home({ projects }) {
             </h2>
             <div className="space-y-6 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-8 ">
               {projects?.map((project) => (
-                <Project
-                  key={project.id}
-                  {...project.data}
-                  mdxSource={project.mdxSource}
-                />
+                <React.Fragment key={project.id}>
+                  <Project {...project.data} mdxSource={project.mdxSource} />
+                </React.Fragment>
               ))}
             </div>
           </div>
