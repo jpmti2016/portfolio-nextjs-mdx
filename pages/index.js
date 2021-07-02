@@ -9,6 +9,7 @@ import { folderPath, filesPath } from "../utils/mdxUtils";
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import Project from "../components/Project";
+import * as gtag from "../utils/gtag";
 
 export default function Home({ projects }) {
   const { asPath } = useRouter();
@@ -21,6 +22,10 @@ export default function Home({ projects }) {
     image:
       "https://portfolio-nextjs-mdx.vercel.app/images/personal-portfolio_559.jpg",
     date: "2021-07-15",
+  };
+
+  const handleClickHireMe = (e) => {
+    gtag.event({ action: "click_hire_me", category: "Link" });
   };
   return (
     <>
@@ -77,7 +82,11 @@ export default function Home({ projects }) {
               Searching, 100% Remote
             </p>
 
-            <a href="mailto:jpmti2016@gmail.com" className="btn btn-blue">
+            <a
+              href="mailto:jpmti2016@gmail.com"
+              className="btn btn-blue"
+              onClick={handleClickHireMe}
+            >
               Hire me
             </a>
           </div>
