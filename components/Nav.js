@@ -11,7 +11,7 @@ import MobileButton from "./MobileButton";
 export default function Nav() {
   const { theme, setTheme } = useTheme();
   const { asPath } = useRouter();
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
 
   return (
     <nav className="sticky top-0 z-50 w-full px-4 bg-gray-200 dark:bg-gray-900 sm:items-center sm:flex sm:flex-row sm:py-6 md:px-24 md:text-xl font-fira">
