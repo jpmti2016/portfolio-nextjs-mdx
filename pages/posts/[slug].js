@@ -9,24 +9,22 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 import MDXComponents from "../../components/MDXComponents";
+import readingTime from "reading-time";
 
-export default function Post({ source, frontMatter }) {
+export default function Post({ source, frontMatter, timeToRead }) {
   const { asPath } = useRouter();
 
   return (
     <div className="px-4 py-10 sm:px-32 xl:px-48 2xl:px-56">
-    <Head>
+      <Head>
         <title>{frontMatter?.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={frontMatter?.description} name="description" />
         <meta
           property="og:url"
-          content={`https://www.jpmti2016.com/posts/${asPath}`}
+          content={`https://www.jpmti2016.com/${asPath}`}
         />
-        <link
-          rel="canonical"
-          href={`https://www.jpmti2016.com/posts/${asPath}`}
-        />
+        <link rel="canonical" href={`https://www.jpmti2016.com/${asPath}`} />
         <meta property="og:type" content={frontMatter?.type} />
         <meta property="og:site_name" content={frontMatter?.site_name} />
         <meta property="og:description" content={frontMatter?.description} />
@@ -41,9 +39,9 @@ export default function Post({ source, frontMatter }) {
           <meta property="article:published_time" content={frontMatter?.date} />
         )}
       </Head>
- 
+
       <header className="sm:py-10">
-        <nav>
+        <nav className="pb-4 sm:pb-6">
           <Link href="/posts">
             <a className="text-blue-500 underline hover:text-blue-700">
               Back to Blog
@@ -51,11 +49,14 @@ export default function Post({ source, frontMatter }) {
           </Link>
         </nav>
         <div>
-          <div>{dayjs(frontMatter?.date).format('MMMM-DD-YYYY')}</div>
+          <div>
+            {`Updated ${dayjs(frontMatter?.date).format("MMMM-DD-YYYY")}`}
+            {` | ${timeToRead?.text}`}
+          </div>
         </div>
       </header>
       <main className="prose md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:max-w-3xl">
-        <MDXRemote {...source} components={{...MDXComponents}}/>
+        <MDXRemote {...source} components={{ ...MDXComponents }} />
       </main>
     </div>
   );
@@ -75,10 +76,13 @@ export const getStaticProps = async ({ params }) => {
     scope: data,
   });
 
+  const stats = readingTime(content);
+
   return {
     props: {
       source: mdxSource,
       frontMatter: data,
+      timeToRead: stats,
     },
   };
 };

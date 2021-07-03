@@ -14,14 +14,13 @@ import * as gtag from "../utils/gtag";
 export default function Home({ projects }) {
   const { asPath } = useRouter();
   const meta = {
-    title: "Yampier Medina personal website (software engineer)",
+    title: "Yampier Medina personal website",
     description:
-      "I am a Software engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me.",
+      "I am a Software Engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me.",
     type: "website",
     site_name: "Yampier Medina",
-    image:
-      "https://portfolio-nextjs-mdx.vercel.app/images/personal-portfolio_559.jpg",
-    date: "2021-07-15",
+    image: "https://jpmti2016.com/images/personal-portfolio_559.jpg",
+    date: "2021-07-01",
   };
 
   const handleClickHireMe = (e) => {
@@ -34,14 +33,8 @@ export default function Home({ projects }) {
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
-        <meta
-          property="og:url"
-          content={`https://portfolio-nextjs-mdx.vercel.app/${asPath}`}
-        />
-        <link
-          rel="canonical"
-          href={`https://portfolio-nextjs-mdx.vercel.app/${asPath}`}
-        />
+        <meta property="og:url" content={`https://jpmti2016.com/${asPath}`} />
+        <link rel="canonical" href={`https://jpmti2016.com/${asPath}`} />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content={meta.site_name} />
         <meta property="og:description" content={meta.description} />

@@ -9,12 +9,18 @@ date: "2021-07-01"
 ---
 
 # How to use a custom domain registered with AWS Route 53 in a Next.js web app deployed to Vercel?
-<Image alt={`Vercel custom domain dashboard`} src={`/images/vercel-domain-dashboard.png`} width={1920}
-  height={1080} priority />
+
+<Image
+  alt={`Vercel custom domain dashboard`}
+  src={`/images/vercel-domain-dashboard.png`}
+  width={1920}
+  height={1080}
+  priority
+/>
 
 ## TLDR
 
-Update the **AWS Route 53 domain’s nameservers or, A and CNAME record types** with the values provided by **Vercel** under ```ProjectName / Settings / Domains``` after you added a domain to the project. It will show the info needed to configure ```greatdomain.com``` and redirect to ```www.greatdomain.com``` or vice versa. After you tried to add the domain to your project unsuccessfully that information will also be sent to your email explaining what to do. Vercel recommends configuring A and CNAME records.
+Update the **AWS Route 53 domain’s nameservers or, A and CNAME record types** with the values provided by **Vercel** under `ProjectName / Settings / Domains` after you added a domain to the project. It will show the info needed to configure `greatdomain.com` and redirect to `www.greatdomain.com` or vice versa. After you tried to add the domain to your project unsuccessfully that information will also be sent to your email explaining what to do. Vercel recommends configuring A and CNAME records.
 
 ## Some background
 
@@ -34,72 +40,80 @@ Assuming that you have your project deployed to Vercel, you only have to add the
 
 For now I will try to keep it simple based on my experience.
 
-On the project’s setting on the Vercel dashboard, there is a **Domain** link where you can add your ```greatdomain.com```. If you don’t have a domain you could also [purchase it with Vercel](https://vercel.com/domains?limit=24), AWS Route 53 or your provider of choice.
+On the project’s setting on the Vercel dashboard, there is a **Domain** link where you can add your `greatdomain.com`. If you don’t have a domain you could also [purchase it with Vercel](https://vercel.com/domains?limit=24), AWS Route 53 or your provider of choice.
 
 After you click the **Add** button, the service will indicate any invalid configuration for the **A Record** or the **Nameservers** (in each tab) and it will recommend what to do.
 
 Also it will send you emails with the values for the **A** and **CNAME** record types, and the **nameservers** needed to update your provider DNS records.
 
-**For ```greatdomain.com```**
+**For `greatdomain.com`**
 
->To configure the Domain, set the following record on your DNS provider (recommended):
+> To configure the Domain, set the following record on your DNS provider (recommended):
 >
->| name | type | value       |
->|------|------|-------------|
->| @    | A    | 76.76.21.21 |
+> | name | type | value       |
+> | ---- | ---- | ----------- |
+> | @    | A    | 76.76.21.21 |
 >
->Alternatively, you can also change your Domain's nameservers to the following intended set:
->- ```ns1.vercel-dns.com```
->- ```ns2.vercel-dns.com```
+> Alternatively, you can also change your Domain's nameservers to the following intended set:
+>
+> - `ns1.vercel-dns.com`
+> - `ns2.vercel-dns.com`
 
-**For ```www.greatdomain.com```**
+**For `www.greatdomain.com`**
 
->To configure the Domain, set the following record on your DNS provider (recommended):
+> To configure the Domain, set the following record on your DNS provider (recommended):
 >
->| name   | type  | value                |
->|--------|-------|----------------------|
->| www    | CNAME | cname.vercel-dns.com |
+> | name | type  | value                |
+> | ---- | ----- | -------------------- |
+> | www  | CNAME | cname.vercel-dns.com |
 >
->Alternatively, you can also change your Domain's nameservers to the following intended set:
->- ```ns1.vercel-dns.com```
->- ```ns2.vercel-dns.com```
+> Alternatively, you can also change your Domain's nameservers to the following intended set:
+>
+> - `ns1.vercel-dns.com`
+> - `ns2.vercel-dns.com`
 
-Follow by an email with the expected ***successfully configured*** after all the hard work!
+Follow by an email with the expected **_successfully configured_** after all the hard work!
 
 If you are unfamiliar with the DNS terminology relevant to this task, here is the explanation from Vercel, you can [check the full guide if there is no rush](https://vercel.com/docs/custom-domains).
 
->... you will be presented with different methods for configuring it, depending on whether it is an apex domain (example.com) or subdomain (docs.example.com).
+> ... you will be presented with different methods for configuring it, depending on whether it is an apex domain (example.com) or subdomain (docs.example.com).
 >
->Apex domains can be configured with an A record, while subdomains can be configured with a CNAME record. Both domain types can also be configured using the Nameservers method.
+> Apex domains can be configured with an A record, while subdomains can be configured with a CNAME record. Both domain types can also be configured using the Nameservers method.
 
 ## AWS Route 53 side
-<Image alt={`AWS Route 53 dashboard`} src={`/images/aws-route-53-dashboard.png`} width={1920}
-  height={1080} priority />
 
-Allways after updating the Nameservers or, the A and CNAME records you have to **wait some time for the changes to be applied**. 
+<Image
+  alt={`AWS Route 53 dashboard`}
+  src={`/images/aws-route-53-dashboard.png`}
+  width={1920}
+  height={1080}
+  priority
+/>
 
-The waiting time is different for each provider. You should call customer support if it takes too long. 
+Allways after updating the Nameservers or, the A and CNAME records you have to **wait some time for the changes to be applied**.
+
+The waiting time is different for each provider. You should call customer support if it takes too long.
 
 With AWS Route 53 it took me a few minutes to see my website live again.
 
 ### Nameservers
 
-The name servers associated with your AWS Route 53 registered domain should be found in your ```Route 53 / Domains / Registered Domains / greatdomain.com / Name Servers```. They look like:
+The name servers associated with your AWS Route 53 registered domain should be found in your `Route 53 / Domains / Registered Domains / greatdomain.com / Name Servers`. They look like:
 
 - ns-123.awsdns-31.net
 - ns-4567.awsdns-63.co.uk
 - ns-432.awsdns-50.com
 - ns-7654.awsdns-50.org
 
-Replace those *awsdns* name servers on the ```Route 53 / Domains / Registered Domains / greatdomain.com / Name Servers / Add or edit name servers``` with the Vercel’s Intended Nameservers that is recommended under the Nameservers tab. They should look like:
+Replace those _awsdns_ name servers on the `Route 53 / Domains / Registered Domains / greatdomain.com / Name Servers / Add or edit name servers` with the Vercel’s Intended Nameservers that is recommended under the Nameservers tab. They should look like:
 
 - ns1.vercel-dns.com
 - ns2.vercel-dns.com
 
 ### A Record
 
-Copy the **A Record** value from your project dashboard in Vercel. It should look like ```76.76.21.21```.
+Copy the **A Record** value from your project dashboard in Vercel. It should look like `76.76.21.21`.
 
-Go to your ```AWS Route 53 / Hosted Zones / greatdomain.com / Create Record``` (It should be an **A** record by default, if not select an A type from the Record Type dropdown), and paste it in the field Value. If you need *further information* for each field you can hit the **Info** link over the field or consult the [Amazon Route 53 documentation](https://docs.aws.amazon.com/route53/?id=docs_gateway). Leave the **name** empty and it should take a valid default.
+Go to your `AWS Route 53 / Hosted Zones / greatdomain.com / Create Record` (It should be an **A** record by default, if not select an A type from the Record Type dropdown), and paste it in the field Value. If you need _further information_ for each field you can hit the **Info** link over the field or consult the [Amazon Route 53 documentation](https://docs.aws.amazon.com/route53/?id=docs_gateway). Leave the **name** empty and it should take a valid default.
 
-Do the same for the **CNAME type**, copy your Vercel CNAME record value ```cname.vercel-dns.com``` and paste it in the Route 53 Record value field. The **name** field should be ```www``` in this case, or what Vercel recommends you.
+Do the same for the **CNAME type**, copy your Vercel CNAME record value `cname.vercel-dns.com` and paste it in the Route 53 Record value field. The **name** field should be `www` in this case, or what Vercel recommends you.

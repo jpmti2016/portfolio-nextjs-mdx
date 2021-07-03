@@ -6,6 +6,7 @@ import path from "path";
 import matter from "gray-matter";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 import dayjs from "dayjs";
+import readingTime from "reading-time";
 
 export default function Blog({ posts }) {
   const { asPath } = useRouter();
@@ -60,6 +61,7 @@ export default function Blog({ posts }) {
 
                 <p className="text-base">
                   {dayjs(post?.data?.lastUpdated).format("MMM-DD-YYYY")}
+                  {` | ${post?.timeToRead?.text}`}
                 </p>
                 <p className="pt-4 text-base sm:text-lg">
                   {post?.data?.description}
@@ -77,11 +79,13 @@ export function getStaticProps() {
   const posts = postFilePaths.map((filePath) => {
     const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
     const { content, data } = matter(source);
+    const stats = readingTime(content);
 
     return {
       content,
       data,
       filePath,
+      timeToRead: stats,
     };
   });
 
