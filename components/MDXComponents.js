@@ -1,19 +1,29 @@
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from "next/link";
+import Image from "next/image";
 
-const CustomLink = props => {
-    const href = props.href;
-    const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'))
+const CustomLink = (props) => {
+  const href = props.href;
+  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
 
-    if(isInternalLink){
-        return (<Link><a{...props} /></Link>)
-    }
+  if (isInternalLink) {
+    return (
+      <Link>
+        <a {...props} />
+      </Link>
+    );
+  }
 
-    return <a target="_blank" rel="noopener noreferrer" {...props} />
-}
+  return <a target="_blank" rel="noopener noreferrer" {...props} />;
+};
+
+const Notice = ({ children, ...otherProps }) => (
+  <p {...otherProps}>{children}</p>
+);
 
 const MDXComponents = {
-    Image, a: CustomLink
-}
+  Image,
+  a: CustomLink,
+  Notice,
+};
 
 export default MDXComponents;

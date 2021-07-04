@@ -13,7 +13,7 @@ export default function Menu({ toggle, setToggle, mobile = false }) {
         <Link href={{ pathname: "/", hash: "welcome" }}>
           <a
             className={`${
-              asPath === "/#welcome"
+              asPath === "/#welcome" || asPath === "/"
                 ? "underline nav-item sm:text-sm lg:text-xl"
                 : "no-underline nav-item sm:text-sm lg:text-xl"
             }`}
@@ -45,7 +45,7 @@ export default function Menu({ toggle, setToggle, mobile = false }) {
         <Link href="/posts">
           <a
             className={`${
-              asPath === "/posts" || asPath === "/posts#top"
+              asPath.includes("posts")
                 ? "underline nav-item sm:text-sm lg:text-xl"
                 : "no-underline nav-item sm:text-sm lg:text-xl"
             }`}
