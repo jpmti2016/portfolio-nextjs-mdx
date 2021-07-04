@@ -62,7 +62,7 @@ export default function Blog({ posts }) {
                 </div>
 
                 <p className="text-base">
-                  {dayjs(post?.data?.lastUpdated).format("MMM-DD-YYYY")}
+                  {dayjs(post?.data?.date).format("MMM-DD-YYYY")}
                   {` | ${post?.timeToRead?.text}`}
                 </p>
                 <p className="pt-4 text-base sm:text-lg">
