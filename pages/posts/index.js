@@ -11,8 +11,10 @@ import readingTime from "reading-time";
 export default function Blog({ posts }) {
   const { asPath } = useRouter();
   const meta = {
-    title: "Amazing blog title",
-    description: "Amazing blog description",
+    title:
+      "Collection of posts that cover my journey around code, SEO and learning",
+    description:
+      "Collection of posts that cover my journey around code, SEO and learning. Yes, sometimes the best way to learn is to explain something to someone else. And revisiting that content, when you are about to forget, is when you really can learn. Then better have your things in a place easy to find and share. And this blog was born...",
     url: "https://www.jpmti2016.com/posts",
     type: "website",
     site_name: "Yampier Medina",

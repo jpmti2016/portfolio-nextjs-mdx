@@ -54,9 +54,6 @@ export default function Home({ projects }) {
         <div className="flex pt-24 pb-32">
           <div className="container text-center sm:py-20 md:py-24 xl:py-32">
             <p className="mb-2 text-lg font-normal font-playfair sm:text-2xl">
-              Hi
-            </p>
-            <p className="mb-2 text-lg font-normal font-playfair sm:text-2xl">
               Welcome
             </p>
             <h1 className="mb-2 text-xl font-normal font-roboto sm:text-3xl">
@@ -66,7 +63,8 @@ export default function Home({ projects }) {
               A Software Engineer
             </h2>
             <p className="mb-10 text-lg font-normal font-fira sm:text-xl">
-              I like AWS serverless computing, React, GraphQL and ES Next.
+              I like AWS serverless computing, React, Next.js, GraphQL and ES
+              Next.
             </p>
             <p className="mb-2 text-xl font-semibold tracking-wide font-playfair sm:text-xl">
               Job status
@@ -95,17 +93,14 @@ export default function Home({ projects }) {
             </h2>
             <p className="mb-3 sm:text-lg">
               I am a
-              <span className="font-semibold">
-                {" "}
-                Computer Science Engineer (2009){" "}
-              </span>
+              <span className="font-semibold"> Computer Science Engineer </span>
               turned to the <span className="font-semibold"> JS universe</span>.
               I know SWE, testing, SQA and PM (Lead teams of 20-50 people).
             </p>
             <p className="mb-3 sm:text-lg">
-              I build secure and scalable cloud apps with AWS Amplify (and other
-              AWS services), maintaining predictability and order in the process
-              from prototyping to deployment.
+              I build secure and scalable cloud web apps with AWS Amplify (and
+              other AWS services), maintaining predictability and order in the
+              process from prototyping to deployment.
             </p>
 
             <p className="mb-3 sm:text-lg">
@@ -123,8 +118,7 @@ export default function Home({ projects }) {
               I speak English (continuously improving) and Spanish (native).
             </p>
             <p className="mb-3 sm:text-lg">
-              When I am not coding I like to read or to learn something new
-              -sometimes revisiting or upgrading the level.
+              When I am not coding I like to read or to learn something new.
             </p>
             <p className="mb-3 sm:text-lg">
               Recent learnings (... in the path to Pro):
@@ -133,7 +127,7 @@ export default function Home({ projects }) {
               <span className="font-medium">
                 Epic React workshops by Kent C. Dodds{" "}
               </span>
-              [technical, in progress] and
+              [technical, completed] and
               <span className="font-medium">
                 {" "}
                 Testing JavaScript by Kent C. Dodds{" "}
@@ -145,7 +139,7 @@ export default function Home({ projects }) {
               <span className="font-medium">
                 Composing Software by Eric Elliot{" "}
               </span>
-              [technical, in progress] and{" "}
+              [technical, completed] and{" "}
               <span className="font-medium">
                 The Startup Owners's Manual by Steve Blank & Bob Dorf{" "}
               </span>
