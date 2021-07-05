@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# jpmti2016.com
 
-## Getting Started
+Personal website portfolio created to showcase my projects, skills and to be a way to interact with clients and developers.
 
-First, run the development server:
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jpmti2016/portfolio-nextjs-mdx)
+![GitHub last commit](https://img.shields.io/github/last-commit/jpmti2016/portfolio-nextjs-mdx)
+![GitHub top language](https://img.shields.io/github/languages/top/jpmti2016/portfolio-nextjs-mdx)
+![GitHub language count](https://img.shields.io/github/languages/count/jpmti2016/portfolio-nextjs-mdx)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Fportfolio-nextjs-mdx%2F)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Technologies
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. NextJS
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Built initially with HTML5, TailwindCSS and a bit of JavaScript.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Updated to Next.js to include a blog, improve SEO, use components and facilitate reutilization.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Although initially used Lighthouse (Google Chrome Console Tool) and RespImageLint to detect images issues that affect page performance and user experience after the transition to Next.js the majority of the work was made by the framework and the Image Component.
 
-## Learn More
+1. Tailwind CSS
+2. TailwindCSS was a tool very useful to follow a design system and create a custom designed website while taking advantage of its utility-first characteristic to fast prototyping and update.
 
-To learn more about Next.js, take a look at the following resources:
+3. next-mdx-remote
+4. Sizzy
+5. Git
+6. Github
+7. Gimp
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Image processing tools
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Gimp used to
+   1. Scale the image to the needed dimensions.
+   2. Reduce the image size.
+2. imageoptim used to
+   1. Compress the image taking into account factors like
+      1. Quality
+      2. Format
+      3. DPI mode
+      4. Color quality
 
-## Deploy on Vercel
+## Page analyzing tools
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Lighthouse
+   1. Used to check the overall quality of the webpage
+      1. Performance
+      2. Accessibility
+      3. SEO
+      4. Best practices
