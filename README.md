@@ -6,7 +6,7 @@ Personal website portfolio created to showcase my projects, skills and to be a w
 `![GitHub last commit](https://img.shields.io/github/last-commit/jpmti2016/portfolio-nextjs-mdx)
 ![GitHub top language](https://img.shields.io/github/languages/top/jpmti2016/portfolio-nextjs-mdx)
 ![GitHub language count](https://img.shields.io/github/languages/count/jpmti2016/portfolio-nextjs-mdx)
-![Website](https://img.shields.io/website?url=https://jpmti2016.com)
+[![Website](https://img.shields.io/website?url=https://jpmti2016.com)](https://img.shields.io/website?url=https%3A%2F%2Fjpmti2016.com)
 
 ## Technologies
 
