@@ -18,26 +18,19 @@ Updated to Next.js to include a blog, improve SEO, use components and facilitate
 
 Although initially used Lighthouse (Google Chrome Console Tool) and RespImageLint to detect images issues that affect page performance and user experience after the transition to Next.js the majority of the work was made by the framework and the Image Component.
 
-1. Tailwind CSS
-2. TailwindCSS was a tool very useful to follow a design system and create a custom designed website while taking advantage of its utility-first characteristic to fast prototyping and update.
+2. Tailwind CSS
+3. TailwindCSS was a tool very useful to follow a design system and create a custom designed website while taking advantage of its utility-first characteristic to fast prototyping and update.
 
-3. next-mdx-remote
-4. Sizzy
-5. Git
-6. Github
-7. Gimp
+4. next-mdx-remote
+5. Sizzy
+6. Git
+7. Github
+8. Gimp
 
-## Image processing tools
+Used to
 
-1. Gimp used to
-   1. Scale the image to the needed dimensions.
-   2. Reduce the image size.
-2. imageoptim used to
-   1. Compress the image taking into account factors like
-      1. Quality
-      2. Format
-      3. DPI mode
-      4. Color quality
+- Scale the image to the needed dimensions.
+- Reduce the image size.
 
 ## Page analyzing tools
 
