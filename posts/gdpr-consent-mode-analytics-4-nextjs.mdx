@@ -101,6 +101,48 @@ page_path: window.location.pathname,
 
 In general to add Analytic to your Next.js app you have to include the `googletagmanager` and the `gtag` config in your `_document.js` guaranteeing that it is loaded in each page.
 
+```
+import { GA_TRACKING_ID } from "../utils/gtag";
+```
+
+```
+ <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+```
+
+```
+<Head>
+  {/* Global Site Tag (gtag.js) - Google Analytics */}
+  <script
+    async
+    src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+  />
+  <script
+    dangerouslySetInnerHTML={{
+      __html: `
+           window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              // strictest privacy defaults
+              'ad_storage': 'denied',
+              'analytics_storage': 'denied',
+              // wait for gtag to load before update if it is async
+              'wait_for_update': 500
+            });
+
+            gtag('set', 'ads_data_redaction', true);
+
+            gtag('js', new Date());
+
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+              'anonymize_ip': true
+            });
+          `,
+    }}
+  />
+</Head>
+```
+
 Access the Google Analytics 4 property datastream ID `(Google Analytics / Admin / Property / DataStreams / Data Stream X / Measurement ID)` and configure the environment variable in Vercel for one or more environments (Production, Preview, Development) .
 
 For local development you can pull it with the `vercel env pull` command and follow any instructions.
