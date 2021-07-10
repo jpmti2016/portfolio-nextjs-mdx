@@ -15,11 +15,23 @@ class MyDocument extends Document {
           <script
             dangerouslySetInnerHTML={{
               __html: `
-            window.dataLayer = window.dataLayer || [];
+           window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              // strictest privacy defaults
+              'ad_storage': 'denied',
+              'analytics_storage': 'denied',
+              // wait for gtag to load before update if it is async
+              'wait_for_update': 500
+            });
+            // When 'ads_data_redaction' is true and 'ad_storage' is 'denied', ad click identifiers
+            // sent in network requests by Google Ads and Floodlight tags will be redacted.
+            // Network requests will also be sent through a cookieless domain.
+            gtag('set', 'ads_data_redaction', true);
             gtag('js', new Date());
             gtag('config', '${GA_TRACKING_ID}', {
               page_path: window.location.pathname,
+              'anonymize_ip': true
             });
           `,
             }}
