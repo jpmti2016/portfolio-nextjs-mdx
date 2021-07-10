@@ -22,7 +22,7 @@ export default function Blog({ posts }) {
     date: "2021-07-08",
   };
   return (
-    <div className="px-4 py-6 sm:px-32 xl:px-48 2xl:px-56 sm:max-w-6xl">
+    <div className="px-4 py-6 space-y-4 sm:space-y-10 sm:px-32 xl:px-48 2xl:px-56 sm:max-w-6xl">
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
