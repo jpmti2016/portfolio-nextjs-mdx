@@ -19,8 +19,7 @@ class MyDocument extends Document {
             function gtag(){dataLayer.push(arguments);}
             gtag('consent', 'default', {
               'ad_storage': 'denied',
-              'analytics_storage': 'denied',
-              'wait_for_update': 500
+              'analytics_storage': 'denied'
             });
          
             gtag('set', 'ads_data_redaction', true);
