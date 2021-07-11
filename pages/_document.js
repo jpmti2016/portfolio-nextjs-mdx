@@ -17,6 +17,7 @@ class MyDocument extends Document {
               __html: `
            window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            gtag('set', 'ads_data_redaction', true);
             gtag('js', new Date());
             gtag('config', '${GA_TRACKING_ID}', {
               page_path: window.location.pathname,
