@@ -38,7 +38,7 @@ It is always recommended that you consult a lawyer about your data privacy pract
 
 When data privacy is your main focus, users' consent should default to ‘denied’. Just set the privacy preferences by default up to only the essential information. No annoying pop-up or banner, misleading buttons or unclear consent actions.
 
-Create privacy policies explaining in simple terms what data you collect and what you do to protect the privacy and all the available options as established under GDPR and California law with easy to opt-out and data deletion friendly functionalities.
+Create privacy policies explaining in simple terms what data you collect and what you do to protect the privacy and all the [available options as established under GDPR and California law](https://support.google.com/analytics/answer/9019185?hl=en&ref_topic=2919631#zippy=%2Cin-this-article) with easy to opt-out and data deletion friendly functionalities.
 
 There is a real necessity to monitor your website to improve performance, monetization or personalization, but increasing data breaches and security exposures put the focus on [rising consumer expectations, regulatory developments, and changing technology standards for user privacy](https://blog.google/products/marketingplatform/analytics/new_google_analytics/).
 
@@ -46,7 +46,7 @@ There is a real necessity to monitor your website to improve performance, moneti
 
 Google has deployed [consent mode (beta)](https://support.google.com/analytics/answer/9976101) where you can adjust the Google tags based on consent status by user actions, but could be set by default. Includes support for Google Analytics, Floodlight and Google Ads (partially). You can integrate Content Management Platforms with consent mode and consent settings in Google Tag Manager but we are going to code it into a Next.js web app for the 'denied' state.
 
-With consent mode you give back the control to the user. But it also [makes it easier to work with consented data, to improve your measurements in a less intrusive way and to unlock machine learning generated insights with the new Google Analytics 4](https://blog.google/products/ads-commerce/future-proof-measurement-privacy-safe-solutions/?_ga=2.114197511.1482718855.1625802084-2066430438.1625802084). If you are new to Google Analytics 4 check this Google’s [mini guides](https://support.google.com/analytics/topic/9328240?hl=en&ref_topic=9143232).
+With consent mode you give back the control to the user. But it also [makes it easier to work with consented data, to improve your measurements in a less intrusive way and to unlock machine learning generated insights with the new Google Analytics 4](https://blog.google/products/ads-commerce/future-proof-measurement-privacy-safe-solutions/?_ga=2.114197511.1482718855.1625802084-2066430438.1625802084). If you are new to Google Analytics 4 check this Google’s [mini guides](https://support.google.com/analytics/topic/9328240?hl=en&ref_topic=9143232) and [resources](https://developers.google.com/analytics/devguides/platform).
 
 After the consent mode is deployed, the behavior is updated to, in the case of Google Analytics pings, “be sent on each page of a website where Google Analytics is implemented and upon events being logged”.
 
@@ -97,9 +97,11 @@ page_path: window.location.pathname,
 });
 ```
 
-## Next.js Google Analytics 4
+## Next.js and Google Analytics 4
 
 In general to add Analytic to your Next.js app you have to include the `googletagmanager` and the `gtag` config in your `_document.js` guaranteeing that it is loaded in each page.
+
+Next.js with Google Analytics [without consent mode](https://github.com/vercel/next.js/tree/canary/examples/with-google-analytics).
 
 ```
 import { GA_TRACKING_ID } from "../utils/gtag";
@@ -143,7 +145,7 @@ import { GA_TRACKING_ID } from "../utils/gtag";
 </Head>
 ```
 
-Access the Google Analytics 4 property datastream ID `(Google Analytics / Admin / Property / DataStreams / Data Stream X / Measurement ID)` and configure the environment variable in Vercel for one or more environments (Production, Preview, Development) .
+Access the Google Analytics 4 property datastream ID (`Google Analytics / Admin / Property / DataStreams / Data Stream X / Measurement ID`) and configure the environment variable in Vercel for one or more environments (Production, Preview, Development) .
 
 For local development you can pull it with the `vercel env pull` command and follow any instructions.
 
@@ -163,7 +165,7 @@ export const pageview = (url) => {
 };
 ```
 
-And register events like the page view in your `_app.js`.
+And register events like the page view in your `_app.js`. Here we use [`next/router`](https://nextjs.org/docs/api-reference/next/router).
 
 ```
 import * as gtag from "../utils/gtag";
@@ -179,7 +181,7 @@ import * as gtag from "../utils/gtag";
 
     router.events.on("routeChangeComplete", handleRouteChange);
 
-    return router.events.off("routeChangeComplete", handleRouteChange);
+    return () => router.events.off("routeChangeComplete", handleRouteChange);
   }, [router.events]);
 ```
 
@@ -212,6 +214,12 @@ For reuse purposes you should export `GA_TRACKING_ID`, `pageview` and `event` fr
 Google defines [different types of events](https://developers.google.com/analytics/devguides/collection/ga4/events) but you can also create your custom events to target your specific use case.
 
 To see all together [check this repo](https://github.com/jpmti2016/portfolio-nextjs-mdx/settings).
+
+## Testing your Google Analytics
+
+The fastest way is to check the Google Analytics Realtime report in your `Google Analytics / Account / Property / Realtime overview`. Look for the events being recorded or have realtime users.
+
+Otherwise use the [tag assistant](https://tagassistant.google.com/) to [debug your global site tag installations](https://support.google.com/tagassistant/answer/10039345#zippy=%2Cin-this-article).
 
 ## Adjust tag behavior based on user consent actions
 
