@@ -51,7 +51,7 @@ export default function Home({ projects }) {
       </Head>
       {/* Welcome */}
       <section id="welcome" className="bg-gray-100 dark:bg-gray-800">
-        <div className="flex pt-24 pb-32">
+        <div className="flex pt-24 pb-32 sm:pt-0">
           <div className="container text-center sm:py-20 md:py-24 xl:py-32">
             <p className="mb-2 text-lg font-normal font-playfair sm:text-2xl">
               Welcome
@@ -85,8 +85,8 @@ export default function Home({ projects }) {
       </section>
 
       {/* About */}
-      <section id="about" className="bg-gray-200 dark:bg-gray-900">
-        <div className="container">
+      <section id="about" className="bg-gray-200 dark:bg-gray-900 ">
+        <div className="container sm:max-w-5xl">
           <div className="flex flex-col mx-4 mt-6 sm:mt-7">
             <h2 className="mb-3 text-2xl font-bold tracking-wide font-playfair sm:text-3xl">
               About
