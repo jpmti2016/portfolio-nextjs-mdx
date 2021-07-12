@@ -22,7 +22,7 @@ export default function Blog({ posts }) {
     date: "2021-07-08",
   };
   return (
-    <div className="px-4 py-6 space-y-4 sm:space-y-10 sm:px-32 xl:px-48 2xl:px-56 sm:max-w-6xl">
+    <div className="px-4 py-6 sm:flex sm:items-center sm:flex-col">
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
@@ -46,33 +46,34 @@ export default function Blog({ posts }) {
           <meta property="article:published_time" content={meta.date} />
         )}
       </Head>
-      <h1 className="mb-4 text-4xl font-bold sm:mt-10 sm:mb-16">Blog</h1>
-      {posts?.map((post) => (
-        <div
-          key={post?.filePath}
-          className="p-4 no-underline bg-gray-200 rounded-md shadow-lg dark:bg-gray-800 ring-1 ring-gray-800 dark:ring-gray-200"
-        >
-          <Link href={`/posts/${post?.filePath.replace(/\.mdx?$/, "")}`}>
-            <a className="no-underline">
-              <div className="">
-                <div>
-                  <h2 className="text-xl font-semibold sm:text-3xl">
-                    {post?.data?.title}
-                  </h2>
+      <div className="space-y-4 sm:space-y-20">
+        <h1 className="mb-4 text-4xl font-bold sm:mt-10 sm:mb-0">Blog</h1>
+        {posts?.map((post) => (
+          <div
+            key={post?.filePath}
+            className="p-4 no-underline bg-gray-200 rounded-md shadow-lg sm:max-w-4xl sm:p-10 dark:bg-gray-800 ring-1 ring-gray-800 dark:ring-gray-200"
+          >
+            <Link href={`/posts/${post?.filePath.replace(/\.mdx?$/, "")}`}>
+              <a className="no-underline">
+                <div className="">
+                  <div>
+                    <h2 className="text-xl font-semibold sm:text-3xl">
+                      {post?.data?.title}
+                    </h2>
+                  </div>
+                  <p className="text-base">
+                    {dayjs(post?.data?.date).format("MMM-DD-YYYY")}
+                    {` | ${post?.timeToRead?.text}`}
+                  </p>
+                  <p className="pt-4 text-base sm:text-lg">
+                    {post?.data?.description}
+                  </p>
                 </div>
-
-                <p className="text-base">
-                  {dayjs(post?.data?.date).format("MMM-DD-YYYY")}
-                  {` | ${post?.timeToRead?.text}`}
-                </p>
-                <p className="pt-4 text-base sm:text-lg">
-                  {post?.data?.description}
-                </p>
-              </div>
-            </a>
-          </Link>
-        </div>
-      ))}
+              </a>
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -15,7 +15,7 @@ export default function Post({ source, frontMatter, timeToRead }) {
   const { asPath } = useRouter();
 
   return (
-    <div className="px-4 py-10 sm:px-32 xl:px-48 2xl:px-56">
+    <div className="px-4 py-10 sm:flex sm:items-center sm:flex-col">
       <Head>
         <title>{frontMatter?.title}</title>
         <meta name="robots" content="follow, index" />
@@ -39,25 +39,26 @@ export default function Post({ source, frontMatter, timeToRead }) {
           <meta property="article:published_time" content={frontMatter?.date} />
         )}
       </Head>
-
-      <header className="sm:py-10">
-        <nav className="pb-4 sm:pb-6">
-          <Link href="/posts">
-            <a className="text-blue-500 underline hover:text-blue-700">
-              Back to Blog
-            </a>
-          </Link>
-        </nav>
-        <div>
+      <div>
+        <header className="sm:py-10">
+          <nav className="pb-4 sm:pb-6">
+            <Link href="/posts">
+              <a className="text-blue-500 underline hover:text-blue-700">
+                Back to Blog
+              </a>
+            </Link>
+          </nav>
           <div>
-            {`Updated ${dayjs(frontMatter?.date).format("MMMM-DD-YYYY")}`}
-            {` | ${timeToRead?.text}`}
+            <div>
+              {`Updated ${dayjs(frontMatter?.date).format("MMMM-DD-YYYY")}`}
+              {` | ${timeToRead?.text}`}
+            </div>
           </div>
-        </div>
-      </header>
-      <main className="prose md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:max-w-3xl">
-        <MDXRemote {...source} components={{ ...MDXComponents }} />
-      </main>
+        </header>
+        <main className="prose md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:max-w-3xl">
+          <MDXRemote {...source} components={{ ...MDXComponents }} />
+        </main>
+      </div>
     </div>
   );
 }
