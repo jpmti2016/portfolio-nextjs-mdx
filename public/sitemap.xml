@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jpmti2016.com/about</loc>
-  </url>
-
-  <url>
     <loc>https://jpmti2016.com</loc>
   </url>
 
   <url>
-    <loc>https://jpmti2016.com/projects</loc>
+    <loc>https://jpmti2016.com/posts/async-update-related-items</loc>
+  </url>
+
+  <url>
+    <loc>https://jpmti2016.com/posts/gdpr-consent-mode-analytics-4-nextjs</loc>
+  </url>
+
+  <url>
+    <loc>https://jpmti2016.com/posts/vercel-aws-route-53-custom-domain</loc>
   </url>
 
   <url>
@@ -34,5 +38,13 @@
 
   <url>
     <loc>https://jpmti2016.com/posts</loc>
+  </url>
+
+  <url>
+    <loc>https://jpmti2016.com/#welcome</loc>
+  </url>
+
+  <url>
+    <loc>https://jpmti2016.com/#projects</loc>
   </url>
 </urlset>

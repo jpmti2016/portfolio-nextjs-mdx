@@ -14,6 +14,8 @@ const prettier = require('prettier')
         '!pages/404.js',
     ])
     pages.push('/posts')
+    pages.push('/#welcome')
+    pages.push('/#projects')
     const sitemap = `
         <?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
+import { folderPath, filesPath } from "../../utils/mdxUtils";
 import dayjs from "dayjs";
 import readingTime from "reading-time";
 
@@ -79,8 +79,11 @@ export default function Blog({ posts }) {
 }
 
 export function getStaticProps() {
-  const posts = postFilePaths.map((filePath) => {
-    const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
+  const postsPath = folderPath("posts");
+  const postFilesPath = filesPath(postsPath);
+
+  const posts = postFilesPath.map((filePath) => {
+    const source = fs.readFileSync(path.join(postsPath, filePath));
     const { content, data } = matter(source);
     const stats = readingTime(content);
 

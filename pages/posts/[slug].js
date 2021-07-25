@@ -7,7 +7,7 @@ import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
-import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
+import { filesPath, folderPath } from "../../utils/mdxUtils";
 import MDXComponents from "../../components/MDXComponents";
 import readingTime from "reading-time";
 
@@ -64,7 +64,8 @@ export default function Post({ source, frontMatter, timeToRead }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const postFilePath = path.join(POSTS_PATH, `${params.slug}.mdx`);
+  const postsPath = folderPath("posts");
+  const postFilePath = path.join(postsPath, `${params.slug}.mdx`);
   const source = fs.readFileSync(postFilePath);
 
   const { content, data } = matter(source);
@@ -89,7 +90,10 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths = async () => {
-  const paths = postFilePaths
+  const postsPath = folderPath("posts");
+  const postFilesPath = filesPath(postsPath);
+
+  const paths = postFilesPath
     .map((path) => path.replace(/\.mdx?$/, ""))
     .map((slug) => ({ params: { slug } }));
 
