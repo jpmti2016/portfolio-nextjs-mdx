@@ -22,9 +22,9 @@ export default function Post({ source, frontMatter, timeToRead }) {
         <meta content={frontMatter?.description} name="description" />
         <meta
           property="og:url"
-          content={`https://www.jpmti2016.com/${asPath}`}
+          content={`https://www.jpmti2016.com${asPath}`}
         />
-        <link rel="canonical" href={`https://www.jpmti2016.com/${asPath}`} />
+        <link rel="canonical" href={`https://www.jpmti2016.com${asPath}`} />
         <meta property="og:type" content={frontMatter?.type} />
         <meta property="og:site_name" content={frontMatter?.site_name} />
         <meta property="og:description" content={frontMatter?.description} />

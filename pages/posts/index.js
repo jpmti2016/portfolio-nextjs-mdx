@@ -29,9 +29,9 @@ export default function Blog({ posts }) {
         <meta content={meta.description} name="description" />
         <meta
           property="og:url"
-          content={`https://www.jpmti2016.com/${asPath}`}
+          content={`https://www.jpmti2016.com${asPath}`}
         />
-        <link rel="canonical" href={`https://www.jpmti2016.com/${asPath}`} />
+        <link rel="canonical" href={`https://www.jpmti2016.com${asPath}`} />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content={meta.site_name} />
         <meta property="og:description" content={meta.description} />
