@@ -7,7 +7,7 @@ const prettier = require('prettier')
     const prettierConfig = await prettier.resolveConfig('./.prettierrc.js')
     const pages = await globby([
         'pages/*.js',
-        'data/**/*.mdx',
+        'data/posts/*.mdx',
         '!data/*.mdx',
         '!pages/_*.js',
         '!pages/api',
