@@ -1,10 +1,9 @@
 ---
 title: Asynchronous update of related items with AWS DataStore in a Next.js web app.
 description: "When working with AWS DataStore you have to deal with async/await operations. Updating a list of items when the order of async operations execution is not mandatory is viable to do it with `Promise.all()` and `map`. Updating related items, where the promise result from the previous item is needed as input for the next item, can be achieved with the `for await...of` statement."
-url: "https://www.jpmti2016.com/posts/"
 type: "article"
 site_name: "Yampier Medina personal website"
-image: "https://www.jpmti2016.com/images/incrementalSalesPlanner.png"
+image: "https://www.jpmti2016.com/images/incrementalSalesPlanner1280_960.png"
 date: "2021-07-24"
 ---
 
@@ -12,15 +11,17 @@ date: "2021-07-24"
 
 <Image
   alt={`Vercel custom domain dashboard`}
-  src={`/images/incrementalSalesPlanner.png`}
-  width={1920}
-  height={1080}
+  src={`/images/incrementalSalesPlanner1280_960.png`}
+  width={1280}
+  height={960}
   priority
 />
 
 ## TLDR
 
-When working with AWS DataStore you have to deal with async/await operations. Updating a list of items when the order of async operations execution is not mandatory is viable to do it with `Promise.all()` and `map`. Updating related items, where the promise result from the previous item is needed as input for the next item, can be achieved with the `for await...of` statement. Check the [repo](https://github.com/jpmti2016/exit-strategy-blog/) to see a complete CRUDL example.
+When working with AWS DataStore you have to deal with async/await operations. Updating a list of items when the order of async operations execution is not mandatory is viable to do it with `Promise.all()` and `map`. Updating related items, where the promise result from the previous item is needed as input for the next item, can be achieved with the `for await...of` statement.
+
+See it working [here](https://www.beawareofbefore.com/calculator).
 
 ## Introduction
 
