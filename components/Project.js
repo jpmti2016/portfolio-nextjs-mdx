@@ -9,6 +9,7 @@ export default function Project({
   demo,
   info,
   mdxSource,
+  openToPublic,
 }) {
   return (
     <div className="flex flex-col p-4 bg-gray-200 shadow-lg dark:bg-gray-900 sm:p-4">
@@ -40,7 +41,7 @@ export default function Project({
         </p>
       </div>
       <div className="mt-2 prose md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:mt-4">
-        <MDXRemote {...mdxSource} components={{...MDXComponents}}/>
+        <MDXRemote {...mdxSource} components={{ ...MDXComponents }} />
       </div>
       <div className="mt-4 text-sm sm:pt-6 sm:text-base sm:mt-auto">
         <a
@@ -52,13 +53,18 @@ export default function Project({
           Demo
         </a>
         <a
-          className="shadow-lg btn btn-gray"
-          href={info}
+          className={
+            openToPublic
+              ? "shadow-lg btn btn-gray"
+              : "hidden shadow-lg btn btn-red"
+          }
+          href={openToPublic ? info : "#"}
           target="_blank"
           rel="noreferrer noopener"
         >
-          Info
+          {openToPublic ? "Info" : "Private"}
         </a>
+        <span className={openToPublic ? "hidden" : "ml-2"}>Private Repo</span>
       </div>
     </div>
   );

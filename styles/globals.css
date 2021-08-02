@@ -67,6 +67,17 @@
   .btn-gray:active {
     @apply bg-gray-500;
   }
+  .btn-red {
+    @apply ml-2 text-red-800 bg-red-400;
+  }
+
+  .btn-red:hover {
+    @apply bg-red-500;
+  }
+
+  .btn-red:active {
+    @apply bg-red-500;
+  }
 
   .nav-item {
     @apply block px-1 py-1 mt-1 text-lg tracking-wide uppercase rounded-md sm:p-4 hover:text-gray-100 hover:bg-gray-800;

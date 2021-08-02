@@ -26,6 +26,7 @@ export default function Home({ projects }) {
   const handleClickHireMe = (e) => {
     gtag.event({ action: "click_hire_me", category: "Link" });
   };
+
   return (
     <>
       {/* SEO */}
