@@ -11,7 +11,7 @@ import MobileButton from "./MobileButton";
 export default function Nav() {
   const { theme, setTheme } = useTheme();
   const { asPath } = useRouter();
-  const [toggle, setToggle] = useState(true);
+  const [toggled, setToggled] = useState(false);
 
   return (
     <nav className="sticky top-0 z-50 w-full px-4 bg-gray-200 dark:bg-gray-900 sm:items-center sm:flex sm:flex-row sm:py-6 md:px-24 md:text-xl font-fira">
@@ -52,14 +52,10 @@ export default function Nav() {
             <MoonIcon className="w-5 h-5 sm:h-8 sm:w-8" />
           )}
         </button>
-        <MobileButton setToggle={setToggle} toggle={toggle} />
+        <MobileButton setToggled={setToggled} toggled={toggled} />
       </div>
-      <div className="hidden sm:block sm:ml-auto">
-        <Menu setToggle={setToggle} toggle={toggle} />
-      </div>
-      <div className="block sm:hidden">
-        <Menu setToggle={setToggle} toggle={toggle} mobile={true} />
-      </div>
+
+      <Menu setToggled={setToggled} toggled={toggled} />
     </nav>
   );
 }

@@ -1,15 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function Menu({ toggle, setToggle, mobile = false }) {
+export default function Menu({ toggled, setToggled }) {
   const { asPath } = useRouter();
 
   return (
-    <div className={toggle ? "sm:flex sm:flex-row sm:space-x-2" : "hidden"}>
-      <div
-        className="p-2"
-        onClick={mobile ? () => setToggle((prev) => !prev) : () => {}}
-      >
+    <div
+      className={`sm:flex sm:flex-row sm:space-x-2 ml-auto ${
+        toggled ? "" : "hidden"
+      }`}
+    >
+      <div className="p-2" onClick={() => setToggled((prev) => !prev)}>
         <Link href={{ pathname: "/", hash: "welcome" }}>
           <a
             className={`${
@@ -22,10 +23,7 @@ export default function Menu({ toggle, setToggle, mobile = false }) {
           </a>
         </Link>
       </div>
-      <div
-        className="p-2"
-        onClick={mobile ? () => setToggle((prev) => !prev) : () => {}}
-      >
+      <div className="p-2" onClick={() => setToggled((prev) => !prev)}>
         <Link href={{ pathname: "/", hash: "projects" }}>
           <a
             className={`${
@@ -38,10 +36,7 @@ export default function Menu({ toggle, setToggle, mobile = false }) {
           </a>
         </Link>
       </div>
-      <div
-        className="p-2"
-        onClick={mobile ? () => setToggle((prev) => !prev) : () => {}}
-      >
+      <div className="p-2" onClick={() => setToggled((prev) => !prev)}>
         <Link href="/posts">
           <a
             className={`${
@@ -54,10 +49,7 @@ export default function Menu({ toggle, setToggle, mobile = false }) {
           </a>
         </Link>
       </div>
-      <div
-        className="p-2"
-        onClick={mobile ? () => setToggle((prev) => !prev) : () => {}}
-      >
+      <div className="p-2" onClick={() => setToggled((prev) => !prev)}>
         <Link href={{ pathname: "/", hash: "about" }}>
           <a
             className={`${

@@ -1,12 +1,12 @@
-export default function MobileButton({ toggle, setToggle }) {
+export default function MobileButton({ toggled, setToggled }) {
   return (
     <div className="ml-auto sm:hidden">
       <button
         className="block focus:outline-none focus:ring focus:border-blue-300"
         aria-label="open navigation"
-        onClick={() => setToggle((prev) => !prev)}
+        onClick={() => setToggled((prev) => !prev)}
       >
-        {toggle ? (
+        {toggled ? (
           <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
             <path
               fillRule="evenodd"
