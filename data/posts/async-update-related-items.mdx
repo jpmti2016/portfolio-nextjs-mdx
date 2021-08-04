@@ -3,7 +3,7 @@ title: Asynchronous update of related items with AWS DataStore in a Next.js web 
 description: "When working with AWS DataStore you have to deal with async/await operations. Updating a list of items when the order of async operations execution is not mandatory is viable to do it with `Promise.all()` and `map`. Updating related items, where the promise result from the previous item is needed as input for the next item, can be achieved with the `for await...of` statement."
 type: "article"
 site_name: "Yampier Medina personal website"
-image: "https://www.jpmti2016.com/images/incrementalSalesPlanner1280_960.png"
+image: "https://jpmti2016.com/images/incrementalSalesPlanner1280_960.png"
 date: "2021-07-24"
 ---
 
@@ -21,7 +21,7 @@ date: "2021-07-24"
 
 When working with AWS DataStore you have to deal with async/await operations. Updating a list of items when the order of async operations execution is not mandatory is viable to do it with `Promise.all()` and `map`. Updating related items, where the promise result from the previous item is needed as input for the next item, can be achieved with the `for await...of` statement.
 
-See it working [here](https://www.beawareofbefore.com/calculator).
+See it working [here](https://beawareofbefore.com/calculator).
 
 ## Introduction
 
@@ -58,7 +58,7 @@ The main reason for that decision was that in the current state of computing vs 
 
 In my use case having the calculated values stored on the database makes it easier to do CRUD operations because we don’t have to calculate them recursively, avoiding recursive operations complexity and improving UX responsiveness for large datasets.
 
-A [single table design approach](https://www.youtube.com/watch?v=KYy8X8t4MB8) is recommended after we have certainty that the access patterns are not going to change too much. I am in the first iterations of the app so I will stick to the [relational approach](https://docs.amplify.aws/lib/datastore/relational/q/platform/js). Also I will assume that you know how to model it.
+A [single table design approach](https://youtube.com/watch?v=KYy8X8t4MB8) is recommended after we have certainty that the access patterns are not going to change too much. I am in the first iterations of the app so I will stick to the [relational approach](https://docs.amplify.aws/lib/datastore/relational/q/platform/js). Also I will assume that you know how to model it.
 
 In this case we have a `one to many` relationship between SalesPlanner and SaleItem. That kind of relational modeling is easier using [Amplify Admin UI](https://docs.amplify.aws/console/adminui/intro), where visually you can add Models (entities), relationship and auth rules to your model. It allows sharing your model and managing content like a CMS. You can even use it without an AWS account.
 

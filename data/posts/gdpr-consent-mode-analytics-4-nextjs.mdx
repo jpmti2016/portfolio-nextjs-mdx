@@ -3,7 +3,7 @@ title: GDPR privacy, consent mode ‘denied’ status, Google Analytics 4 and Ne
 description: "Keep your user's privacy at the center of your practices as established by GDPR and California law. Set ad_storage='denied', analytics_storage='denied', gtag('set', 'ads_data_redaction', true) and  'anonymize_ip': true for less intrusion while enjoy the great features of the new Google Analytics 4 in your Next.js web app."
 type: "article"
 site_name: "Yampier Medina personal website"
-image: "https://www.jpmti2016.com/images/consent-google-analytics1280_960.png"
+image: "https://jpmti2016.com/images/consent-google-analytics1280_960.png"
 date: "2021-07-10"
 ---
 
@@ -107,7 +107,7 @@ import { GA_TRACKING_ID } from "../utils/gtag";
 ```
 
 ```
- <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+ <script async src={`https://googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
 ```
 
 ```
@@ -115,7 +115,7 @@ import { GA_TRACKING_ID } from "../utils/gtag";
   {/* Global Site Tag (gtag.js) - Google Analytics */}
   <script
     async
-    src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+    src={`https://googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
   />
   <script
     dangerouslySetInnerHTML={{
@@ -226,4 +226,4 @@ If you need to collect more data then you have to implement the functionality to
 
 For more explanations consult this [Google devguide](https://developers.google.com/gtagjs/devguide/consent).
 
-It is also possible to use Consent Management Platforms or libraries that implement the full consent mode in partnership with Google like [Osano](https://www.osano.com/), [OneTrust](https://www.onetrust.com/) and [CookieBot](https://www.cookiebot.com/en/).
+It is also possible to use Consent Management Platforms or libraries that implement the full consent mode in partnership with Google like [Osano](https://osano.com/), [OneTrust](https://onetrust.com/) and [CookieBot](https://cookiebot.com/en/).
