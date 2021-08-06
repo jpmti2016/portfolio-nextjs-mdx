@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://jpmti2016.com/sitemap.xml
+Sitemap: https://www.jpmti2016.com/sitemap.xml

@@ -14,8 +14,7 @@ const prettier = require('prettier')
         '!pages/404.js',
     ])
     pages.push('/posts')
-    pages.push('/#welcome')
-    pages.push('/#projects')
+
     const sitemap = `
         <?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -29,7 +28,7 @@ const prettier = require('prettier')
                     const route = path === '/index' ? '' : path
                     return `
                         <url>
-                            <loc>${`https://jpmti2016.com${route}`}</loc>
+                            <loc>${`https://www.jpmti2016.com${route}`}</loc>
                         </url>
                     `
                 })

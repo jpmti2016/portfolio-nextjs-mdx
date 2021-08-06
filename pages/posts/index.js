@@ -15,10 +15,10 @@ export default function Blog({ posts }) {
       "Collection of posts that cover my journey around code, SEO and learning",
     description:
       "Collection of posts that cover my journey around code, SEO and learning. Yes, sometimes the best way to learn is to explain something to someone else. And revisiting that content, when you are about to forget, is when you really can learn. Then better have your things in a place easy to find and share. And this blog was born...",
-    url: "https://jpmti2016.com/posts",
+    url: "https://www.jpmti2016.com/posts",
     type: "website",
     site_name: "Yampier Medina",
-    image: "https://jpmti2016.com/images/github-jobs.jpg",
+    image: "https://www.jpmti2016.com/images/github-jobs.jpg",
     date: "2021-07-08",
   };
   return (
@@ -27,8 +27,11 @@ export default function Blog({ posts }) {
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
-        <meta property="og:url" content={`https://jpmti2016.com${asPath}`} />
-        <link rel="canonical" href={`https://jpmti2016.com${asPath}`} />
+        <meta
+          property="og:url"
+          content={`https://www.jpmti2016.com${asPath}`}
+        />
+        <link rel="canonical" href={`https://www.jpmti2016.com${asPath}`} />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content={meta.site_name} />
         <meta property="og:description" content={meta.description} />
