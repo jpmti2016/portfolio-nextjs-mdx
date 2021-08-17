@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.1",
+    "@mailchimp/mailchimp_marketing": "^3.0.57",
     "@tailwindcss/typography": "^0.4.1",
     "dayjs": "^1.10.5",
     "fs": "^0.0.1-security",

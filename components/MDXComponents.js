@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Subscribe from "./Subscribe";
 
 const CustomLink = (props) => {
   const href = props.href;
@@ -24,6 +25,7 @@ const MDXComponents = {
   Image,
   a: CustomLink,
   Notice,
+  Subscribe,
 };
 
 export default MDXComponents;

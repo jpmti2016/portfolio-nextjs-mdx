@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { filesPath, folderPath } from "../../utils/mdxUtils";
 import MDXComponents from "../../components/MDXComponents";
 import readingTime from "reading-time";
+import Subscribe from "../../components/Subscribe";
 
 export default function Post({ source, frontMatter, timeToRead }) {
   const { asPath } = useRouter();
@@ -58,6 +59,7 @@ export default function Post({ source, frontMatter, timeToRead }) {
         <main className="prose md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:max-w-3xl">
           <MDXRemote {...source} components={{ ...MDXComponents }} />
         </main>
+        <Subscribe />
       </div>
     </div>
   );

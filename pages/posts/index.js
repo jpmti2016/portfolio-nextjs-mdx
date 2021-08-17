@@ -7,6 +7,7 @@ import matter from "gray-matter";
 import { folderPath, filesPath } from "../../utils/mdxUtils";
 import dayjs from "dayjs";
 import readingTime from "reading-time";
+import Subscribe from "../../components/Subscribe";
 
 export default function Blog({ posts }) {
   const { asPath } = useRouter();
@@ -48,6 +49,7 @@ export default function Blog({ posts }) {
       </Head>
       <div className="space-y-4 sm:space-y-20">
         <h1 className="mb-4 text-4xl font-bold sm:mt-10 sm:mb-0">Blog</h1>
+        <Subscribe />
         {posts?.map((post) => (
           <div
             key={post?.filePath}
