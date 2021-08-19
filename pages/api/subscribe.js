@@ -1,50 +1,53 @@
-import mailchimp from "@mailchimp/mailchimp_marketing";
+import axios from "axios";
 
-mailchimp.setConfig({
-  apiKey: process.env.MCHIMP_API_KEY,
-  server: process.env.MCHIMP_SERVER,
-});
+function getRequestParams(email) {
+  const API_KEY = process.env.MCHIMP_API_KEY;
+  const LIST_ID = process.env.MCHIMP_AUDIENCE;
+  const DATACENTER = process.env.MCHIMP_SERVER;
 
-const run = async () => {
-  const response = await mailchimp.ping.get();
-  console.log("response ping", response);
-};
+  const url = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${LIST_ID}/members`;
 
-run();
+  const data = {
+    email_address: email,
+    status: "subscribed",
+  };
 
-// console.log("mailchimp", mailchimp);
+  const base64ApiKey = Buffer.from(`anystring:${API_KEY}`).toString("base64");
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Basic ${base64ApiKey}`,
+  };
 
-export default async function handler(req, res) {
+  return {
+    url,
+    data,
+    headers,
+  };
+}
+
+export default async (req, res) => {
   const { email } = req.body;
-  console.log("email in handler", email);
 
-  if (!email) {
-    return res.status(400).json({ error: "Email required" });
+  if (!email || !email.length) {
+    return res.status(400).json({ error: "Forgot to add the email" });
   }
 
   try {
-    const listId = process.env.MCHIMP_AUDIENCE;
-    const subscribingUser = {
-      firstName: "Y",
-      lastName: "M",
-      email,
-    };
+    const { url, data, headers } = getRequestParams(email);
+    console.log("url", url);
+    console.log("data", data);
+    console.log("headers", headers);
+    console.log("email", email);
 
-    const response = await mailchimp.lists.addListMember(listId, {
-      email_address: subscribingUser.email,
-      status: "subscribed",
-      merge_fields: {
-        FNAME: subscribingUser.firstName,
-        LNAME: subscribingUser.lastName,
-      },
-    });
+    const response = await axios.post(url, data, { headers });
 
-    console.log(
-      `Successfully added contact as an audience member. The contact's id is ${response.id}.`
-    );
+    console.log("response", response);
 
-    return res.status(201).json({ error: "" });
+    return res.status(201).json({ error: null });
   } catch (error) {
-    return res.status(500).json({ error: error.message || error.toString() });
+    return res.status(400).json({
+      error:
+        "Ooops, something went wrong... Send me an email at jpmti2016@hmail.com and I will add you to the list personally",
+    });
   }
-}
+};
