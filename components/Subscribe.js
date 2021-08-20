@@ -1,57 +1,53 @@
 import { useState } from "react";
-import axios from "axios";
 
 export default function Subscribe() {
   const [email, setEmail] = useState("");
   const [state, setState] = useState("IDLE");
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [message, setMessage] = useState("");
 
-  const subscribe = async () => {
+  async function subscribe(e) {
+    e.preventDefault();
+
     setState("LOADING");
-    setErrorMessage(null);
     try {
-      const response = await axios.post("/api/newsletter", { email });
-      setState("SUCCESS");
-    } catch (e) {
-      setErrorMessage(e.response.data.error);
-      setState("ERROR");
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        body: JSON.stringify({ email: email }),
+      });
+
+      const { success, message } = await res.json();
+      setState(success ? "SUCCESS" : "ERROR");
+      setMessage(message);
+      if (!success) {
+        throw new Error(message);
+      }
+    } catch (error) {
+      setMessage(message);
     }
-  };
+  }
 
   return (
-    <div className="flex flex-col items-center w-full p-8 mt-8 border border-gray-500 border-solid rounded-sm">
-      <h2 className="text-3xl font-bold text-center">
-        I also have a newsletter!
-      </h2>
-      <p className="w-4/5 mt-2 font-light leading-relaxed text-center">
-        It includes intersting stuff about tech and will arrive to your mailbox
-        no more than once every 2 weeks
+    <form className={""} onSubmit={subscribe}>
+      <h2 className={""}>Subscribe to my newsletter!</h2>
+      <p className={""}>
+        It includes interesting tech content as well as some information on how
+        to live life to the fullest!
       </p>
-      <div className="flex flex-col justify-center w-1/2 mt-5 lg:w-2/3 lg:flex-row">
+      <div>
         <input
-          className="w-full px-4 py-2 mb-2 leading-tight text-gray-700 border border-gray-500 rounded appearance-none lg:mb-0 lg:w-2/3 focus:outline-none focus:border-gray-600"
+          className={""}
           type="text"
           placeholder="Enter Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button
-          className={`lg:ml-2 w-full lg:w-1/3 shadow bg-brand2 focus:shadow-outline focus:outline-none text-center text-white font-bold py-2 px-4 rounded flex ${
-            state === "LOADING" ? "button-gradient-loading" : ""
-          }`}
-          type="button"
-          disabled={state === "LOADING"}
-          onClick={subscribe}
-        >
-          Subscribe
-        </button>
+        <input
+          type="submit"
+          value={state === "LOADING" ? "Loading" : "Subscribe"}
+        />
       </div>
-      {state === "ERROR" && (
-        <p className="w-1/2 mt-2 text-red-600">{errorMessage}</p>
-      )}
-      {state === "SUCCESS" && (
-        <p className="w-1/2 mt-2 text-green-600">Success!</p>
-      )}
-    </div>
+      {state === "ERROR" && <p className={""}>{message}</p>}
+      {state === "SUCCESS" && <p className={""}>{message}</p>}
+    </form>
   );
 }

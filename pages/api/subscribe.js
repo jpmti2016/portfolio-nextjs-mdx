@@ -1,62 +1,49 @@
-import axios from "axios";
+const mailChimpClient = require("@mailchimp/mailchimp_marketing");
 
-function getRequestParams(email) {
-  // get env variables
-  const API_KEY = process.env.MCHIMP_API_KEY;
-  const LIST_ID = process.env.MCHIMP_AUDIENCE;
-  // mailchimp datacenter - mailchimp api keys always look like this:
-  // fe4f064432e4684878063s83121e4971-us6
-  // We need the us6 part
-  const DATACENTER = process.env.MCHIMP_SERVER;
+mailChimpClient.setConfig({
+  apiKey: process.env.MCHIMP_API_KEY,
+  server: process.env.MCHIMP_SERVER,
+});
+const listId = process.env.MCHIMP_AUDIENCE;
 
-  const url = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${LIST_ID}/members`;
+export default async function handler(req, res) {
+  if (req.method === "POST") {
+    try {
+      const email = JSON.parse(req.body)?.email;
 
-  // Add aditional params here. See full list of available params:
-  // https://mailchimp.com/developer/reference/lists/list-members/
-  const data = {
-    email_address: email,
-    status: "subscribed",
-  };
+      await mailChimpClient.lists.addListMember(listId, {
+        email_address: email,
+        status: "subscribed",
+      });
 
-  // Api key needs to be encoded in base 64 format
-  const base64ApiKey = Buffer.from(`anystring:${API_KEY}`).toString("base64");
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Basic ${base64ApiKey}`,
-  };
+      res.status(200).json({
+        success: true,
+        message: "Awesome, thanks for your subscription!",
+      });
+    } catch (error) {
+      const mailChimpErrorType = error?.response?.body?.title;
 
-  return {
-    url,
-    data,
-    headers,
-  };
+      let message;
+      switch (mailChimpErrorType) {
+        case "Member Exists": {
+          message = "You are already subscribed, thanks.";
+          break;
+        }
+        case "Invalid Resource": {
+          message = "Please enter a valid email address.";
+          break;
+        }
+        default: {
+          message =
+            "Something went wrong. Please send me an email to jpmti2016@gmail.com and I will add you personally.";
+          break;
+        }
+      }
+
+      res.status(200).json({
+        success: false,
+        message,
+      });
+    }
+  }
 }
-
-export default async (req, res) => {
-  const { email } = req.body;
-
-  if (!email || !email.length) {
-    return res.status(400).json({
-      error: "Forgot to add your email?",
-    });
-  }
-
-  try {
-    const { url, data, headers } = getRequestParams(email);
-
-    console.log("url, data, headers", { url, data, headers });
-
-    const response = await axios.post(url, data, { headers });
-
-    console.log("response", response);
-
-    // Success
-    return res.status(201).json({ error: null });
-  } catch (error) {
-    return res.status(400).json({
-      error: `Oops, something went wrong... Send me an email at uriklar@gmail.com and I'll add you to the list.`,
-    });
-
-    // Report error to Sentry or whatever
-  }
-};
