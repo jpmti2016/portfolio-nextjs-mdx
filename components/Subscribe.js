@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Subscribe() {
+export default function Subscribe({ className, ...rest }) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState("IDLE");
 
@@ -16,7 +16,6 @@ export default function Subscribe() {
 
       const { success, message } = await res.json();
 
-      console.log("{ success, message }", { success, message });
       setState({ success, message });
       setEmail("");
       if (!success) {
@@ -29,9 +28,7 @@ export default function Subscribe() {
 
   return (
     <form
-      className={
-        "relative p-4 mt-10 bg-blue-100 rounded-sm sm:p-8 ring sm:mt-20"
-      }
+      className={`relative p-4 mt-10 rounded-sm sm:p-8 sm:mt-20 ring ${className}`}
       onSubmit={subscribe}
     >
       <h2 className={"mb-1 font-bold text-lg sm:text-2xl"}>
@@ -40,10 +37,8 @@ export default function Subscribe() {
 
       <div className="relative w-full my-4">
         <input
-          className={
-            "w-full px-4 py-2 mt-1 text-gray-900 bg-white border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200"
-          }
-          autocomplete
+          className={"w-full px-4 py-2 mt-1  rounded-md"}
+          autoComplete="email"
           type="email"
           placeholder="Enter Email"
           value={email}
@@ -51,7 +46,7 @@ export default function Subscribe() {
         />
         <input
           className={
-            "absolute flex items-center justify-center h-8 px-2 font-bold capitalize bg-blue-500 rounded-r-sm shadow-lg sm:h-9 right-1 top-2 sm:w-28 hover:bg-blue-200"
+            "absolute flex items-center justify-center h-8 px-2 font-bold capitalize rounded-r-sm shadow-lg sm:h-9 right-1 top-2 sm:w-28 hover:bg-blue-200 dark:hover:text-gray-900 dark:hover:bg-blue-400 bg-blue-600"
           }
           type="submit"
           value={state === "LOADING" ? "Loading" : "Subscribe"}
