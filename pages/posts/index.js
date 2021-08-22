@@ -47,34 +47,36 @@ export default function Blog({ posts }) {
           <meta property="article:published_time" content={meta.date} />
         )}
       </Head>
-      <div className="space-y-4 sm:space-y-20">
+      <div>
         <h1 className="mb-4 text-4xl font-bold sm:mt-10 sm:mb-0">Blog</h1>
-        <Subscribe />
-        {posts?.map((post) => (
-          <div
-            key={post?.filePath}
-            className="p-4 no-underline bg-gray-200 rounded-md shadow-lg sm:max-w-3xl sm:p-10 dark:bg-gray-800 ring-1 ring-gray-800 dark:ring-gray-200"
-          >
-            <Link href={`/posts/${post?.filePath.replace(/\.mdx?$/, "")}`}>
-              <a className="no-underline">
-                <div className="">
-                  <div>
-                    <h2 className="text-xl font-semibold sm:text-3xl">
-                      {post?.data?.title}
-                    </h2>
+        <Subscribe className="mb-8 sm:mb-24" />
+        <div className="space-y-6 sm:space-y-20">
+          {posts?.map((post) => (
+            <div
+              key={post?.filePath}
+              className="p-4 no-underline bg-gray-200 rounded-md shadow-lg sm:max-w-3xl sm:p-10 dark:bg-gray-800"
+            >
+              <Link href={`/posts/${post?.filePath.replace(/\.mdx?$/, "")}`}>
+                <a className="no-underline">
+                  <div className="">
+                    <div>
+                      <h2 className="text-xl font-semibold sm:text-3xl">
+                        {post?.data?.title}
+                      </h2>
+                    </div>
+                    <p className="text-base">
+                      {dayjs(post?.data?.date).format("MMM-DD-YYYY")}
+                      {` | ${post?.timeToRead?.text}`}
+                    </p>
+                    <p className="pt-4 text-base sm:text-lg">
+                      {post?.data?.description}
+                    </p>
                   </div>
-                  <p className="text-base">
-                    {dayjs(post?.data?.date).format("MMM-DD-YYYY")}
-                    {` | ${post?.timeToRead?.text}`}
-                  </p>
-                  <p className="pt-4 text-base sm:text-lg">
-                    {post?.data?.description}
-                  </p>
-                </div>
-              </a>
-            </Link>
-          </div>
-        ))}
+                </a>
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
