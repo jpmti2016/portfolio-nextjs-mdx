@@ -51,6 +51,10 @@
   textarea {
     @apply border-gray-100 focus:ring-gray-900 focus:border-gray-900 dark:bg-blue-100 ring-1 ring-gray-100 dark:text-gray-900 dark:ring-1 dark:ring-gray-700 dark:focus:border-yellow-600 dark:focus:ring-yellow-600;
   }
+
+  img {
+    @apply filter dark:brightness-[0.8] dark:contrast-[1.2];
+  }
 }
 
 @layer components {
