@@ -33,6 +33,24 @@
       U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
       U+2215, U+FEFF, U+FFFD;
   }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  input[type="url"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="week"],
+  input[type="time"],
+  input[type="search"],
+  input[type="tel"],
+  select,
+  select[multiple],
+  textarea {
+    @apply border-gray-100 focus:ring-gray-900 focus:border-gray-900 dark:bg-blue-100 ring-1 ring-gray-100 dark:text-gray-900 dark:ring-1 dark:ring-gray-700 dark:focus:border-yellow-600 dark:focus:ring-yellow-600;
+  }
 }
 
 @layer components {
