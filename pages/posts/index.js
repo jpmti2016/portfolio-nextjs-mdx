@@ -54,7 +54,7 @@ export default function Blog({ posts }) {
           {posts?.map((post) => (
             <div
               key={post?.filePath}
-              className="p-4 no-underline bg-gray-200 rounded-md shadow-lg sm:max-w-3xl sm:p-10 dark:bg-gray-800"
+              className="p-4 no-underline bg-gray-200 rounded-md shadow-xl sm:max-w-3xl sm:p-10 dark:bg-gray-600/10"
             >
               <Link href={`/posts/${post?.filePath.replace(/\.mdx?$/, "")}`}>
                 <a className="no-underline">
