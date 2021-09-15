@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "@heroicons/react/solid";
@@ -9,9 +9,14 @@ import Menu from "./Menu";
 import MobileButton from "./MobileButton";
 
 export default function Nav() {
+  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const { asPath } = useRouter();
   const [toggled, setToggled] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
 
   return (
     <nav className="sticky top-0 z-50 w-full px-4 bg-gray-200 dark:bg-gray-900 sm:items-center sm:flex sm:flex-row sm:py-6 md:px-24 md:text-xl font-fira">
