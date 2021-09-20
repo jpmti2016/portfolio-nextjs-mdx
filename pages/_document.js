@@ -1,7 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 import { GA_TRACKING_ID } from "../utils/gtag";
-import CookieBanner from "../components/CookieBanner";
 
 class MyDocument extends Document {
   render() {
@@ -55,7 +54,6 @@ class MyDocument extends Document {
           />
         </Head>
         <body className="text-gray-900 bg-gray-100 dark:bg-gray-800 dark:text-gray-200 font-roboto">
-          <CookieBanner />
           <Main />
           <NextScript />
         </body>
