@@ -1,5 +1,12 @@
 import { useState } from "react";
 import CookieBannerItem from "./CookieBannerItem";
+import {
+  acceptAnalytics,
+  acceptMarketing,
+  acceptFunctional,
+  acceptAll,
+  rejectAll,
+} from "../utils/gtag";
 
 const cookiesList = [
   {
@@ -82,23 +89,117 @@ const cookiesList = [
       },
     ],
   },
+  {
+    id: "",
+    classification: "advertising",
+    label: "Advertising",
+    intro: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo rem architecto cumque nesciunt consequuntur fugiat!`,
+    domains: ["as.com", "abc.com"],
+    cookies: [
+      {
+        name: "cookie1",
+        use: "3rd party",
+        duration: "1 year",
+        domains: ["domain.com", "other-domain.com"],
+      },
+      {
+        name: "cookie2",
+        use: "1rd party",
+        duration: "2 year",
+        domains: ["domain.com", "other-domain.com"],
+      },
+      {
+        name: "cookie3",
+        use: "3rd party",
+        duration: "3 year",
+        domains: ["domain.com", "other-domain.com"],
+      },
+    ],
+  },
 ];
 
-const cookieItems = () => {
-  return cookiesList.map((cookieItem) => {
-    return (
-      <CookieBannerItem
-        classification={cookieItem.classification}
-        intro={cookieItem.intro}
-        label={cookieItem.label}
-        key={cookieItem.classification}
-        cookies={cookieItem.cookies}
-      />
-    );
-  });
+const CookieItems = ({}) => {
+  const [necessary, setNecessary] = useState(true);
+  const [functional, setFunctional] = useState(false);
+  const [analytics, setAnalytics] = useState(true);
+  const [advertising, setAdvertising] = useState(false);
+
+  const confirmChoices = () => {
+    // necessary cookies are mandatory
+    // cannot be updated
+    // must be accepted as a prerequisite
+    // to use the service / website
+
+    if (functional) {
+      acceptFunctional();
+    }
+
+    if (analytics) {
+      acceptAnalytics();
+    }
+
+    if (advertising) {
+      acceptMarketing();
+    }
+  };
+
+  const closeConsentForm = () => {
+    console.log("close consent form");
+    setAnalytics(false);
+    setFunctional(false);
+    setAdvertising(false);
+  };
+
+  const items = () => {
+    return cookiesList.map((cookieItem) => {
+      return (
+        <CookieBannerItem
+          classification={cookieItem?.classification}
+          intro={cookieItem?.intro}
+          label={cookieItem?.label}
+          key={cookieItem?.classification}
+          cookies={cookieItem?.cookies}
+          setAdvertising={setAdvertising}
+          advertising={advertising}
+          setAnalytics={setAnalytics}
+          analytics={analytics}
+          setFunctional={setFunctional}
+          functional={functional}
+          necessary={necessary}
+        />
+      );
+    });
+  };
+
+  return (
+    <>
+      {items()}
+      <div className="flex flex-col mt-4 space-y-4 sm:space-y-0 sm:space-x-4 sm:flex-row">
+        <button
+          onClick={() => confirmChoices()}
+          className="px-1 py-1 text-xs font-normal tracking-normal uppercase bg-blue-700 rounded-sm sm:px-2 sm:text-sm font-fira sm:w-52 text-blue-50"
+        >
+          Confirm my Choices
+        </button>
+        <button
+          onClick={() => acceptAll()}
+          className="px-1 py-1 text-xs font-normal tracking-normal text-blue-700 uppercase bg-blue-100 border border-blue-700 rounded-sm sm:w-52 sm:px-2 sm:text-sm font-fira"
+        >
+          Accept all Cookies
+        </button>
+        <button
+          onClick={() => closeConsentForm()}
+          className="px-1 py-1 text-xs font-normal tracking-normal text-blue-700 uppercase bg-gray-100 border border-gray-700 rounded-sm sm:px-2 sm:text-sm font-fira"
+        >
+          Cancel
+        </button>
+      </div>
+    </>
+  );
 };
 export default function CookieBanner() {
   const [details, setDetails] = useState(true);
+
   return (
     <div className="fixed bottom-[0] z-50 flex flex-col bg-gray-300 border-t-2 border-gray-500 min-w-[320px] overflow-auto p-4 text-sm sm:w-full max-h-60">
       <div id="banner-header" className="flex flex-col items-center w-full">
@@ -129,10 +230,16 @@ export default function CookieBanner() {
               />
             </svg>
           </button>
-          <button className="inline-block px-1 py-1 text-xs font-normal tracking-normal uppercase bg-blue-700 rounded-sm sm:px-2 sm:text-sm font-fira text-blue-50">
+          <button
+            onClick={() => rejectAll()}
+            className="inline-block px-1 py-1 text-xs font-normal tracking-normal uppercase bg-blue-700 rounded-sm sm:px-2 sm:text-sm font-fira text-blue-50"
+          >
             Reject All
           </button>
-          <button className="inline-block px-1 py-1 text-xs font-normal tracking-normal uppercase bg-blue-700 rounded-sm sm:px-2 sm:text-sm font-fira text-blue-50">
+          <button
+            onClick={() => acceptAll()}
+            className="inline-block px-1 py-1 text-xs font-normal tracking-normal uppercase bg-blue-700 rounded-sm sm:px-2 sm:text-sm font-fira text-blue-50"
+          >
             Accept All
           </button>
         </div>
@@ -144,7 +251,9 @@ export default function CookieBanner() {
         }
       >
         <div className="flex flex-col">
-          <div className="flex flex-col">{cookieItems()}</div>
+          <div className="flex flex-col">
+            <CookieItems />
+          </div>
         </div>
       </div>
     </div>

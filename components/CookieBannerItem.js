@@ -11,7 +11,53 @@ export default function CookieBannerItem({
   intro,
   cookies,
   label,
+  setAdvertising,
+  advertising,
+  setAnalytics,
+  analytics,
+  setFunctional,
+  functional,
+  necessary,
 }) {
+  const handleChangeCheckbox = (event) => {
+    const target = event.target;
+    const value = target.checked;
+
+    if (classification === "functional") {
+      setFunctional(value);
+    }
+
+    if (classification === "necessary") {
+      // it should not be updated
+    }
+
+    if (classification === "advertising") {
+      setAdvertising(value);
+    }
+
+    if (classification === "analytics") {
+      setAnalytics(value);
+    }
+  };
+
+  const isChecked = (classification) => {
+    if (classification === "necessary") {
+      return necessary;
+    }
+    if (classification === "functional") {
+      return functional;
+    }
+
+    if (classification === "advertising") {
+      return advertising;
+    }
+
+    if (classification === "analytics") {
+      return analytics;
+    }
+    return false;
+  };
+
   return (
     <div className="" id={`${classification}`}>
       <div className="py-2">
@@ -20,6 +66,8 @@ export default function CookieBannerItem({
             id={`${classification}-checkbox`}
             type="checkbox"
             className="mr-4 rounded-sm"
+            checked={isChecked(classification)}
+            onChange={(event) => handleChangeCheckbox(event)}
           />
           <label htmlFor={`${classification}-checkbox`}>{label}</label>
         </div>
