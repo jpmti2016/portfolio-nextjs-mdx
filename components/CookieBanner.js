@@ -7,6 +7,7 @@ import {
   acceptAll,
   rejectAll,
 } from "../utils/gtag";
+import { useLocalStorageState } from "../utils/useLocalStorage";
 
 const cookiesList = [
   {
@@ -118,10 +119,10 @@ const cookiesList = [
   },
 ];
 
-const CookieItems = ({}) => {
+const CookieItems = ({ setConsented }) => {
   const [necessary, setNecessary] = useState(true);
   const [functional, setFunctional] = useState(false);
-  const [analytics, setAnalytics] = useState(true);
+  const [analytics, setAnalytics] = useState(false);
   const [advertising, setAdvertising] = useState(false);
 
   const confirmChoices = () => {
@@ -130,17 +131,31 @@ const CookieItems = ({}) => {
     // must be accepted as a prerequisite
     // to use the service / website
 
+    const updatedConsent = {
+      consent: false,
+      analytics: false,
+      advertising: false,
+      functional: false,
+    };
+
     if (functional) {
       acceptFunctional();
+      updatedConsent.functional = true;
     }
 
     if (analytics) {
       acceptAnalytics();
+      updatedConsent.analytics = true;
     }
 
     if (advertising) {
       acceptMarketing();
+      updatedConsent.advertising = true;
     }
+
+    updatedConsent.consent = true;
+
+    setConsented(updatedConsent);
   };
 
   const closeConsentForm = () => {
@@ -148,6 +163,13 @@ const CookieItems = ({}) => {
     setAnalytics(false);
     setFunctional(false);
     setAdvertising(false);
+
+    setConsented({
+      consent: true,
+      analytics: false,
+      advertising: false,
+      functional: false,
+    });
   };
 
   const items = () => {
@@ -197,10 +219,45 @@ const CookieItems = ({}) => {
     </>
   );
 };
-export default function CookieBanner() {
+export default function CookieBanner({
+  initialConsent = {
+    consent: false,
+    analytics: false,
+    marketing: false,
+    functional: false,
+  },
+}) {
+  const [consented, setConsented] = useLocalStorageState(
+    "consented",
+    initialConsent
+  );
   const [details, setDetails] = useState(true);
 
-  return (
+  const handleRejectAll = () => {
+    setConsented({
+      consent: true,
+      analytics: false,
+      advertising: false,
+      functional: false,
+    });
+
+    rejectAll();
+  };
+
+  const handleAcceptAll = () => {
+    setConsented({
+      consent: true,
+      analytics: true,
+      advertising: true,
+      functional: true,
+    });
+
+    acceptAll();
+  };
+
+  return consented?.consent ? (
+    ""
+  ) : (
     <div className="fixed bottom-[0] z-50 flex flex-col bg-gray-300 border-t-2 border-gray-500 min-w-[320px] overflow-auto p-4 text-sm sm:w-full max-h-60">
       <div id="banner-header" className="flex flex-col items-center w-full">
         <div className="max-w-3xl py-2 sm:py-4">
@@ -231,13 +288,13 @@ export default function CookieBanner() {
             </svg>
           </button>
           <button
-            onClick={() => rejectAll()}
+            onClick={() => handleRejectAll()}
             className="inline-block px-1 py-1 text-xs font-normal tracking-normal uppercase bg-blue-700 rounded-sm sm:px-2 sm:text-sm font-fira text-blue-50"
           >
             Reject All
           </button>
           <button
-            onClick={() => acceptAll()}
+            onClick={() => handleAcceptAll()}
             className="inline-block px-1 py-1 text-xs font-normal tracking-normal uppercase bg-blue-700 rounded-sm sm:px-2 sm:text-sm font-fira text-blue-50"
           >
             Accept All
@@ -252,7 +309,7 @@ export default function CookieBanner() {
       >
         <div className="flex flex-col">
           <div className="flex flex-col">
-            <CookieItems />
+            <CookieItems setConsented={setConsented} />
           </div>
         </div>
       </div>
