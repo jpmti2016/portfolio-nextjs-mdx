@@ -258,7 +258,7 @@ export default function CookieBanner({
   return consented?.consent ? (
     ""
   ) : (
-    <div className="fixed bottom-[0] z-50 flex flex-col bg-gray-300 border-t-2 border-gray-500 min-w-[320px] overflow-auto p-4 text-sm sm:w-full max-h-60">
+    <div className="fixed bottom-[0] z-50 flex flex-col bg-gray-300 border-t-2 dark:bg-gray-900 border-gray-500 min-w-[320px] overflow-auto p-4 text-sm sm:w-full max-h-60">
       <div id="banner-header" className="flex flex-col items-center w-full">
         <div className="max-w-3xl py-2 sm:py-4">
           By clicking “Accept All”, you consent to our website's use of cookies
@@ -268,13 +268,13 @@ export default function CookieBanner({
         </div>
         <div className="flex space-x-2 sm:space-x-4 min-w-[320px] mb-4">
           <button
-            className="flex p-1 text-xs font-medium tracking-normal text-blue-700 sm:text-sm font-fira"
+            className="flex p-1 text-xs font-medium tracking-normal text-blue-700 dark:text-blue-400 sm:text-sm font-fira"
             onClick={() => setDetails((prev) => !prev)}
           >
             <span className="pr-2 uppercase">Customize</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 text-blue-700"
+              className="w-4 h-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
