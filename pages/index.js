@@ -9,7 +9,6 @@ import { folderPath, filesPath } from "../utils/mdxUtils";
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import Project from "../components/Project";
-import * as gtag from "../utils/gtag";
 
 export default function Home({ projects }) {
   const { asPath } = useRouter();
@@ -24,7 +23,8 @@ export default function Home({ projects }) {
   };
 
   const handleClickHireMe = (e) => {
-    gtag.event({ action: "click_hire_me", category: "Link" });
+    // link analytics
+    console.log("Hire me!!");
   };
 
   return (
