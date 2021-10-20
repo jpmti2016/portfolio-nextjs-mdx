@@ -212,7 +212,7 @@ For reuse purposes you should export `GA_TRACKING_ID`, `pageview` and `event` fr
 
 Google defines [different types of events](https://developers.google.com/analytics/devguides/collection/ga4/events) but you can also create your custom events to target your specific use case.
 
-To see all together [check this repo](https://github.com/jpmti2016/portfolio-nextjs-mdx/settings).
+To see all together [check this repo](https://github.com/jpmti2016/portfolio-nextjs-mdx/tree/google-analytics).
 
 ## Testing your Google Analytics
 
@@ -232,6 +232,32 @@ Otherwise use the [tag assistant](https://tagassistant.google.com/) to [debug yo
 
 If you need to collect more data then you have to implement the functionality to ask the user for authorization to that data and adjust the tag behavior in response to the consent status.
 
-For more explanations consult this [Google devguide](https://developers.google.com/gtagjs/devguide/consent).
+### Custom cookie banner
+
+You can check a rustic implementation of the cookie banner for Google Analytics [here](https://github.com/jpmti2016/portfolio-nextjs-mdx/tree/google-analytics).
+
+The cookie banner starts with all cookies set to ```denied``` by default as previously explained and after any changes, it works to keep it that way the cookies that are not explicitly accepted. 
+
+The CookieBanner component tracks the state for different variables of the ```consented``` state, when the ```consent``` is set to ```true``` it indicate that the user already decided to accept or reject the cookies (action taken), so the banner will not be showed in the future. The consented info is stored on Local Storage by the ```useLocalStorageState``` hook the first time and will be read from Local Storage after that.
+
+The main paths are when the user accepts or rejects all cookies, actions that are accomplished by the ```acceptAll``` and ```rejectAll``` functions. Is assumed also that when the user closes the banner without explicit action, the intention is to reject the cookies so the ```rejectAll``` function is called.
+
+```import { acceptAnalytics, acceptMarketing, acceptFunctional, acceptAll, rejectAll, } from "../utils/gtag";```
+
+When the user decides to fine tune the  cookies selection, the configuration path, there is a more complex UI.
+
+An static array (you could also requested from your database dynamically if it is you case) containing the data for the different cookie types that you manage in your website is supplied to the ```CookieItems``` component that is used to create a list of ```CookieBannerItem``` (naming should be improved, I agree ...). The ```CookieItems``` will show the list of the cookies that you use in your website by category (necessary, analytics, advertising, functional, etc.) and the user would decide if to accept or reject any category type.
+
+You can add cookies from different services to the cookie categories array if needed. Some sites just explain the categories and link to the privacy statement with the full explanation of every cookie use.
+
+After a user selection, the rest of the options are set to ```false``` to double check that the not selected options are kept rejected.
+
+### Paid privacy first analytics services
+
+If you really need to check analytics about your website, and want to be a privacy-first, SEO friendly, GDPR, CCPA, ePrivacy, PECR compliant without the annoying cookie banner, that not harvest user data but still provide fast loading script and get a full picture of the traffic to your website even when  script are blocked consider using paying services like [Fathom](https://usefathom.com/ref/OPXQNO) or [Plausible](https://plausible.io/). They have affordable options to select. Plausible starts at $6 / month for 10k pageviews and Fathom starts at $14 / month for 100k pageviews. Fathom is a referral link, I would get a commision if you use it from my referral.
+
+### Others consent management platforms
 
 It is also possible to use Consent Management Platforms or libraries that implement the full consent mode in partnership with Google like [Osano](https://osano.com/), [OneTrust](https://onetrust.com/) and [CookieBot](https://cookiebot.com/en/).
+
+For more explanations consult this [Google devguide](https://developers.google.com/gtagjs/devguide/consent).
