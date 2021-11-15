@@ -1,4 +1,0 @@
-This is a Brave Rewards publisher verification file.
-
-Domain: jpmti2016.com
-Token: d044bc71ffcea660ce2d3916b668c7597ab43999ac7a12be43092dd242bde2d6
