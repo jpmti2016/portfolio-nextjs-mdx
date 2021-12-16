@@ -5,10 +5,6 @@
   </url>
 
   <url>
-    <loc>https://www.jpmti2016.com/study</loc>
-  </url>
-
-  <url>
     <loc>https://www.jpmti2016.com/posts/async-update-related-items</loc>
   </url>
 
@@ -20,6 +16,12 @@
 
   <url>
     <loc>https://www.jpmti2016.com/posts/gig-crypto-economy-play-to-earn</loc>
+  </url>
+
+  <url>
+    <loc
+      >https://www.jpmti2016.com/posts/learn-rust-vs-solidity-smart-contract-programming</loc
+    >
   </url>
 
   <url>
