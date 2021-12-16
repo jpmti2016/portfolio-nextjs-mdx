@@ -12,8 +12,16 @@ import MDXComponents from "../../components/MDXComponents";
 import readingTime from "reading-time";
 import Subscribe from "../../components/Subscribe";
 
+import hljs from "highlight.js";
+import "highlight.js/styles/tomorrow-night-bright.css";
+import { useEffect } from "react";
+
 export default function Post({ source, frontMatter, timeToRead }) {
   const { asPath } = useRouter();
+
+  useEffect(() => {
+    hljs.highlightAll();
+  }, []);
 
   return (
     <div className="px-4 py-10 sm:flex sm:items-center sm:flex-col">

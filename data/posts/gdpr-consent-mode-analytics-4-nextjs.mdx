@@ -70,29 +70,29 @@ The Google consent mode default behavior works as if all consent options are ‘
 
 - Consent options ‘denied’ by default.
 
-```
-gtag('consent', 'default', {
-'ad_storage': 'denied',
-'analytics_storage': 'denied',
-// wait for gtag to load before update if it is async
-'wait_for_update': 500
+```javascript
+gtag("consent", "default", {
+  "ad_storage": "denied",
+  "analytics_storage": "denied",
+  // wait for gtag to load before update if it is async
+  "wait_for_update": 500,
 });
 ```
 
 - [Ad-click identifiers](https://developers.google.com/gtagjs/devguide/consent) redacted.
 
-```
-gtag('set', 'ads_data_redaction', true);
+```javascript
+gtag("set", "ads_data_redaction", true);
 ```
 
 > When 'ads_data_redaction' is true and 'ad_storage' is 'denied', ad click identifiers sent in network requests by Google Ads and Floodlight tags will be redacted. Network requests will also be sent through a cookieless domain.”
 
 - IP anonymization.
 
-```
-gtag('config', '${GA_TRACKING_ID}', {
-page_path: window.location.pathname,
-'anonymize_ip': true
+```javascript
+gtag("config", "${GA_TRACKING_ID}", {
+  page_path: window.location.pathname,
+  "anonymize_ip": true,
 });
 ```
 
@@ -102,15 +102,18 @@ In general to add Analytic to your Next.js app you have to include the `googleta
 
 Next.js with Google Analytics [without consent mode](https://github.com/vercel/next.js/tree/canary/examples/with-google-analytics).
 
-```
+```javascript
 import { GA_TRACKING_ID } from "../utils/gtag";
 ```
 
-```
- <script async src={`https://googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+```javascript
+<script
+  async
+  src={`https://googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+/>
 ```
 
-```
+```javascript
 <Head>
   {/* Global Site Tag (gtag.js) - Google Analytics */}
   <script
@@ -150,13 +153,13 @@ For local development you can pull it with the `vercel env pull` command and fol
 
 Then it will be ready to use.
 
-```
+```javascript
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
 ```
 
 For [measuring pageviews](https://developers.google.com/analytics/devguides/collection/gtagjs/pages) we will depend on the `next/router` events triggered when the user jumps between pages.
 
-```
+```javascript
 export const pageview = (url) => {
   window.gtag("config", GA_TRACKING_ID, {
     page_path: url,
@@ -166,27 +169,27 @@ export const pageview = (url) => {
 
 And register events like the page view in your `_app.js`. Here we use [next/router](https://nextjs.org/docs/api-reference/next/router).
 
-```
+```javascript
 import * as gtag from "../utils/gtag";
 ```
 
-```
- useEffect(() => {
-    const handleRouteChange = (url) => {
-      if (isProduction) {
-        gtag.pageview(url);
-      }
-    };
+```javascript
+useEffect(() => {
+  const handleRouteChange = (url) => {
+    if (isProduction) {
+      gtag.pageview(url);
+    }
+  };
 
-    router.events.on("routeChangeComplete", handleRouteChange);
+  router.events.on("routeChangeComplete", handleRouteChange);
 
-    return () => router.events.off("routeChangeComplete", handleRouteChange);
-  }, [router.events]);
+  return () => router.events.off("routeChangeComplete", handleRouteChange);
+}, [router.events]);
 ```
 
 You can also [measure other events](https://developers.google.com/analytics/devguides/collection/gtagjs/events) like CTA clicks by registering specific actions on different Next.js pages.
 
-```
+```javascript
 export const event = ({ action, category, label, value }) => {
   window.gtag("event", action, {
     event_category: category,
@@ -198,14 +201,14 @@ export const event = ({ action, category, label, value }) => {
 
 For example adding an event collection for the “Hire Me” link in `index.js`.
 
-```
+```javascript
 import * as gtag from "../utils/gtag";
 ```
 
-```
+```javascript
 const handleClickHireMe = (e) => {
-    gtag.event({ action: "click_hire_me", category: "Link" });
-  };
+  gtag.event({ action: "click_hire_me", category: "Link" });
+};
 ```
 
 For reuse purposes you should export `GA_TRACKING_ID`, `pageview` and `event` from your directory of choice according to your company Next.js folder structure guidelines.
@@ -236,25 +239,25 @@ If you need to collect more data then you have to implement the functionality to
 
 You can check a rustic implementation of the cookie banner for Google Analytics [here](https://github.com/jpmti2016/portfolio-nextjs-mdx/tree/google-analytics).
 
-The cookie banner starts with all cookies set to ```denied``` by default as previously explained and after any changes, it works to keep it that way the cookies that are not explicitly accepted. 
+The cookie banner starts with all cookies set to `denied` by default as previously explained and after any changes, it works to keep it that way the cookies that are not explicitly accepted.
 
-The CookieBanner component tracks the state for different variables of the ```consented``` state, when the ```consent``` is set to ```true``` it indicate that the user already decided to accept or reject the cookies (action taken), so the banner will not be showed in the future. The consented info is stored on Local Storage by the ```useLocalStorageState``` hook the first time and will be read from Local Storage after that.
+The CookieBanner component tracks the state for different variables of the `consented` state, when the `consent` is set to `true` it indicate that the user already decided to accept or reject the cookies (action taken), so the banner will not be showed in the future. The consented info is stored on Local Storage by the `useLocalStorageState` hook the first time and will be read from Local Storage after that.
 
-The main paths are when the user accepts or rejects all cookies, actions that are accomplished by the ```acceptAll``` and ```rejectAll``` functions. Is assumed also that when the user closes the banner without explicit action, the intention is to reject the cookies so the ```rejectAll``` function is called.
+The main paths are when the user accepts or rejects all cookies, actions that are accomplished by the `acceptAll` and `rejectAll` functions. Is assumed also that when the user closes the banner without explicit action, the intention is to reject the cookies so the `rejectAll` function is called.
 
-```import { acceptAnalytics, acceptMarketing, acceptFunctional, acceptAll, rejectAll, } from "../utils/gtag";```
+`import { acceptAnalytics, acceptMarketing, acceptFunctional, acceptAll, rejectAll, } from "../utils/gtag";`
 
-When the user decides to fine tune the  cookies selection, the configuration path, there is a more complex UI.
+When the user decides to fine tune the cookies selection, the configuration path, there is a more complex UI.
 
-An static array (you could also requested from your database dynamically if it is you case) containing the data for the different cookie types that you manage in your website is supplied to the ```CookieItems``` component that is used to create a list of ```CookieBannerItem``` (naming should be improved, I agree ...). The ```CookieItems``` will show the list of the cookies that you use in your website by category (necessary, analytics, advertising, functional, etc.) and the user would decide if to accept or reject any category type.
+An static array (you could also requested from your database dynamically if it is you case) containing the data for the different cookie types that you manage in your website is supplied to the `CookieItems` component that is used to create a list of `CookieBannerItem` (naming should be improved, I agree ...). The `CookieItems` will show the list of the cookies that you use in your website by category (necessary, analytics, advertising, functional, etc.) and the user would decide if to accept or reject any category type.
 
 You can add cookies from different services to the cookie categories array if needed. Some sites just explain the categories and link to the privacy statement with the full explanation of every cookie use.
 
-After a user selection, the rest of the options are set to ```false``` to double check that the not selected options are kept rejected.
+After a user selection, the rest of the options are set to `false` to double check that the not selected options are kept rejected.
 
 ### Paid privacy first analytics services
 
-If you really need to check analytics about your website, and want to be a privacy-first, SEO friendly, GDPR, CCPA, ePrivacy, PECR compliant without the annoying cookie banner, that not harvest user data but still provide fast loading script and get a full picture of the traffic to your website even when  script are blocked consider using paying services like [Fathom](https://usefathom.com/ref/OPXQNO) or [Plausible](https://plausible.io/). They have affordable options to select. Plausible starts at $6 / month for 10k pageviews and Fathom starts at $14 / month for 100k pageviews. Fathom is a referral link, I would get a commision if you use it from my referral.
+If you really need to check analytics about your website, and want to be a privacy-first, SEO friendly, GDPR, CCPA, ePrivacy, PECR compliant without the annoying cookie banner, that not harvest user data but still provide fast loading script and get a full picture of the traffic to your website even when script are blocked consider using paying services like [Fathom](https://usefathom.com/ref/OPXQNO) or [Plausible](https://plausible.io/). They have affordable options to select. Plausible starts at $6 / month for 10k pageviews and Fathom starts at $14 / month for 100k pageviews. Fathom is a referral link, I would get a commision if you use it from my referral.
 
 ### Others consent management platforms
 

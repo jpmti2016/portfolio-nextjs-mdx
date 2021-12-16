@@ -31,7 +31,7 @@ We want to do something like MS Excel, where we have cells that depend on each o
 
 Here is a section of the schema.graphql, it includes the relevant types (entities):
 
-```
+```javascript
 type SaleItem
   @model
   @auth(rules: [{ allow: public }])
@@ -68,30 +68,30 @@ The AWS DataStore api is very straightforward, check the docs for [more info](ht
 
 The list of items is kept in the state variable `salesItems`. The `item` state variable is used to be able to discern between create and delete/update paths in the form’s onSubmit.
 
-```
+```javascript
 const [salesItems, setSalesItems] = useState([]);
 const [item, setItem] = useState(null);
 ```
 
 In this effect we access the SaleItems related to the current `salesplannerID`. It serves to have real time access to those items, the subscription is waiting for changes in the type `SaleItem` to fire an update to the list.
 
-```
-  useEffect(() => {
-    const getItems = async () => {
-      const models = await DataStore.query(SaleItem, (si) =>
-        si.salesplannerID("eq", salesplannerID)
-      );
-      setSalesItems(models);
-    };
+```javascript
+useEffect(() => {
+  const getItems = async () => {
+    const models = await DataStore.query(SaleItem, (si) =>
+      si.salesplannerID("eq", salesplannerID)
+    );
+    setSalesItems(models);
+  };
 
-    const subscription = DataStore.observe(SaleItem).subscribe((msg) => {
-      getItems();
-    });
-
+  const subscription = DataStore.observe(SaleItem).subscribe((msg) => {
     getItems();
+  });
 
-    return () => subscription.unsubscribe();
-  }, [salesplannerID]);
+  getItems();
+
+  return () => subscription.unsubscribe();
+}, [salesplannerID]);
 ```
 
 The types are created when you use the CLI command `amplify codegen models`. Then ` import { SaleItem } from "../src/models";`
@@ -102,8 +102,9 @@ Here the main point is to consider the case when there is a previous element in 
 
 `salesItems` is a state variable. The `data` param is passed from the form created with [react-hook-form api](https://react-hook-form.com/api/).
 
-```
-const prevItem = salesItems.length > 0 ? salesItems[salesItems.length - 1] : null;
+```javascript
+const prevItem =
+  salesItems.length > 0 ? salesItems[salesItems.length - 1] : null;
 
 await DataStore.save(
   new SaleItem({
@@ -127,7 +128,7 @@ await DataStore.save(
 
 The list (table) has access to each item that is going to be deleted. We can pass it to the respective onClick event.
 
-```
+```javascript
  onClick={() => handleDeleteItem(item, index)}
 ```
 
@@ -135,24 +136,24 @@ The handleDeleteItem function deletes the item but if it is not the last one upd
 
 Operations on DataStore models are asynchronous.
 
-```
- const handleDeleteItem = async (item, index) => {
-    const { id } = item;
-    const modelToDelete = await DataStore.query(SaleItem, id);
-    DataStore.delete(modelToDelete);
+```javascript
+const handleDeleteItem = async (item, index) => {
+  const { id } = item;
+  const modelToDelete = await DataStore.query(SaleItem, id);
+  DataStore.delete(modelToDelete);
 
-    if (index !== salesItems.length - 1) {
-      await updateSaleItemsOnDelete(item, index);
-    }
-  };
+  if (index !== salesItems.length - 1) {
+    await updateSaleItemsOnDelete(item, index);
+  }
+};
 ```
 
 The updateSaleItemsOnDelete function is more complex.
 
 Here we get from the state `salesItems` only the slice of items that we have to update.
 
-```
-  const saleItemsToUpdate = salesItems.slice(index + 1);
+```javascript
+const saleItemsToUpdate = salesItems.slice(index + 1);
 ```
 
 So we need to do async operations on a list but when you delete an item, it behaves like a constant cause we are going to add or subtract the same amount to the calculated fields, we get rid of the `items related ` constraint for the async operations. This means that there is no need to wait for the current operation to finish to do the next.
@@ -165,38 +166,38 @@ In this scenario [Promise.all()](https://developer.mozilla.org/en-US/docs/Web/Ja
 
 We are not going to use the returned promise in this case, we just need to guarantee that all fail if any of the async operations fails.
 
-```
- const updateSaleItemsOnDelete = async (toDelete, index) => {
-    const saleItemsToUpdate = salesItems.slice(index + 1);
+```javascript
+const updateSaleItemsOnDelete = async (toDelete, index) => {
+  const saleItemsToUpdate = salesItems.slice(index + 1);
 
-    await Promise.all(
-      saleItemsToUpdate.map(async (toUpdate) => {
-        let profit = toUpdate.accProfit - toDelete.price * toDelete.quantity;
-        let sold = toUpdate.accSold - toDelete.price * toDelete.quantity;
-        let remain = toUpdate.sharesRemain + toDelete.quantity;
+  await Promise.all(
+    saleItemsToUpdate.map(async (toUpdate) => {
+      let profit = toUpdate.accProfit - toDelete.price * toDelete.quantity;
+      let sold = toUpdate.accSold - toDelete.price * toDelete.quantity;
+      let remain = toUpdate.sharesRemain + toDelete.quantity;
 
-        await DataStore.save(
-          SaleItem.copyOf(toUpdate, (updated) => {
-            // Update the values on {updated} variable to update DataStore entry
-            updated.accSold = parseFloat(sold.toFixed(4));
-            updated.accProfit = parseFloat(profit.toFixed(4));
-            updated.sharesRemain = parseFloat(remain.toFixed(4));
-          })
-        );
-      })
-    );
-  };
+      await DataStore.save(
+        SaleItem.copyOf(toUpdate, (updated) => {
+          // Update the values on {updated} variable to update DataStore entry
+          updated.accSold = parseFloat(sold.toFixed(4));
+          updated.accProfit = parseFloat(profit.toFixed(4));
+          updated.sharesRemain = parseFloat(remain.toFixed(4));
+        })
+      );
+    })
+  );
+};
 ```
 
 DataStore has a special notation to update items because [models in DataStore are immutable](https://docs.amplify.aws/lib/datastore/data-access/q/platform/js#create-and-update). Use the copyOf function to update the item’s field rather than the mutation of the instance directly.
 
-```
+```javascript
 SaleItem.copyOf(toUpdate, (updated) => {
-// Update the values on {updated} variable to update DataStore entry
+  // Update the values on {updated} variable to update DataStore entry
   updated.accSold = parseFloat(sold.toFixed(4));
   updated.accProfit = parseFloat(profit.toFixed(4));
   updated.sharesRemain = parseFloat(remain.toFixed(4));
-})
+});
 ```
 
 ## Update SaleItems
@@ -207,44 +208,44 @@ If we try to use Promise.all with map we could encounter in the situation that t
 
 To guarantee that we have access to the updated `prev`, we use `for await of`, [it iterates over async iterables objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of), waiting to complete the previous pending operations before continuing to the next iteration.
 
-```
+```javascript
 const updateSaleItemsOnUpdate = async (data) => {
-    const index = salesItems.findIndex((s) => s.id === item?.id);
-    const prevItem = salesItems.length > 0 ? salesItems[index - 1] : null;
-    const saleItemsToUpdate = salesItems.slice(index + 1);
+  const index = salesItems.findIndex((s) => s.id === item?.id);
+  const prevItem = salesItems.length > 0 ? salesItems[index - 1] : null;
+  const saleItemsToUpdate = salesItems.slice(index + 1);
 
-    // update selected item
-    let prev = await DataStore.save(
-      SaleItem.copyOf(item, (u) => {
-        u.price = data.price;
-        u.quantity = data.quantity;
-        u.accSold = AccSold(prevItem, data.price, data.quantity);
-        u.accProfit = AccProfit(
-          prevItem,
-          data.price,
-          data.quantity,
+  // update selected item
+  let prev = await DataStore.save(
+    SaleItem.copyOf(item, (u) => {
+      u.price = data.price;
+      u.quantity = data.quantity;
+      u.accSold = AccSold(prevItem, data.price, data.quantity);
+      u.accProfit = AccProfit(
+        prevItem,
+        data.price,
+        data.quantity,
+        totalInvestment
+      );
+      u.sharesRemain = SharesRemain(prevItem, shares, data.quantity);
+    })
+  );
+
+  // update the remaining items base on the selected item update
+
+  for await (const toUpdate of saleItemsToUpdate) {
+    prev = await DataStore.save(
+      SaleItem.copyOf(toUpdate, (item) => {
+        // Update the values on {item} variable to update DataStore entry
+        item.accSold = AccSold(prev, toUpdate.price, toUpdate.quantity);
+        item.accProfit = AccProfit(
+          prev,
+          toUpdate.price,
+          toUpdate.quantity,
           totalInvestment
         );
-        u.sharesRemain = SharesRemain(prevItem, shares, data.quantity);
+        item.sharesRemain = SharesRemain(prev, shares, toUpdate.quantity);
       })
     );
-
-    // update the remaining items base on the selected item update
-
-    for await (const toUpdate of saleItemsToUpdate) {
-      prev = await DataStore.save(
-        SaleItem.copyOf(toUpdate, (item) => {
-          // Update the values on {item} variable to update DataStore entry
-          item.accSold = AccSold(prev, toUpdate.price, toUpdate.quantity);
-          item.accProfit = AccProfit(
-            prev,
-            toUpdate.price,
-            toUpdate.quantity,
-            totalInvestment
-          );
-          item.sharesRemain = SharesRemain(prev, shares, toUpdate.quantity);
-        })
-      );
-    }
-  };
+  }
+};
 ```
