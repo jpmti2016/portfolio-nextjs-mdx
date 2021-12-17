@@ -11,6 +11,7 @@ import { filesPath, folderPath } from "../../utils/mdxUtils";
 import MDXComponents from "../../components/MDXComponents";
 import readingTime from "reading-time";
 import Subscribe from "../../components/Subscribe";
+import RelatedPosts from "../../components/RelatedPosts";
 
 import hljs from "highlight.js";
 import "highlight.js/styles/tomorrow-night-bright.css";
@@ -68,6 +69,7 @@ export default function Post({ source, frontMatter, timeToRead }) {
           <MDXRemote {...source} components={{ ...MDXComponents }} />
         </main>
         <Subscribe />
+        <RelatedPosts related={frontMatter.related} />
       </div>
     </div>
   );
@@ -80,6 +82,33 @@ export const getStaticProps = async ({ params }) => {
 
   const { content, data } = matter(source);
 
+  //related posts
+
+  const { related: relatedSlugs } = data;
+
+  const relatedPostInfo = [];
+
+  //get the data of the related posts
+  for (let slug of relatedSlugs) {
+    const postFilePath = path.join(postsPath, `${slug}.mdx`);
+    const source = fs.readFileSync(postFilePath);
+    const { content, data: relatedPost } = matter(source);
+    const timeToRead = readingTime(content);
+    // add slug and timeToRead cause the are not in the front-matter data
+    const post = { ...relatedPost, slug, timeToRead };
+    relatedPostInfo.push(post);
+  }
+
+  const cleanRelatedPostInfo = relatedPostInfo.map((post) => {
+    return {
+      title: post.title,
+      description: post.description,
+      date: post.date,
+      slug: post.slug,
+      timeToRead: post.timeToRead,
+    };
+  });
+
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [],
@@ -90,10 +119,14 @@ export const getStaticProps = async ({ params }) => {
 
   const stats = readingTime(content);
 
+  //change related slugs to the related posts data
+  const related = cleanRelatedPostInfo;
+  const withRelatedPostsData = { ...data, related };
+
   return {
     props: {
       source: mdxSource,
-      frontMatter: data,
+      frontMatter: withRelatedPostsData,
       timeToRead: stats,
     },
   };
