@@ -22,7 +22,7 @@ export default function Post({ source, frontMatter, timeToRead }) {
 
   useEffect(() => {
     hljs.highlightAll();
-  }, []);
+  }, [frontMatter]);
 
   return (
     <div className="px-4 py-10 sm:flex sm:items-center sm:flex-col">
@@ -94,7 +94,7 @@ export const getStaticProps = async ({ params }) => {
     const source = fs.readFileSync(postFilePath);
     const { content, data: relatedPost } = matter(source);
     const timeToRead = readingTime(content);
-    // add slug and timeToRead cause the are not in the front-matter data
+    // add slug and timeToRead cause they are not in the front-matter data
     const post = { ...relatedPost, slug, timeToRead };
     relatedPostInfo.push(post);
   }
