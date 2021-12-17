@@ -246,7 +246,15 @@ The CookieBanner component tracks the state for different variables of the `cons
 
 The main paths are when the user accepts or rejects all cookies, actions that are accomplished by the `acceptAll` and `rejectAll` functions. Is assumed also that when the user closes the banner without explicit action, the intention is to reject the cookies so the `rejectAll` function is called.
 
-`import { acceptAnalytics, acceptMarketing, acceptFunctional, acceptAll, rejectAll, } from "../utils/gtag";`
+```javascript
+import {
+  acceptAnalytics,
+  acceptMarketing,
+  acceptFunctional,
+  acceptAll,
+  rejectAll,
+} from "../utils/gtag";
+```
 
 When the user decides to fine tune the cookies selection, the configuration path, there is a more complex UI.
 
