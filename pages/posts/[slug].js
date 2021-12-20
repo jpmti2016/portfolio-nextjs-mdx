@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import matter from "gray-matter";
@@ -15,7 +16,6 @@ import RelatedPosts from "../../components/RelatedPosts";
 
 import hljs from "highlight.js";
 import "highlight.js/styles/tomorrow-night-bright.css";
-import { useEffect } from "react";
 
 export default function Post({ source, frontMatter, timeToRead }) {
   const { asPath } = useRouter();
@@ -51,10 +51,10 @@ export default function Post({ source, frontMatter, timeToRead }) {
       </Head>
       <div>
         <header className="sm:py-10">
-          <nav className="pb-4 sm:pb-6">
+          <nav className="pb-4 sm:pb-10">
             <Link href="/posts">
-              <a className="text-blue-500 underline hover:text-blue-700">
-                Back to Blog
+              <a className="font-semibold underline hover:text-gray-500 dark:hover:text-gray-400">
+                <span className="">Back to Blog</span>
               </a>
             </Link>
           </nav>
@@ -65,7 +65,7 @@ export default function Post({ source, frontMatter, timeToRead }) {
             </div>
           </div>
         </header>
-        <main className="prose md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:max-w-3xl">
+        <main className="prose prose-p:text-gray-700 prose-code:text-gray-700 prose-pre:shadow-sm prose-img:rounded-lg prose-pre:shadow-gray-300 dark:prose-headings:text-gray-200 dark:prose-p:text-gray-300 dark:prose-blockquote:border-l-gray-700 dark:prose-blockquote:text-gray-300 dark:prose-hr:border-gray-700 dark:prose-ol:text-gray-400 dark:prose-ul:text-gray-400 dark:prose-tr:text-gray-400 dark:prose-thead:text-gray-200 dark:prose-tr:border-b-gray-700 dark:prose-strong:text-gray-300 dark:prose-code:text-gray-200 md:prose-lg prose-a:text-amber-700 dark:prose-a:text-amber-500 hover:dark:prose-a:text-amber-300 hover:prose-a:text-amber-500 dark:md:prose-lg-dark sm:max-w-3xl">
           <MDXRemote {...source} components={{ ...MDXComponents }} />
         </main>
         <Subscribe />

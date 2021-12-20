@@ -3,7 +3,7 @@ title: Asynchronous update of related items with AWS DataStore in a Next.js web 
 description: "When working with AWS DataStore you have to deal with async/await operations. Updating a list of items when the order of async operations execution is not mandatory is viable to do it with `Promise.all()` and `map`. Updating related items, where the promise result from the previous item is needed as input for the next item, can be achieved with the `for await...of` statement."
 type: "article"
 site_name: "Yampier Medina personal website"
-image: "https://www.jpmti2016.com/images/incrementalSalesPlanner1280_960.png"
+image: "https://www.jpmti2016.com/images/incremental-sales-planner.jpg"
 date: "2021-07-24"
 related:
   ["vercel-aws-route-53-custom-domain", "gdpr-consent-mode-analytics-4-nextjs"]
@@ -13,17 +13,15 @@ related:
 
 <Image
   alt={`Vercel custom domain dashboard`}
-  src={`/images/incrementalSalesPlanner1280_960.png`}
-  width={1280}
-  height={960}
+  src={`/images/incremental-sales-planner.jpg`}
+  width={1920}
+  height={1080}
   priority
 />
 
 ## TLDR
 
-When working with AWS DataStore you have to deal with async/await operations. Updating a list of items when the order of async operations execution is not mandatory is viable to do it with `Promise.all()` and `map`. Updating related items, where the promise result from the previous item is needed as input for the next item, can be achieved with the `for await...of` statement.
-
-See it working [here](https://www.beawareofbefore.com/calculator).
+When working with AWS DataStore you have to deal with async/await operations. Updating a list of items when the order of async operations execution is not mandatory is viable to do it with `Promise.all()` and `map`. Updating related items, where the promise result from the previous item is needed as input for the next item, can be achieved with the `for await...of` statement. [Try the working demo](https://www.beawareofbefore.com/calculator).
 
 ## Introduction
 
@@ -64,7 +62,7 @@ A [single table design approach](https://youtube.com/watch?v=KYy8X8t4MB8) is rec
 
 In this case we have a `one to many` relationship between SalesPlanner and SaleItem. That kind of relational modeling is easier using [Amplify Admin UI](https://docs.amplify.aws/console/adminui/intro), where visually you can add Models (entities), relationship and auth rules to your model. It allows sharing your model and managing content like a CMS. You can even use it without an AWS account.
 
-The AWS DataStore api is very straightforward, check the docs for [more info](https://docs.amplify.aws/lib/datastore/data-access/q/platform/js#create-and-update).
+The AWS DataStore api is very straightforward, [check the docs for more info](https://docs.amplify.aws/lib/datastore/data-access/q/platform/js#create-and-update).
 
 ## List SaleItems
 

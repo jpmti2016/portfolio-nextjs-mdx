@@ -40,7 +40,7 @@ export default function Project({
           ))}
         </p>
       </div>
-      <div className="mt-2 prose md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:mt-4">
+      <div className="mt-2 prose dark:prose-p:text-gray-300 md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:mt-4">
         <MDXRemote {...mdxSource} components={{ ...MDXComponents }} />
       </div>
       <div className="mt-4 text-sm sm:pt-6 sm:text-base sm:mt-auto">
