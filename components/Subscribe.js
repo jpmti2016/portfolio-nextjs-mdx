@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Subscribe({ className, ...rest }) {
+export default function Subscribe({ className, locale, ...rest }) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState("IDLE");
 
@@ -30,9 +30,10 @@ export default function Subscribe({ className, ...rest }) {
     <form
       className={`relative p-4 mt-10 rounded-sm sm:p-8 sm:mt-20 ring-1 ring-gray-200 dark:ring-gray-50 ${className}`}
       onSubmit={subscribe}
+      {...rest}
     >
       <h2 className={"mb-1 font-bold text-lg sm:text-2xl"}>
-        Keep me in the loop!
+        {locale === "en" ? "Keep me in the loop!" : "Manténme actualizado"}
       </h2>
 
       <div className="relative w-full my-4">
@@ -40,7 +41,9 @@ export default function Subscribe({ className, ...rest }) {
           className={"w-full rounded-sm h-11 placeholder-gray-900"}
           autoComplete="email"
           type="email"
-          placeholder="janedoe@email.com"
+          placeholder={
+            locale === "en" ? "jhondoe@email.com" : "luisma@email.com"
+          }
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -49,14 +52,30 @@ export default function Subscribe({ className, ...rest }) {
             "absolute flex items-center justify-center px-3 h-9 font-bold capitalize rounded-r-sm shadow-lg right-1 top-1 sm:w-28 text-blue-200 hover:text-blue-900 hover:bg-blue-600 dark:hover:text-gray-900 dark:hover:bg-blue-600 bg-blue-900"
           }
           type="submit"
-          value={state === "LOADING" ? "Loading" : "Subscribe"}
+          value={
+            state === "LOADING"
+              ? locale === "en"
+                ? "Loading"
+                : "Cargando"
+              : locale === "en"
+              ? "Subscribe"
+              : "Suscríbeme"
+          }
         />
       </div>
 
       {state?.success ? (
-        <p className={""}>{state?.message}</p>
+        <p className={""}>
+          {locale === "en"
+            ? state?.message
+            : "Genial, gracias por la suscripción!"}
+        </p>
       ) : (
-        <p className={"text-red-500"}>{state?.message}</p>
+        <p className={"text-red-500"}>
+          {locale === "en"
+            ? state?.message
+            : "Algo ha salido mal. Por favor envía un email a jpmti2016@gmail.com y te añado personalmente."}
+        </p>
       )}
     </form>
   );
