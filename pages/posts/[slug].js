@@ -18,11 +18,25 @@ import hljs from "highlight.js";
 import "highlight.js/styles/tomorrow-night-bright.css";
 
 export default function Post({ source, frontMatter, timeToRead }) {
-  const { asPath } = useRouter();
+  const { asPath, isFallback, locale } = useRouter();
+
+  const time =
+    locale === "en"
+      ? timeToRead?.text
+      : `${Math.ceil(timeToRead?.minutes)} min de lectura`;
+
+  const updated =
+    locale === "en"
+      ? `Updated ${dayjs(frontMatter?.date).format("MMMM-DD-YYYY")}`
+      : `Actualizado ${dayjs(frontMatter?.date).format("DD-MM-YYYY")}`;
 
   useEffect(() => {
     hljs.highlightAll();
   }, [frontMatter]);
+
+  if (isFallback) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="px-4 py-10 sm:flex sm:items-center sm:flex-col">
@@ -54,52 +68,53 @@ export default function Post({ source, frontMatter, timeToRead }) {
           <nav className="pb-4 sm:pb-10">
             <Link href="/posts">
               <a className="font-semibold underline hover:text-gray-500 dark:hover:text-gray-400">
-                <span className="">Back to Blog</span>
+                <span className="">
+                  {locale === "en" ? "Back to Blog" : "Volver a Blog"}
+                </span>
               </a>
             </Link>
           </nav>
           <div>
-            <div>
-              {`Updated ${dayjs(frontMatter?.date).format("MMMM-DD-YYYY")}`}
-              {` | ${timeToRead?.text}`}
-            </div>
+            <div>{`${updated} | ${time}`}</div>
           </div>
         </header>
         <main className="prose prose-p:text-gray-700 prose-code:text-gray-700 prose-pre:shadow-sm prose-img:rounded-lg prose-pre:shadow-gray-300 dark:prose-headings:text-gray-200 dark:prose-p:text-gray-300 dark:prose-blockquote:border-l-gray-700 dark:prose-blockquote:text-gray-300 dark:prose-hr:border-gray-700 dark:prose-ol:text-gray-400 dark:prose-ul:text-gray-400 dark:prose-tr:text-gray-400 dark:prose-thead:text-gray-200 dark:prose-tr:border-b-gray-700 dark:prose-strong:text-gray-300 dark:prose-code:text-gray-200 md:prose-lg prose-a:text-amber-700 dark:prose-a:text-amber-500 hover:dark:prose-a:text-amber-300 hover:prose-a:text-amber-500 dark:md:prose-lg-dark sm:max-w-3xl">
           <MDXRemote {...source} components={{ ...MDXComponents }} />
         </main>
-        <Subscribe />
-        <RelatedPosts related={frontMatter.related} />
+        <Subscribe locale={locale} />
+        <RelatedPosts related={frontMatter.related} locale={locale} />
       </div>
     </div>
   );
 }
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params, locale }) => {
   const postsPath = folderPath("posts");
-  const postFilePath = path.join(postsPath, `${params.slug}.mdx`);
+
+  const postFilePath = path.join(postsPath, `${params.slug}.${locale}.mdx`);
   const source = fs.readFileSync(postFilePath);
 
   const { content, data } = matter(source);
 
-  //related posts
-
+  // related is an array containing the slugs without locale
+  // for the current post
   const { related: relatedSlugs } = data;
 
-  const relatedPostInfo = [];
-
-  //get the data of the related posts
+  // get the data of the related posts
+  const relatedPostsInfo = [];
   for (let slug of relatedSlugs) {
-    const postFilePath = path.join(postsPath, `${slug}.mdx`);
+    const postFilePath = path.join(postsPath, `${slug}.${locale}.mdx`);
     const source = fs.readFileSync(postFilePath);
+
     const { content, data: relatedPost } = matter(source);
+
     const timeToRead = readingTime(content);
-    // add slug and timeToRead cause they are not in the front-matter data
+    // add slug and timeToRead of  cause they are not in the front-matter data
     const post = { ...relatedPost, slug, timeToRead };
-    relatedPostInfo.push(post);
+    relatedPostsInfo.push(post);
   }
 
-  const cleanRelatedPostInfo = relatedPostInfo.map((post) => {
+  const cleanRelatedPostsInfo = relatedPostsInfo.map((post) => {
     return {
       title: post.title,
       description: post.description,
@@ -120,7 +135,7 @@ export const getStaticProps = async ({ params }) => {
   const stats = readingTime(content);
 
   //change related slugs to the related posts data
-  const related = cleanRelatedPostInfo;
+  const related = cleanRelatedPostsInfo;
   const withRelatedPostsData = { ...data, related };
 
   return {
@@ -132,16 +147,19 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
-export const getStaticPaths = async () => {
+export const getStaticPaths = async (context) => {
   const postsPath = folderPath("posts");
   const postFilesPath = filesPath(postsPath);
 
-  const paths = postFilesPath
-    .map((path) => path.replace(/\.mdx?$/, ""))
-    .map((slug) => ({ params: { slug } }));
+  const paths = postFilesPath.map((slug) => {
+    return {
+      params: { slug: slug.replace(/\.es.mdx?$|.en.mdx?$/, "") },
+      locale: slug.match(/\.es.mdx?$/) ? "es" : "en",
+    };
+  });
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };

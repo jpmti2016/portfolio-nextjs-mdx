@@ -10,7 +10,7 @@ import readingTime from "reading-time";
 import Subscribe from "../../components/Subscribe";
 
 export default function Blog({ posts }) {
-  const { asPath } = useRouter();
+  const { asPath, locale } = useRouter();
   const meta = {
     title:
       "Collection of posts that cover my journey around code, SEO and learning",
@@ -49,7 +49,7 @@ export default function Blog({ posts }) {
       </Head>
       <div>
         <h1 className="mb-4 text-4xl font-bold sm:mt-10 sm:mb-0">Blog</h1>
-        <Subscribe className="mb-8 sm:mb-24" />
+        <Subscribe className="mb-8 sm:mb-24" locale={locale} />
         <div className="space-y-6 sm:space-y-20">
           {posts?.map((post) => (
             <div
@@ -65,8 +65,21 @@ export default function Blog({ posts }) {
                       </h2>
                     </div>
                     <p className="text-base">
-                      {dayjs(post?.data?.date).format("MMM-DD-YYYY")}
-                      {` | ${post?.timeToRead?.text}`}
+                      {`${
+                        locale === "en"
+                          ? `Updated ${dayjs(post?.data?.date).format(
+                              "MMMM-DD-YYYY"
+                            )}`
+                          : `Actualizado ${dayjs(posts?.data?.date).format(
+                              "DD-MM-YYYY"
+                            )}`
+                      } | ${
+                        locale === "en"
+                          ? post?.timeToRead?.text
+                          : `${Math.ceil(
+                              post?.timeToRead?.minutes
+                            )} min de lectura`
+                      }`}
                     </p>
                     <p className="pt-4 text-base sm:text-lg">
                       {post?.data?.description}
@@ -82,19 +95,23 @@ export default function Blog({ posts }) {
   );
 }
 
-export function getStaticProps() {
+export function getStaticProps({ locale }) {
   const postsPath = folderPath("posts");
   const postFilesPath = filesPath(postsPath);
 
-  const posts = postFilesPath.map((filePath) => {
+  //To show only the posts for the current locale
+  const localeFilesPath = postFilesPath.filter((withLocale) =>
+    withLocale.includes(`.${locale}.mdx`)
+  );
+
+  const posts = localeFilesPath.map((filePath) => {
     const source = fs.readFileSync(path.join(postsPath, filePath));
     const { content, data } = matter(source);
     const stats = readingTime(content);
 
     return {
-      content,
       data,
-      filePath,
+      filePath: filePath.replace(/\.es.mdx?$|.en.mdx?$/, ""),
       timeToRead: stats,
     };
   });
