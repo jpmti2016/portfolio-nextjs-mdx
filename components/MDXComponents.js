@@ -2,6 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 import Subscribe from "./Subscribe";
 
+import {
+  SimpleCounter,
+  InitialCounterAlmostThere,
+  BugReproduced,
+  FinishedCounter,
+  KeyPropReset,
+} from "./components";
+
 const CustomLink = (props) => {
   const href = props.href;
   const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
@@ -53,6 +61,11 @@ const MDXComponents = {
   a: CustomLink,
   Notice,
   Subscribe,
+  SimpleCounter,
+  InitialCounterAlmostThere,
+  BugReproduced,
+  FinishedCounter,
+  KeyPropReset,
 };
 
 export default MDXComponents;
