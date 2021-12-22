@@ -4,7 +4,7 @@ description: Un patrón simple usado en librerías tales como `downshift` y `Rea
 type: "article"
 site_name: "Yampier Medina personal website"
 image: "https://www.jpmti2016.com/images/silvio-kundt-Fixg8KipOg8-unsplash.jpg"
-date: "2021-11-05"
+date: "2021-12-22"
 related: []
 ---
 
@@ -18,11 +18,14 @@ related: []
   priority
 />
 
-Photo by [Silvio Kundt](https://unsplash.com/photos/Fixg8KipOg8)
+Imagen de [Silvio Kundt](https://unsplash.com/photos/Fixg8KipOg8)
+
+> Traducido del original [The State Initializer Pattern](https://kentcdodds.com/blog/the-state-initializer-pattern)
+> creado por [Kent C. Dodds](https://kentcdodds.com/).
 
 Cuando estaba trabajando en [`downshift`](https://github.com/downshift-js/downshift),
 me econtré con una situación donde mis usuarios (y yo también) necesitaban la habilidad de poder
-reiniciar el dropdown, que estabamos programando, en cualquier momento a su estado inicial: ningún
+reiniciar el `dropdown`, que estabamos programando, en cualquier momento a su estado inicial: ningún
 valor de entrada (no input value), nada destacado (highlighted), nada seleccionado, cerrado. Pero también habían
 usuarios que querían que el "estado inicial" tuviera por defecto algún valor, alguna selección,
 o permaneciera abierto. Entonces se me ocurrió el patrón inicializador de estado para dar soporte
