@@ -23,6 +23,7 @@ export default function Subscribe({ className, locale, ...rest }) {
       }
     } catch (error) {
       console.log("Something went wrong");
+      console.log("Subscribe UI error", error);
     }
   }
 

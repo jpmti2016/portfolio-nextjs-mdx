@@ -22,6 +22,7 @@ export default async function handler(req, res) {
       });
     } catch (error) {
       const mailChimpErrorType = error?.response?.body?.title;
+      console.log("subscribe api error", error);
 
       let message;
       switch (mailChimpErrorType) {
