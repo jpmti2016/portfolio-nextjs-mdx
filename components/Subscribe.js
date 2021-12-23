@@ -23,13 +23,12 @@ export default function Subscribe({ className, locale, ...rest }) {
       }
     } catch (error) {
       console.log("Something went wrong");
-      console.log("Subscribe UI error", error);
     }
   }
 
   return (
     <form
-      className={`relative p-4 mt-10 rounded-sm sm:p-8 sm:mt-20 ring-1 ring-gray-200 dark:ring-gray-50 ${className}`}
+      className={`relative p-4 mt-10 rounded-sm sm:p-8 sm:mt-20 ring-1 ring-gray-200 dark:ring-gray-50 sm:max-w-3xl ${className}`}
       onSubmit={subscribe}
       {...rest}
     >
@@ -65,19 +64,21 @@ export default function Subscribe({ className, locale, ...rest }) {
         />
       </div>
 
-      {state?.success ? (
-        <p className={""}>
-          {locale === "en"
+      <p className={""}>
+        {state?.success
+          ? locale === "en"
             ? state?.message
-            : "Genial, gracias por la suscripción!"}
-        </p>
-      ) : (
-        <p className={"text-red-500"}>
-          {locale === "en"
+            : "Genial, gracias por la suscripción!"
+          : ""}
+      </p>
+
+      <p className={"text-red-500"}>
+        {state?.success === false
+          ? locale === "en"
             ? state?.message
-            : "Algo ha salido mal. Por favor envía un email a jpmti2016@gmail.com y te añado personalmente."}
-        </p>
-      )}
+            : "Algo ha salido mal. Por favor envía un email a jpmti2016@gmail.com y te añado personalmente."
+          : ""}
+      </p>
     </form>
   );
 }
