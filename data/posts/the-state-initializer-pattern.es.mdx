@@ -32,7 +32,7 @@ o permaneciera abierto. Entonces se me ocurrió el patrón inicializador de esta
 a esos casos de uso.
 
 El patrón inicializador de estado permite exponer una API para que los usuarios puedan reiniciar tus
-componentes a su original estado sin tener que desmontar y montar completamente el componente.
+componentes a su estado original sin tener que desmontar y montar completamente el componente.
 
 Realmente, este patrón es similar en varias maneras a `defaultValue` en HTML. Algunas veces el
 consumidor de tu `hook` o componente quiere inicializar el valor de tu estado. El patrón inicializador
@@ -71,7 +71,7 @@ quisiera iniciar un contador en `1`, se pudiera hacer lo siguiente:
 
 > Algunas librerías que implementan este patrón usan el prefijo `default`
 > (defecto) en vez de `initial` (inicial) para estar en correspondencia con el `defaultValue`
-> del `input` elemento. Aunque esto tiene sentido, yo todavía prefiero el pre
+> del `input` elemento. Aunque esto tiene sentido, yo todavía prefiero el prefijo
 > `initial` debido a que siento que `initial` comunica el propósito y caso de
 > uso con más claridad.
 
@@ -93,7 +93,7 @@ function Counter({ initialCount = 0 }: { initialCount?: number }) {
 }
 ```
 
-Y aquí esta con un contador inicial igual a `8`:
+Y aquí está con un contador inicial igual a `8`:
 
 <div className="demo">
   <InitialCounterAlmostThere initialCount={8} />
@@ -103,7 +103,7 @@ Eso es el núcleo del patrón. Pero le falta un importante caso extremo.
 
 Qué sucedería si el usuario de tu componente cambia el valor de `initialCount` depués
 que tu componente está montado? Invalidaría esto el propósito de toda la parte `initial` (inicial)
-del nombre de la propiedad? Aquí esta un ejemplo donde el consumidor de nuestro contador
+del nombre de la propiedad? Aquí está un ejemplo donde el consumidor de nuestro contador
 cambia `initialCount` cada 500 milisegundos luego de haberse montado inicialmente (initial mount).
 
 <div className="demo">
@@ -143,7 +143,7 @@ componente no se afectaría.
 ## Reiniciando estado mediante `key`
 
 > Si no haz leído **Comprendiendo la propiedad 'key' de React** [(Understanding React's key prop)](https://kentcdodds.com/blog/understanding-reacts-key-prop), te
-> recomiendo que le des una rápida lectura antes te continuar.
+> recomiendo que le des una rápida lectura antes de continuar.
 
 Otra cosa que quisiera resaltar es que realmente puedes reiniciar un componente muy fácil sin
 necesidad de una API específicamente para ello. Existe una API embebida en React para todos los componentes:
@@ -165,16 +165,16 @@ function Counter({ reset }: { reset: () => void }) {
 }
 ```
 
-Y aquí esta rendereado:
+Y aquí está rendereado:
 
 <div className="demo">
   <KeyPropReset initialCount={10} />
 </div>
 
-Te habrás dado cuenta que tuvimos que reestructurar un poco el código para lograr esto. En algunas
-situaciones esto pueder no ser posible o deseable.
+Te habrás dado cuenta que tuvimos que reestructurar un poco el código para lograr esto. Sin embargo en algunas
+situaciones esto puede no ser posible o deseable.
 
-Adicionalmente, desmontar y montar el componente nuevamente (que es lo que la `key` propiedad hará) tiene más
+Adicionalmente, desmontar y montar el componente nuevamente (que es lo que la propiedad `key` hará) tiene más
 implicaciones. Por ejemplo en mi taller **Patrones Avanzados de React** [(Advanced React Patterns)](https://kentcdodds.com/workshops/advanced-react-patterns), tenemos una animación
 cuando el estado cambia. Mira el impacto de la propiedad `key` en esto:
 
@@ -193,4 +193,4 @@ También desmontar y remontar componentes hará llamadas a la función de limpie
 
 El patrón inicializador de estado es muy simple. De hecho, lo omití durante un largo período de mi taller **Patrones Avanzados de React** [(Advanced React Patterns)](https://kentcdodds.com/workshops/advanced-react-patterns)
 porque pensaba que no merecía dedicarle tiempo. Pero durante varios talleres sin este la
-gente me preguntaba por questiones que este resuelve, por lo que decidí añadirlo. Espero que este artículo the ayude con tu trabajo. Buena suerte!!
+gente me preguntaba por questiones que este resuelve, por lo que decidí añadirlo. Espero que este artículo te ayude con tu trabajo. Buena suerte!!
