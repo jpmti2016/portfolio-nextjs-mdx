@@ -1,28 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+>
   <url>
     <loc>https://www.jpmti2016.com</loc>
   </url>
-
+  <url>
+    <loc>https://www.jpmti2016.com/posts</loc>
+  </url>
   <url>
     <loc>https://www.jpmti2016.com/posts/async-update-related-items</loc>
   </url>
-
   <url>
     <loc
       >https://www.jpmti2016.com/posts/gdpr-consent-mode-analytics-4-nextjs</loc
     >
   </url>
-
   <url>
     <loc>https://www.jpmti2016.com/posts/gig-crypto-economy-play-to-earn</loc>
+    <xhtml:link
+      rel="alternate"
+      hreflang="es"
+      href="https://www.jpmti2016.com/es/posts/gig-crypto-economy-play-to-earn"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="en"
+      href="https://www.jpmti2016.com/posts/gig-crypto-economy-play-to-earn"
+    />
   </url>
-
+  <url>
+    <loc
+      >https://www.jpmti2016.com/es/posts/gig-crypto-economy-play-to-earn</loc
+    >
+    <xhtml:link
+      rel="alternate"
+      hreflang="es"
+      href="https://www.jpmti2016.com/es/posts/gig-crypto-economy-play-to-earn"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="en"
+      href="https://www.jpmti2016.com/posts/gig-crypto-economy-play-to-earn"
+    />
+  </url>
+  <url>
+    <loc>https://www.jpmti2016.com/es/posts/test-related-1</loc>
+  </url>
+  <url>
+    <loc>https://www.jpmti2016.com/es/posts/test-related-2</loc>
+  </url>
+  <url>
+    <loc>https://www.jpmti2016.com/es/posts/test-unique</loc>
+  </url>
+  <url>
+    <loc>https://www.jpmti2016.com/es/posts/the-state-initializer-pattern</loc>
+  </url>
   <url>
     <loc>https://www.jpmti2016.com/posts/vercel-aws-route-53-custom-domain</loc>
-  </url>
-
-  <url>
-    <loc>https://www.jpmti2016.com/posts</loc>
   </url>
 </urlset>
