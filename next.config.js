@@ -1,8 +1,6 @@
-module.exports = {
-  i18n: {
-    locales: ["en", "es"],
-    defaultLocale: "en",
-  },
+const nextTranslate = require("next-translate");
+
+module.exports = nextTranslate({
   future: {
     strictPostcssConfiguration: true,
   },
@@ -23,7 +21,7 @@ module.exports = {
 
     return config;
   },
-};
+});
 
 // https://securityheaders.com
 const ContentSecurityPolicy = `

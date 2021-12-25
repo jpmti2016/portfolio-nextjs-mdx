@@ -1,4 +1,7 @@
+import useTranslation from "next-translate/useTranslation";
+
 export default function Footer() {
+  const { t, lang } = useTranslation("common");
   return (
     <footer
       id="contact"
@@ -11,7 +14,7 @@ export default function Footer() {
           <div className="flex mb-3 space-x-2 text-2xl sm:text-3xl sm:space-x-4">
             <a
               className="block"
-              aria-label="personal tweeter account"
+              aria-label={t("linkTwitterAriaLabel")}
               href="https://twitter.com/jpmti2016"
               target="_blank"
               rel="noreferrer noopener"
@@ -33,7 +36,7 @@ export default function Footer() {
             </a>
             <a
               className="block"
-              aria-label="personal linkedin account"
+              aria-label={t("linkLinkedinAriaLabel")}
               href="https://www.linkedin.com/in/yampier-medina-423641169"
               target="_blank"
               rel="noreferrer noopener"
@@ -65,7 +68,7 @@ export default function Footer() {
             </a>
             <a
               className="block"
-              aria-label="personal email account"
+              aria-label={t("linkEmailAriaLabel")}
               href="mailto:jpmti2016@gmail.com"
               target="_blank"
               rel="noreferrer noopener"
@@ -88,7 +91,7 @@ export default function Footer() {
             </a>
             <a
               className="block w-8 h-8"
-              aria-label="personal github account"
+              aria-label={t("linkGithubAriaLabel")}
               href="https://github.com/jpmti2016"
               target="_blank"
               rel="noreferrer noopener"
@@ -108,8 +111,8 @@ export default function Footer() {
               </svg>
             </a>
           </div>
-          <p className="text-base font-playfair">Created by Yampier Medina</p>
-          <p className="text-sm font-code">© 2020 MIT Licence</p>
+          <p className="text-base font-playfair">{t("authorFooter")}</p>
+          <p className="text-sm font-code">{t("copyRightFooter")}</p>
         </div>
       </div>
     </footer>

@@ -1,0 +1,18 @@
+{
+  "navLinkHome": "Home",
+  "navLinkProjects": "Projects",
+  "navLinkBlog": "Blog",
+  "navLinkAbout": "About",
+  "authorFooter": "Created by Yampier Medina",
+  "copyRightFooter": "© 2020 MIT Licence",
+  "linkTwitterAriaLabel": "personal tweeter account",
+  "linkLinkedinAriaLabel": "personal linkedin account",
+  "linkEmailAriaLabel": "personal email account",
+  "linkGithubAriaLabel": "personal github account",
+  "subscribeTitle": "Keep me in the loop!",
+  "subscribeInputPlaceholder": "jhondoe@email.com",
+  "subscribeInputSubmitLoading": "Loading",
+  "subscribeInputSubmitText": "Subscribe",
+  "subscribeSuccessMessage": "Success",
+  "subscribeErrorMessage": "Error"
+}

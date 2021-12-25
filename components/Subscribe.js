@@ -1,6 +1,8 @@
 import { useState } from "react";
+import useTranslation from "next-translate/useTranslation";
 
-export default function Subscribe({ className, locale, ...rest }) {
+export default function Subscribe({ className, ...rest }) {
+  const { t, lang } = useTranslation("common");
   const [email, setEmail] = useState("");
   const [state, setState] = useState("IDLE");
 
@@ -33,7 +35,7 @@ export default function Subscribe({ className, locale, ...rest }) {
       {...rest}
     >
       <h2 className={"mb-1 font-bold text-lg sm:text-2xl"}>
-        {locale === "en" ? "Keep me in the loop!" : "Manténme actualizado"}
+        {t("subscribeTitle")}
       </h2>
 
       <div className="relative w-full my-4">
@@ -41,9 +43,7 @@ export default function Subscribe({ className, locale, ...rest }) {
           className={"w-full rounded-sm h-11 placeholder-gray-900"}
           autoComplete="email"
           type="email"
-          placeholder={
-            locale === "en" ? "jhondoe@email.com" : "luisma@email.com"
-          }
+          placeholder={t("subscribeInputPlaceholder")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -54,30 +54,16 @@ export default function Subscribe({ className, locale, ...rest }) {
           type="submit"
           value={
             state === "LOADING"
-              ? locale === "en"
-                ? "Loading"
-                : "Cargando"
-              : locale === "en"
-              ? "Subscribe"
-              : "Suscríbeme"
+              ? t("subscribeInputSubmitLoading")
+              : t("subscribeInputSubmitText")
           }
         />
       </div>
 
-      <p className={""}>
-        {state?.success
-          ? locale === "en"
-            ? state?.message
-            : "Genial, gracias por la suscripción!"
-          : ""}
-      </p>
+      <p className={""}>{state?.success ? t("subscribeSuccessMessage") : ""}</p>
 
       <p className={"text-red-500"}>
-        {state?.success === false
-          ? locale === "en"
-            ? state?.message
-            : "Algo ha salido mal. Por favor envía un email a jpmti2016@gmail.com y te añado personalmente."
-          : ""}
+        {state?.success === false ? t("subscribeErrorMessage") : ""}
       </p>
     </form>
   );

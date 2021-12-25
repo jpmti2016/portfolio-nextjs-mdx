@@ -1,0 +1,18 @@
+{
+  "navLinkHome": "Inicio",
+  "navLinkProjects": "Projectos",
+  "navLinkBlog": "Blog",
+  "navLinkAbout": "Acerca de mí",
+  "authorFooter": "Creado por Yampier Medina",
+  "copyRightFooter": "© 2020 Licencia MIT",
+  "linkTwitterAriaLabel": "cuenta de tweeter personal ",
+  "linkLinkedinAriaLabel": "cuenta de linkedin personal",
+  "linkEmailAriaLabel": "cuenta de email personal",
+  "linkGithubAriaLabel": "cuenta de github personal",
+  "subscribeTitle": "Manténme actualizado",
+  "subscribeInputPlaceholder": "luisma@email.com",
+  "subscribeInputSubmitLoading": "Cargando",
+  "subscribeInputSubmitText": "Suscríbeme",
+  "subscribeSuccessMessage": "Genial, gracias por la suscripción!",
+  "subscribeErrorMessage": "Algo ha salido mal. Por favor envía un email a jpmti2016@gmail.com y te añado personalmente."
+}

@@ -8,9 +8,11 @@ import { folderPath, filesPath } from "../../utils/mdxUtils";
 import dayjs from "dayjs";
 import readingTime from "reading-time";
 import Subscribe from "../../components/Subscribe";
+import useTranslation from "next-translate/useTranslation";
 
 export default function Blog({ posts }) {
   const { asPath, locale } = useRouter();
+  const { t, lang } = useTranslation("posts");
   const meta = {
     title:
       "Collection of posts that cover my journey around code, SEO and learning",
@@ -48,7 +50,9 @@ export default function Blog({ posts }) {
         )}
       </Head>
       <div>
-        <h1 className="mb-4 text-4xl font-bold sm:mt-10 sm:mb-0">Blog</h1>
+        <h1 className="mb-4 text-4xl font-bold sm:mt-10 sm:mb-0">
+          {t("blogTitle")}
+        </h1>
         <Subscribe className="mb-8 sm:mb-24" locale={locale} />
         <div className="space-y-6 sm:space-y-20">
           {posts?.map((post) => (

@@ -10,7 +10,10 @@ import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import Project from "../components/Project";
 
+import useTranslation from "next-translate/useTranslation";
+
 export default function Home({ projects }) {
+  let { t, lang } = useTranslation("main");
   const { asPath } = useRouter();
   const meta = {
     title: "Yampier Medina personal website",
@@ -51,27 +54,26 @@ export default function Home({ projects }) {
         )}
       </Head>
       {/* Welcome */}
-      <section id="welcome" className="bg-gray-100 dark:bg-gray-800">
+      <section id="welcome" className="bg-gray-100 dark:bg-gray-800 ">
         <div className="flex pt-24 pb-32 sm:pt-0">
-          <div className="container text-center sm:py-20 md:py-24 xl:py-32">
+          <div className="container text-center sm:py-20 md:py-24 xl:py-32 sm:max-w-4xl">
             <p className="mb-2 text-lg font-normal font-playfair sm:text-2xl">
-              Welcome
+              {t("greeting")}
             </p>
             <h1 className="mb-2 text-xl font-normal font-roboto sm:text-3xl">
-              I'm Yampier Medina
+              {t("main:fullName")}
             </h1>
             <h2 className="mb-3 text-2xl font-extrabold tracking-wide font-playfair sm:text-5xl">
-              A Software Engineer
+              {t("main:position")}
             </h2>
             <p className="mb-10 text-lg font-normal font-fira sm:text-xl">
-              I like AWS serverless computing, React, Next.js, GraphQL and ES
-              Next.
+              {t("main:techs")}
             </p>
             <p className="mb-2 text-xl font-semibold tracking-wide font-playfair sm:text-xl">
-              Job status
+              {t("main:jobStatus")}
             </p>
             <p className="mb-4 text-lg leading-8 font-fira sm:text-xl">
-              Searching, 100% Remote
+              {t("main:jobStatusValue")}
             </p>
 
             <a
@@ -79,7 +81,7 @@ export default function Home({ projects }) {
               className="btn btn-blue"
               onClick={handleClickHireMe}
             >
-              Hire me
+              {t("main:mainCTA")}
             </a>
           </div>
         </div>
@@ -90,69 +92,73 @@ export default function Home({ projects }) {
         <div className="container sm:max-w-5xl">
           <div className="flex flex-col mx-4 mt-6 sm:mt-7">
             <h2 className="mb-3 text-2xl font-bold tracking-wide font-playfair sm:text-3xl">
-              About
+              {t("main:aboutTitle")}
             </h2>
             <p className="mb-3 sm:text-lg">
-              I am a
-              <span className="font-semibold"> Computer Science Engineer </span>
-              turned to the <span className="font-semibold"> JS universe</span>.
-              I know SWE, testing, SQA and PM (Lead teams of 20-50 people).
-            </p>
-            <p className="mb-3 sm:text-lg">
-              I build secure and scalable cloud web apps with AWS Amplify (and
-              other AWS services), maintaining predictability and order in the
-              process from prototyping to deployment.
-            </p>
-
-            <p className="mb-3 sm:text-lg">
-              I care about UX/UI, SEO and performance. Currently learning from
-              the Refactoring UI book and the Tailwind CSS framework. I have
-              also used Bootstrap and Semantic UI.
-            </p>
-
-            <p className="mb-3 sm:text-lg">
-              I use VS Code, Git/Github, Chrome Developer Tools and Amplify CLI
-              daily. I code on a Dell Inspiron 15 7000 Series (Ubuntu 21.04 LTS)
-              plugged to an external Dell UltraSharp 27 4K Monitor.
-            </p>
-            <p className="mb-3 sm:text-lg">
-              I speak English (continuously improving) and Spanish (native).
-            </p>
-            <p className="mb-3 sm:text-lg">
-              When I am not coding I like to read or to learn something new.
-            </p>
-            <p className="mb-3 sm:text-lg">
-              Recent learnings (... in the path to Pro):
-            </p>
-            <p className="mb-3 sm:text-lg">
-              <span className="font-medium">
-                Epic React workshops by Kent C. Dodds{" "}
-              </span>
-              [technical, completed] and
-              <span className="font-medium">
+              {t("main:aboutIntro")}
+              <span className="font-semibold"> {t("main:aboutDegree")} </span>
+              {t("main:aboutTransition")}
+              <span className="font-semibold">
                 {" "}
-                Testing JavaScript by Kent C. Dodds{" "}
-              </span>
-              [technical, pending]
+                {t("main:aboutUniverse")}
+              </span>. {t("main:aboutKnowledge")}
             </p>
-            <p className="mb-3 sm:text-lg">Recent readings:</p>
-            <p className="mb-3 sm:text-lg">
-              <span className="font-medium">
-                Composing Software by Eric Elliot{" "}
-              </span>
-              [technical, completed] and{" "}
-              <span className="font-medium">
-                The Startup Owners's Manual by Steve Blank & Bob Dorf{" "}
-              </span>
-              [technical, pending].
+            <p className="mb-3 sm:text-lg">{t("main:aboutBuild")}</p>
+
+            <p className="mb-3 sm:text-lg">{t("main:aboutCare")}</p>
+
+            <p className="mb-3 sm:text-lg">{t("main:aboutUse")}</p>
+            <p className="mb-3 sm:text-lg">{t("main:aboutSpeak")}</p>
+            {/* <p className="mb-3 sm:text-lg">{t("main:aboutHobby")}</p> */}
+            <p className="mb-3 font-semibold sm:text-lg">
+              {t("main:aboutLearningIntro")}
             </p>
             <p className="mb-3 sm:text-lg">
-              <span className="font-medium">The Choice by Edith Eva Eger </span>
-              [non-technical, completed] and{" "}
               <span className="font-medium">
-                Fluent Forever by Gabriel Wyner{" "}
+                <a
+                  className="text-amber-700 dark:text-amber-500 hover:dark:text-amber-300 hover:text-amber-500"
+                  href="https://epicreact.dev/"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {t("main:aboutWorkshopEpicReact")} {}
+                </a>
               </span>
-              [non-technical, in progress].
+              {t("main:aboutEpicReactStatus")}
+              <span className="font-medium">
+                <a
+                  className="text-amber-700 dark:text-amber-500 hover:dark:text-amber-300 hover:text-amber-500"
+                  href="https://epicreact.dev/"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {t("main:aboutWorkshopTestingJS")}
+                </a>
+              </span>
+              {} {t("main:aboutTestingJSStatus")}
+            </p>
+            <p className="mb-3 font-semibold sm:text-lg">
+              {t("main:aboutReadingIntro")}
+            </p>
+            <p className="mb-3 sm:text-lg">
+              <span className="font-medium">
+                {t("main:aboutReadingComposing")}
+              </span>
+              {t("main:aboutReadingComposingStatus")}
+              <span className="font-medium">
+                {t("main:aboutReadingStartup")}{" "}
+              </span>
+              {t("main:aboutReadingStartupStatus")}
+            </p>
+            <p className="mb-3 sm:text-lg">
+              <span className="font-medium">
+                {t("main:aboutReadingChoice")}
+              </span>
+              {t("main:aboutReadingChoiceStatus")}
+              <span className="font-medium">
+                {t("main:aboutReadingFluent")}
+              </span>
+              {t("main:aboutReadingFluentStatus")}
             </p>
           </div>
         </div>
@@ -166,7 +172,7 @@ export default function Home({ projects }) {
         <div className="py-4">
           <div className="mx-4 mt-6 sm:mt-7">
             <h2 className="mb-3 text-2xl font-bold tracking-wide font-playfair sm:text-3xl">
-              Projects
+              {t("main:projectsTitle")}
             </h2>
             <div className="space-y-6 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-8 ">
               {projects?.map((project) => (

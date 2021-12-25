@@ -146,8 +146,6 @@ const prettier = require('prettier')
         parser: 'html',
     })
 
-    console.log('sitemap', sitemap)
-
     // eslint-disable-next-line no-sync
     fs.writeFileSync('public/sitemap.xml', formatted)
 })()

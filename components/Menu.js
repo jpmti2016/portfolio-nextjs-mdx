@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useTranslation from "next-translate/useTranslation";
 
 export default function Menu({ toggled, setToggled }) {
   const { asPath } = useRouter();
+  const { t, lang } = useTranslation("common");
 
   return (
     <div
@@ -19,7 +21,7 @@ export default function Menu({ toggled, setToggled }) {
                 : "no-underline nav-item sm:text-sm lg:text-xl"
             }`}
           >
-            Home
+            {t("navLinkHome")}
           </a>
         </Link>
       </div>
@@ -32,7 +34,7 @@ export default function Menu({ toggled, setToggled }) {
                 : "no-underline nav-item sm:text-sm lg:text-xl"
             }`}
           >
-            Projects
+            {t("navLinkProjects")}
           </a>
         </Link>
       </div>
@@ -45,7 +47,7 @@ export default function Menu({ toggled, setToggled }) {
                 : "no-underline nav-item sm:text-sm lg:text-xl"
             }`}
           >
-            Blog
+            {t("navLinkBlog")}
           </a>
         </Link>
       </div>
@@ -58,7 +60,7 @@ export default function Menu({ toggled, setToggled }) {
                 : "no-underline nav-item sm:text-sm lg:text-xl"
             }`}
           >
-            About
+            {t("navLinkAbout")}
           </a>
         </Link>
       </div>
