@@ -21,33 +21,34 @@ export default function Blog({ posts }) {
     url: "https://www.jpmti2016.com/posts",
     type: "website",
     site_name: "Yampier Medina",
-    image: "https://www.jpmti2016.com/images/github-jobs.jpg",
+    image: "https://www.jpmti2016.com/images/home-page.jpg",
     date: "2021-07-08",
   };
   return (
     <div className="px-4 py-6 sm:flex sm:items-center sm:flex-col">
       <Head>
-        <title>{meta.title}</title>
+        {/* Primary Meta Tags */}
+        <title>{t("metaTitle")}</title>
+        <link rel="canonical" href={`https://jpmti2016.com${asPath}`} />
         <meta name="robots" content="follow, index" />
-        <meta content={meta.description} name="description" />
-        <meta
-          property="og:url"
-          content={`https://www.jpmti2016.com${asPath}`}
-        />
-        <link rel="canonical" href={`https://www.jpmti2016.com${asPath}`} />
+        {meta.date && (
+          <meta content={t("metaDescription")} name="description" />
+        )}
+        <meta property="article:published_time" content={meta.date} />
+        {/* Open Graph / Facebook */}
         <meta property="og:type" content={meta.type} />
+        <meta property="og:url" content={`https://jpmti2016.com${asPath}`} />
+        <meta property="og:title" content={t("metaTitle")} />
+        <meta property="og:description" content={t("metaDescription")} />
         <meta property="og:site_name" content={meta.site_name} />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:title" content={meta.title} />
         <meta property="og:image" content={meta.image} />
+        <meta property="og:image:alt" content={t("metaTitle")} />
+        {/* Open Graph / Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@jpmti2016" />
-        <meta name="twitter:title" content={meta.title} />
-        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:title" content={t("metaTitle")} />
+        <meta name="twitter:description" content={t("metaDescription")} />
         <meta name="twitter:image" content={meta.image} />
-        {meta.date && (
-          <meta property="article:published_time" content={meta.date} />
-        )}
       </Head>
       <div>
         <h1 className="mb-4 text-4xl font-bold sm:mt-10 sm:mb-0">
