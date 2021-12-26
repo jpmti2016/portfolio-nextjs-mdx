@@ -21,7 +21,7 @@ export default function Home({ projects }) {
       "I am a Software Engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me.",
     type: "website",
     site_name: "Yampier Medina",
-    image: "https://jpmti2016.com/images/personal-portfolio_559.jpg",
+    image: "https://jpmti2016.com/images/home-page.jpg",
     date: "2021-07-01",
   };
 
@@ -34,24 +34,26 @@ export default function Home({ projects }) {
     <>
       {/* SEO */}
       <Head>
+        {/* Primary Meta Tags */}
         <title>{meta.title}</title>
-        <meta name="robots" content="follow, index" />
-        <meta content={meta.description} name="description" />
-        <meta property="og:url" content={`https://jpmti2016.com${asPath}`} />
         <link rel="canonical" href={`https://jpmti2016.com${asPath}`} />
+        <meta name="robots" content="follow, index" />
+        {meta.date && <meta content={meta.description} name="description" />}
+        <meta property="article:published_time" content={meta.date} />
+        {/* Open Graph / Facebook */}
         <meta property="og:type" content={meta.type} />
-        <meta property="og:site_name" content={meta.site_name} />
-        <meta property="og:description" content={meta.description} />
+        <meta property="og:url" content={`https://jpmti2016.com${asPath}`} />
         <meta property="og:title" content={meta.title} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:site_name" content={meta.site_name} />
         <meta property="og:image" content={meta.image} />
+        <meta property="og:image:alt" content={meta.title} />
+        {/* Open Graph / Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@jpmti2016" />
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
-        {meta.date && (
-          <meta property="article:published_time" content={meta.date} />
-        )}
       </Head>
       {/* Welcome */}
       <section id="welcome" className="bg-gray-100 dark:bg-gray-800 ">

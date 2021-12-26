@@ -1,0 +1,33 @@
+---
+title: Estrategias de salida para el comercio de valores de la bolsa
+id: 1
+image: "/images/exit-strategy-nextjs-web-app.png"
+stack:
+  [
+    "Next.js",
+    "AWS DataSore",
+    "GraphQL",
+    "Tailwind CSS",
+    "React Hook Form",
+    "dayjs",
+  ]
+description: Descripción
+demo: "https://www.beawareofbefore.com/"
+info: "https://github.com/jpmti2016/exit-strategy-blog-vercel"
+openToPublic: false
+---
+
+Teniendo el modelo GraphQL como centro, se generaron JavaScript tipos usados por AWS DataStore para implementar operaciones para crear,
+leer, actualizar, eliminar o listar entities (CRUDL).
+
+AWS Amplify facilita el despligue de aplicaciones desarrolladas con ReactJS para la nube. Pero en este escenario el requisito era de
+contar con soporte para cuando estás desconectado de la red o trabajas en modo local solamente (offline or local-only
+capabilities), cuestiones que fueron resueltas utilizando AWS DataStore sin tener que hacer despligue a la nube.
+
+El proyecto fue concebido como una herramienta gratis online para explorar estrategias de salida para el comercio de valores de la bolsa
+(exit stock trading) y la integración con SEO, pero el ser gratis influyó en que se buscaran opciones para reducir los costos operacionales.
+
+La solución resultante almacena los datos localmente en tu navegador personal, sin enviarlos a la nube. La API nunca es desplegada
+a la nube por lo que funciona como una aplicación completamente desconectada (offline).
+
+También incluye un blog para promover su visibilidad online, creado con contenido estático servido por Next.js lo que mejora el SEO.

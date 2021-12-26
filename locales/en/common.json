@@ -1,4 +1,6 @@
 {
+  "metaTitle": "Yampier Medina personal virtual garden",
+  "metaDescription": "I am a Software Engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, and git. Searching for job, 100% remote. Hire me.",
   "navLinkHome": "Home",
   "navLinkProjects": "Projects",
   "navLinkBlog": "Blog",
@@ -13,6 +15,6 @@
   "subscribeInputPlaceholder": "jhondoe@email.com",
   "subscribeInputSubmitLoading": "Loading",
   "subscribeInputSubmitText": "Subscribe",
-  "subscribeSuccessMessage": "Success",
-  "subscribeErrorMessage": "Error"
+  "subscribeSuccessMessage": "Awesome, thanks for your subscription!",
+  "subscribeErrorMessage": "Something went wrong. Please send me an email to jpmti2016@gmail.com and I will add you personally."
 }

@@ -74,7 +74,7 @@ export default function Blog({ posts }) {
                           ? `Updated ${dayjs(post?.data?.date).format(
                               "MMMM-DD-YYYY"
                             )}`
-                          : `Actualizado ${dayjs(posts?.data?.date).format(
+                          : `Actualizado ${dayjs(post?.data?.date).format(
                               "DD-MM-YYYY"
                             )}`
                       } | ${
