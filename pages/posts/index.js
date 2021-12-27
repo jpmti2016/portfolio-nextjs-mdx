@@ -14,10 +14,6 @@ export default function Blog({ posts }) {
   const { asPath, locale } = useRouter();
   const { t, lang } = useTranslation("posts");
   const meta = {
-    title:
-      "Collection of posts that cover my journey around code, SEO and learning",
-    description:
-      "Collection of posts that cover my journey around code, SEO and learning. Yes, sometimes the best way to learn is to explain something to someone else. And revisiting that content, when you are about to forget, is when you really can learn. Then better have your things in a place easy to find and share. And this blog was born...",
     url: "https://www.jpmti2016.com/posts",
     type: "website",
     site_name: "Yampier Medina",
@@ -30,6 +26,7 @@ export default function Blog({ posts }) {
         {/* Primary Meta Tags */}
         <title>{t("metaTitle")}</title>
         <link rel="canonical" href={`https://jpmti2016.com${asPath}`} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="follow, index" />
         {meta.date && (
           <meta content={t("metaDescription")} name="description" />
@@ -69,7 +66,7 @@ export default function Blog({ posts }) {
                         {post?.data?.title}
                       </h2>
                     </div>
-                    <p className="text-base">
+                    <p className="text-xl">
                       {`${
                         locale === "en"
                           ? `Updated ${dayjs(post?.data?.date).format(
@@ -86,7 +83,7 @@ export default function Blog({ posts }) {
                             )} min de lectura`
                       }`}
                     </p>
-                    <p className="pt-4 text-base sm:text-lg">
+                    <p className="pt-4 text-2xl sm:text-2xl">
                       {post?.data?.description}
                     </p>
                   </div>

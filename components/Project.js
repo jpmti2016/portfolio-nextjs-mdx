@@ -12,9 +12,9 @@ export default function Project({
   openToPublic,
 }) {
   return (
-    <div className="flex flex-col p-4 bg-gray-200 shadow-lg dark:bg-gray-900 sm:p-4">
+    <div className="flex flex-col p-4 bg-gray-200 shadow-lg dark:bg-gray-900 sm:p-8">
       <div>
-        <h3 className="mb-1 text-xl font-semibold leading-tight font-playfair">
+        <h3 className="mb-1 text-xl font-semibold sm:text-3xl font-playfair">
           {title}
         </h3>
         <div className="my-3 rounded-lg shadow-2xl sm:my-4 sm:w-full">
@@ -33,17 +33,17 @@ export default function Project({
           {stack?.map((tech) => (
             <span
               key={tech}
-              className="inline-block px-2 mr-1 text-xs font-semibold tracking-wide uppercase bg-gray-100 rounded-full dark:bg-gray-800 sm:mb-1"
+              className="inline-block px-2 mb-1 mr-1 text-lg font-medium tracking-wide uppercase bg-gray-100 rounded-full md:text-xl dark:bg-gray-800 sm:mb-2"
             >
               {tech}
             </span>
           ))}
         </p>
       </div>
-      <div className="mt-2 prose dark:prose-p:text-gray-300 md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:mt-4 prose-p:text-gray-700 prose-code:text-gray-700 prose-pre:shadow-sm prose-img:rounded-lg prose-pre:shadow-gray-300 dark:prose-headings:text-gray-200 dark:prose-blockquote:border-l-gray-700 dark:prose-blockquote:text-gray-300 dark:prose-hr:border-gray-700 dark:prose-ol:text-gray-400 dark:prose-ul:text-gray-400 dark:prose-tr:text-gray-400 dark:prose-thead:text-gray-200 dark:prose-tr:border-b-gray-700 dark:prose-strong:text-gray-300 dark:prose-code:text-gray-200 prose-a:text-amber-700 dark:prose-a:text-amber-500 hover:dark:prose-a:text-amber-300 hover:prose-a:text-amber-500 sm:max-w-3xl">
+      <div className="mt-2 prose-lg dark:prose-p:text-gray-300 md:prose-xl dark:prose-dark dark:md:prose-xl-dark sm:mt-4 prose-p:text-gray-700 prose-code:text-gray-700 prose-pre:shadow-sm prose-img:rounded-lg prose-pre:shadow-gray-300 dark:prose-headings:text-gray-200 dark:prose-blockquote:border-l-gray-700 dark:prose-blockquote:text-gray-300 dark:prose-hr:border-gray-700 dark:prose-ol:text-gray-400 dark:prose-ul:text-gray-400 dark:prose-tr:text-gray-400 dark:prose-thead:text-gray-200 dark:prose-tr:border-b-gray-700 dark:prose-strong:text-gray-300 dark:prose-code:text-gray-200 prose-a:text-amber-700 dark:prose-a:text-amber-500 hover:dark:prose-a:text-amber-300 hover:prose-a:text-amber-500 sm:max-w-3xl">
         <MDXRemote {...mdxSource} components={{ ...MDXComponents }} />
       </div>
-      <div className="mt-4 text-sm sm:pt-6 sm:text-base sm:mt-auto">
+      <div className="mt-4 text-lg md:text-xl sm:pt-6 sm:text-base sm:mt-auto">
         <a
           className="shadow-lg btn btn-blue"
           href={demo}

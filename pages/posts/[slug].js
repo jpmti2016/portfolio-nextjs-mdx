@@ -78,7 +78,7 @@ export default function Post({ source, frontMatter, timeToRead }) {
             <div>{`${updated} | ${time}`}</div>
           </div>
         </header>
-        <main className="prose prose-p:text-gray-700 prose-code:text-gray-700 prose-pre:shadow-sm prose-img:rounded-lg prose-pre:shadow-gray-300 dark:prose-headings:text-gray-200 dark:prose-p:text-gray-300 dark:prose-blockquote:border-l-gray-700 dark:prose-blockquote:text-gray-300 dark:prose-hr:border-gray-700 dark:prose-ol:text-gray-400 dark:prose-ul:text-gray-400 dark:prose-tr:text-gray-400 dark:prose-thead:text-gray-200 dark:prose-tr:border-b-gray-700 dark:prose-strong:text-gray-300 dark:prose-code:text-gray-200 md:prose-lg prose-a:text-amber-700 dark:prose-a:text-amber-500 hover:dark:prose-a:text-amber-300 hover:prose-a:text-amber-500 dark:md:prose-lg-dark sm:max-w-3xl">
+        <main className="prose prose-p:text-gray-700 prose-code:text-gray-700 prose-pre:shadow-sm prose-img:rounded-lg prose-pre:shadow-gray-300 dark:prose-headings:text-gray-200 dark:prose-p:text-gray-300 dark:prose-blockquote:border-l-gray-700 dark:prose-blockquote:text-gray-300 dark:prose-hr:border-gray-700 dark:prose-ol:text-gray-400 dark:prose-ul:text-gray-400 dark:prose-tr:text-gray-400 dark:prose-thead:text-gray-200 dark:prose-tr:border-b-gray-700 dark:prose-strong:text-gray-300 dark:prose-code:text-gray-200 md:prose-xl prose-a:text-amber-700 dark:prose-a:text-amber-500 hover:dark:prose-a:text-amber-300 hover:prose-a:text-amber-500 dark:md:prose-xl-dark sm:max-w-3xl">
           <MDXRemote {...source} components={{ ...MDXComponents }} />
         </main>
         <Subscribe locale={locale} />
@@ -147,7 +147,7 @@ export const getStaticProps = async ({ params, locale }) => {
   };
 };
 
-export const getStaticPaths = async (context) => {
+export const getStaticPaths = async () => {
   const postsPath = folderPath("posts");
   const postFilesPath = filesPath(postsPath);
 
