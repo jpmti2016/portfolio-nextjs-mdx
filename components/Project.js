@@ -40,7 +40,7 @@ export default function Project({
           ))}
         </p>
       </div>
-      <div className="mt-2 prose-lg dark:prose-p:text-gray-300 md:prose-xl dark:prose-dark dark:md:prose-xl-dark sm:mt-4 prose-p:text-gray-700 prose-code:text-gray-700 prose-pre:shadow-sm prose-img:rounded-lg prose-pre:shadow-gray-300 dark:prose-headings:text-gray-200 dark:prose-blockquote:border-l-gray-700 dark:prose-blockquote:text-gray-300 dark:prose-hr:border-gray-700 dark:prose-ol:text-gray-400 dark:prose-ul:text-gray-400 dark:prose-tr:text-gray-400 dark:prose-thead:text-gray-200 dark:prose-tr:border-b-gray-700 dark:prose-strong:text-gray-300 dark:prose-code:text-gray-200 prose-a:text-amber-700 dark:prose-a:text-amber-500 hover:dark:prose-a:text-amber-300 hover:prose-a:text-amber-500 sm:max-w-3xl">
+      <div className="mt-2 prose-lg dark:prose-p:text-gray-300 md:prose-xl dark:prose-dark dark:md:prose-xl-dark sm:mt-4 prose-p:text-gray-700 prose-code:text-gray-900 prose-pre:shadow-sm prose-img:rounded-lg prose-pre:shadow-gray-300 dark:prose-headings:text-gray-200 dark:prose-blockquote:border-l-gray-700 dark:prose-blockquote:text-gray-300 dark:prose-hr:border-gray-700 dark:prose-ol:text-gray-400 dark:prose-ul:text-gray-400 dark:prose-tr:text-gray-400 dark:prose-thead:text-gray-200 dark:prose-tr:border-b-gray-700 dark:prose-strong:text-gray-300 dark:prose-code:text-gray-200 prose-a:text-amber-700 dark:prose-a:text-amber-500 hover:dark:prose-a:text-amber-300 hover:prose-a:text-amber-500 sm:max-w-3xl">
         <MDXRemote {...mdxSource} components={{ ...MDXComponents }} />
       </div>
       <div className="mt-4 text-lg md:text-xl sm:pt-6 sm:text-base sm:mt-auto">

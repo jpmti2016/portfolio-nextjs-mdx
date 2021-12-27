@@ -20,52 +20,73 @@ related: ["async-update-related-items", "vercel-aws-route-53-custom-domain"]
 
 ## TLDR
 
-Keep your user's privacy at the center of your practices as established by GDPR and California law. Set `ad_storage='denied'`, `analytics_storage='denied'`, `gtag('set', 'ads_data_redaction', true)` and `'anonymize_ip': true` for less intrusion while enjoy the great features of the new Google Analytics 4 in your Next.js web app.
+Keep your user's privacy at the center of your practices as established by GDPR and California law. Set `ad_storage='denied'`,
+`analytics_storage='denied'`, `gtag('set', 'ads_data_redaction', true)` and `'anonymize_ip': true` for less intrusion while enjoy the
+great features of the new Google Analytics 4 in your Next.js web app.
 
 ## Data privacy
 
-A never ending struggle between security, functionality, personalization, marketing, monetization and the impact on the privacy of the users. If you put your user's privacy at the center then privacy by design is a must, and if you also want to improve usability then the strictest privacy by default is the way.
+A never ending struggle between security, functionality, personalization, marketing, monetization and the impact on the privacy of the
+users. If you put your user's privacy at the center then privacy by design is a must, and if you also want to improve usability then the
+strictest privacy by default is the way.
 
-At this point probably you have determined that working toward data minimization, pragmatic data retention, token based identifiers and third party / single sign in solutions should be included in your design decisions from the beginning.
+At this point probably you have determined that working toward data minimization, pragmatic data retention, token based identifiers and
+third party / single sign in solutions should be included in your design decisions from the beginning.
 
-Why ask for information that you don’t need or why to save data for unconceived features. Data that sometimes is not opportune deleted or properly anonymised and stored. Less data is less liability upon data breach or security exposure.
+Why ask for information that you don’t need or why to save data for unconceived features. Data that sometimes is not opportune deleted or
+properly anonymised and stored. Less data is less liability upon data breach or security exposure.
 
 Under [GDPR](https://gdpr-info.eu/issues/consent/)
 
-> processing personal data is generally prohibited, unless it is expressly allowed by law, or the data subject has consented to the processing”. And you have to comply with “valid legal consent, contract, legal obligations, vital interest of the data subject, public interest and legitimate interest.
+> processing personal data is generally prohibited, unless it is expressly allowed by law, or the data subject has consented to the
+> processing”. And you have to comply with “valid legal consent, contract, legal obligations, vital interest of the data subject, public interest and legitimate interest.
 
 It is always recommended that you consult a lawyer about your data privacy practices and implementations.
 
-When data privacy is your main focus, users' consent should default to ‘denied’. Just set the privacy preferences by default up to only the essential information. No annoying pop-up or banner, misleading buttons or unclear consent actions.
+When data privacy is your main focus, users' consent should default to ‘denied’. Just set the privacy preferences by default up to only the
+essential information. No annoying pop-up or banner, misleading buttons or unclear consent actions.
 
-Create privacy policies explaining in simple terms what data you collect and what you do to protect the privacy and all the [available options as established under GDPR and California law](https://support.google.com/analytics/answer/9019185?hl=en&ref_topic=2919631#zippy=%2Cin-this-article) with easy to opt-out and data deletion friendly functionalities.
+Create privacy policies explaining in simple terms what data you collect and what you do to protect the privacy and all the
+[available options as established under GDPR and California law](https://support.google.com/analytics/answer/9019185?hl=en&ref_topic=2919631#zippy=%2Cin-this-article)
+with easy to opt-out and data deletion friendly functionalities.
 
-There is a real necessity to monitor your website to improve performance, monetization or personalization, but increasing data breaches and security exposures put the focus on [rising consumer expectations, regulatory developments, and changing technology standards for user privacy](https://blog.google/products/marketingplatform/analytics/new_google_analytics/).
+There is a real necessity to monitor your website to improve performance, monetization or personalization, but increasing data breaches
+and security exposures put the focus on [rising consumer expectations, regulatory developments, and changing technology standards for user privacy](https://blog.google/products/marketingplatform/analytics/new_google_analytics/).
 
 ## Consent mode
 
-Google has deployed [consent mode (beta)](https://support.google.com/analytics/answer/9976101) where you can adjust the Google tags based on consent status by user actions, but could be set by default. Includes support for Google Analytics, Floodlight and Google Ads (partially). You can integrate Content Management Platforms with consent mode and consent settings in Google Tag Manager but we are going to code it into a Next.js web app for the 'denied' state.
+Google has deployed [consent mode (beta)](https://support.google.com/analytics/answer/9976101) where you can adjust the Google tags based
+on consent status by user actions, but could be set by default. Includes support for Google Analytics, Floodlight and Google Ads (partially).
+You can integrate Content Management Platforms with consent mode and consent settings in Google Tag Manager but we are going to code it
+into a Next.js web app for the 'denied' state.
 
-With consent mode you give back the control to the user. But it also [makes it easier to work with consented data, to improve your measurements in a less intrusive way and to unlock machine learning generated insights with the new Google Analytics 4](https://blog.google/products/ads-commerce/future-proof-measurement-privacy-safe-solutions/?_ga=2.114197511.1482718855.1625802084-2066430438.1625802084). If you are new to Google Analytics 4 check this Google’s [mini guides](https://support.google.com/analytics/topic/9328240?hl=en&ref_topic=9143232) and [resources](https://developers.google.com/analytics/devguides/platform).
+With consent mode you give back the control to the user. But it also makes it easier to work with consented data, to improve your
+[measurements in a less intrusive way and to unlock machine learning generated insights with the new Google Analytics 4](https://blog.google/products/ads-commerce/future-proof-measurement-privacy-safe-solutions/?_ga=2.114197511.1482718855.1625802084-2066430438.1625802084).
+If you are new to Google Analytics 4 check this Google’s [mini guides](https://support.google.com/analytics/topic/9328240?hl=en&ref_topic=9143232) and [resources](https://developers.google.com/analytics/devguides/platform).
 
-After the consent mode is deployed, the behavior is updated to, in the case of Google Analytics pings, “be sent on each page of a website where Google Analytics is implemented and upon events being logged”.
+After the consent mode is deployed, the behavior is updated to, in the case of Google Analytics pings, “be sent on each page of a website
+where Google Analytics is implemented and upon events being logged”.
 
-When consent for ad storage or analytics is denied, the measurement functions adjust their behavior resulting in collecting less user data. Check the complete table that contains the explanation to the following [configurations of consent mode](https://support.google.com/analytics/answer/9976101):
+When consent for ad storage or analytics is denied, the measurement functions adjust their behavior resulting in collecting less user data.
+Check the complete table that contains the explanation to the following [configurations of consent mode](https://support.google.com/analytics/answer/9976101):
 
 - ad_storage='denied'
 - ad_storage='denied' and ads_data_redaction='true’
 - analytics_storage='denied'
 - ad_storage='granted' and analytics_storage='granted'
 
-In all cases pings may include functional information with timestamp, user agent and referrer; and aggregate / non-identifying information like consent state, random number for each page load, consent platform used and the inclusion of ad-click information.
+In all cases pings may include functional information with timestamp, user agent and referrer; and aggregate / non-identifying information
+like consent state, random number for each page load, consent platform used and the inclusion of ad-click information.
 
-So the question is how to keep collecting info of your website/app with Google Analytics 4 while preserving the user privacy by establishing the consent mode as ‘denied’ by default.
+So the question is how to keep collecting info of your website/app with Google Analytics 4 while preserving the user privacy by
+establishing the consent mode as ‘denied’ by default.
 
 To answer that you have to check the different configurations of the gtag in consent mode.
 
 ## Consent mode ‘denied’ status
 
-We are going to give all users the same protections guaranteed under GDPR and California law when we use Google Analytics 4 related to data privacy and consent but if you need to tailor it to specific regions consult the [region parameter of the gtag](https://developers.google.com/gtagjs/devguide/consent).
+We are going to give all users the same protections guaranteed under GDPR and California law when we use Google Analytics 4 related to
+data privacy and consent but if you need to tailor it to specific regions consult the [region parameter of the gtag](https://developers.google.com/gtagjs/devguide/consent).
 
 The Google consent mode default behavior works as if all consent options are ‘granted’, we are going to change that to have:
 
@@ -86,7 +107,8 @@ gtag("consent", "default", {
 gtag("set", "ads_data_redaction", true);
 ```
 
-> When 'ads_data_redaction' is true and 'ad_storage' is 'denied', ad click identifiers sent in network requests by Google Ads and Floodlight tags will be redacted. Network requests will also be sent through a cookieless domain.”
+> When 'ads_data_redaction' is true and 'ad_storage' is 'denied', ad click identifiers sent in network requests by Google Ads and
+> Floodlight tags will be redacted. Network requests will also be sent through a cookieless domain.”
 
 - IP anonymization.
 
@@ -99,7 +121,8 @@ gtag("config", "${GA_TRACKING_ID}", {
 
 ## Next.js and Google Analytics 4
 
-In general to add Analytic to your Next.js app you have to include the `googletagmanager` and the `gtag` config in your `_document.js` guaranteeing that it is loaded in each page.
+In general to add Analytic to your Next.js app you have to include the `googletagmanager` and the `gtag` config in your `_document.js`
+guaranteeing that it is loaded in each page.
 
 Next.js with Google Analytics [without consent mode](https://github.com/vercel/next.js/tree/canary/examples/with-google-analytics).
 
@@ -148,7 +171,8 @@ import { GA_TRACKING_ID } from "../utils/gtag";
 </Head>
 ```
 
-Access the Google Analytics 4 property datastream ID (`Google Analytics / Admin / Property / DataStreams / Data Stream X / Measurement ID`) and configure the environment variable in Vercel for one or more environments (Production, Preview, Development) .
+Access the Google Analytics 4 property datastream ID (`Google Analytics / Admin / Property / DataStreams / Data Stream X / Measurement ID`)
+and configure the environment variable in Vercel for one or more environments (Production, Preview, Development) .
 
 For local development you can pull it with the `vercel env pull` command and follow any instructions.
 
@@ -158,7 +182,8 @@ Then it will be ready to use.
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
 ```
 
-For [measuring pageviews](https://developers.google.com/analytics/devguides/collection/gtagjs/pages) we will depend on the `next/router` events triggered when the user jumps between pages.
+For [measuring pageviews](https://developers.google.com/analytics/devguides/collection/gtagjs/pages) we will depend on the `next/router`
+events triggered when the user jumps between pages.
 
 ```javascript
 export const pageview = (url) => {
@@ -188,7 +213,8 @@ useEffect(() => {
 }, [router.events]);
 ```
 
-You can also [measure other events](https://developers.google.com/analytics/devguides/collection/gtagjs/events) like CTA clicks by registering specific actions on different Next.js pages.
+You can also [measure other events](https://developers.google.com/analytics/devguides/collection/gtagjs/events) like CTA clicks by
+registering specific actions on different Next.js pages.
 
 ```javascript
 export const event = ({ action, category, label, value }) => {
@@ -212,15 +238,18 @@ const handleClickHireMe = (e) => {
 };
 ```
 
-For reuse purposes you should export `GA_TRACKING_ID`, `pageview` and `event` from your directory of choice according to your company Next.js folder structure guidelines.
+For reuse purposes you should export `GA_TRACKING_ID`, `pageview` and `event` from your directory of choice according to your company
+Next.js folder structure guidelines.
 
-Google defines [different types of events](https://developers.google.com/analytics/devguides/collection/ga4/events) but you can also create your custom events to target your specific use case.
+Google defines [different types of events](https://developers.google.com/analytics/devguides/collection/ga4/events) but you can also
+create your custom events to target your specific use case.
 
 To see all together [check this repo](https://github.com/jpmti2016/portfolio-nextjs-mdx/tree/google-analytics).
 
 ## Testing your Google Analytics
 
-The fastest way is to check the Google Analytics Realtime report in your `Google Analytics / Account / Property / Realtime overview`. Look for the events being recorded or have realtime users.
+The fastest way is to check the Google Analytics Realtime report in your `Google Analytics / Account / Property / Realtime overview`. Look
+for the events being recorded or have realtime users.
 
 Otherwise use the [tag assistant](https://tagassistant.google.com/) to [debug your global site tag installations](https://support.google.com/tagassistant/answer/10039345#zippy=%2Cin-this-article).
 
@@ -234,17 +263,24 @@ Otherwise use the [tag assistant](https://tagassistant.google.com/) to [debug yo
 
 ## Adjust tag behavior based on user consent actions
 
-If you need to collect more data then you have to implement the functionality to ask the user for authorization to that data and adjust the tag behavior in response to the consent status.
+If you need to collect more data then you have to implement the functionality to ask the user for authorization to that data and adjust
+the tag behavior in response to the consent status.
 
 ### Custom cookie banner
 
 You can check a rustic implementation of the [cookie banner for Google Analytics here](https://github.com/jpmti2016/portfolio-nextjs-mdx/tree/google-analytics).
 
-The cookie banner starts with all cookies set to `denied` by default as previously explained and after any changes, it works to keep it that way the cookies that are not explicitly accepted.
+The cookie banner starts with all cookies set to `denied` by default as previously explained and after any changes, it works to keep it
+that way the cookies that are not explicitly accepted.
 
-The CookieBanner component tracks the state for different variables of the `consented` state, when the `consent` is set to `true` it indicate that the user already decided to accept or reject the cookies (action taken), so the banner will not be showed in the future. The consented info is stored on Local Storage by the `useLocalStorageState` hook the first time and will be read from Local Storage after that.
+The CookieBanner component tracks the state for different variables of the `consented` state, when the `consent` is set to `true` it
+indicates that the user already decided to accept or reject the cookies (action taken), so the banner will not be shown in the future.
+The consented info is stored on Local Storage by the `useLocalStorageState` hook the first time and will be read from Local Storage after
+that.
 
-The main paths are when the user accepts or rejects all cookies, actions that are accomplished by the `acceptAll` and `rejectAll` functions. Is assumed also that when the user closes the banner without explicit action, the intention is to reject the cookies so the `rejectAll` function is called.
+The main paths are when the user accepts or rejects all cookies, actions that are accomplished by the `acceptAll` and `rejectAll`
+functions. Is assumed also that when the user closes the banner without explicit action, the intention is to reject the cookies so the
+`rejectAll` function is called.
 
 ```javascript
 import {
@@ -258,18 +294,27 @@ import {
 
 When the user decides to fine tune the cookies selection, the configuration path, there is a more complex UI.
 
-An static array (you could also requested from your database dynamically if it is you case) containing the data for the different cookie types that you manage in your website is supplied to the `CookieItems` component that is used to create a list of `CookieBannerItem` (naming should be improved, I agree ...). The `CookieItems` will show the list of the cookies that you use in your website by category (necessary, analytics, advertising, functional, etc.) and the user would decide if to accept or reject any category type.
+An static array (you could also requested from your database dynamically if it is you case) containing the data for the different cookie
+types that you manage in your website is supplied to the `CookieItems` component that is used to create a list of `CookieBannerItem`
+(naming should be improved, I agree ...). The `CookieItems` will show the list of the cookies that you use in your website by category
+(necessary, analytics, advertising, functional, etc.) and the user would decide if to accept or reject any category type.
 
-You can add cookies from different services to the cookie categories array if needed. Some sites just explain the categories and link to the privacy statement with the full explanation of every cookie use.
+You can add cookies from different services to the cookie categories array if needed. Some sites just explain the categories and link to
+the privacy statement with the full explanation of every cookie use.
 
 After a user selection, the rest of the options are set to `false` to double check that the not selected options are kept rejected.
 
 ### Paid privacy first analytics services
 
-If you really need to check analytics about your website, and want to be a privacy-first, SEO friendly, GDPR, CCPA, ePrivacy, PECR compliant without the annoying cookie banner, that not harvest user data but still provide fast loading script and get a full picture of the traffic to your website even when script are blocked consider using paying services like [Fathom](https://usefathom.com/ref/OPXQNO) or [Plausible](https://plausible.io/). They have affordable options to select. Plausible starts at $6 / month for 10k pageviews and Fathom starts at $14 / month for 100k pageviews. Fathom is a referral link, I would get a commision if you use it from my referral.
+If you really need to check analytics about your website, and want to be a privacy-first, SEO friendly, GDPR, CCPA, ePrivacy, PECR
+compliant without the annoying cookie banner, that not harvest user data but still provide fast loading script and get a full picture of
+the traffic to your website even when script are blocked consider using paying services like [Fathom](https://usefathom.com/ref/OPXQNO) or
+[Plausible](https://plausible.io/). They have affordable options to select. Plausible starts at $6 / month for 10k pageviews and Fathom
+starts at $14 / month for 100k pageviews. Fathom is a referral link, I would get a commision if you use it from my referral.
 
 ### Others consent management platforms
 
-It is also possible to use Consent Management Platforms or libraries that implement the full consent mode in partnership with Google like [Osano](https://osano.com/), [OneTrust](https://onetrust.com/) and [CookieBot](https://cookiebot.com/en/).
+It is also possible to use Consent Management Platforms or libraries that implement the full consent mode in partnership with Google like
+[Osano](https://osano.com/), [OneTrust](https://onetrust.com/) and [CookieBot](https://cookiebot.com/en/).
 
 For more explanations consult this [Google devguide](https://developers.google.com/gtagjs/devguide/consent).

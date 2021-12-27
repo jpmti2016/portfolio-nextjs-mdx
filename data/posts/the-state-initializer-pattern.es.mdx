@@ -1,6 +1,6 @@
 ---
 title: El patrón inicializador de estado.
-description: Un patrón simple usado en librerías tales como `downshift` y `ReachUI` para habilitar usauarios de un componente/hook, la inicialización o reinicio de tu estado a ese valor inicial.
+description: Un patrón simple usado en librerías tales como `downshift` y `ReachUI` para habilitar usuarios de un componente/hook, la inicialización o reinicio de tu estado a ese valor inicial.
 type: "article"
 site_name: "Yampier Medina personal website"
 image: "https://www.jpmti2016.com/images/silvio-kundt-Fixg8KipOg8-unsplash.jpg"
@@ -24,8 +24,8 @@ Imagen de [Silvio Kundt](https://unsplash.com/photos/Fixg8KipOg8)
 > creado por [Kent C. Dodds](https://kentcdodds.com/).
 
 Cuando estaba trabajando en [`downshift`](https://github.com/downshift-js/downshift),
-me econtré con una situación donde mis usuarios (y yo también) necesitaban la habilidad de poder
-reiniciar el `dropdown`, que estabamos programando, en cualquier momento a su estado inicial: ningún
+me encontré con una situación donde mis usuarios (y yo también) necesitaban la habilidad de poder
+reiniciar el `dropdown`, que estábamos programando, en cualquier momento a su estado inicial: ningún
 valor de entrada (no input value), nada destacado (highlighted), nada seleccionado, cerrado. Pero también habían
 usuarios que querían que el "estado inicial" tuviera por defecto algún valor, alguna selección,
 o permaneciera abierto. Entonces se me ocurrió el patrón inicializador de estado para dar soporte
@@ -99,9 +99,9 @@ Y aquí está con un contador inicial igual a `8`:
   <InitialCounterAlmostThere initialCount={8} />
 </div>
 
-Eso es el núcleo del patrón. Pero le falta un importante caso extremo.
+Ese es el núcleo del patrón. Pero le falta un importante caso extremo.
 
-Qué sucedería si el usuario de tu componente cambia el valor de `initialCount` depués
+¿Qué sucedería si el usuario de tu componente cambia el valor de `initialCount` después
 que tu componente está montado? Invalidaría esto el propósito de toda la parte `initial` (inicial)
 del nombre de la propiedad? Aquí está un ejemplo donde el consumidor de nuestro contador
 cambia `initialCount` cada 500 milisegundos luego de haberse montado inicialmente (initial mount).
@@ -110,11 +110,11 @@ cambia `initialCount` cada 500 milisegundos luego de haberse montado inicialment
   <BugReproduced />
 </div>
 
-Haciendo clic en el botón "reset" (reininiciar) reiniciará nuestro componente en un
+Haciendo clic en el botón "reset" (reiniciar) reiniciará nuestro componente en un
 estado diferente a su estado inicial, lo que es probablemente un error, por lo que
 queremos que esto no sea posible. Haz clic varias veces y este se reiniciará con un valor
 completamente diferente cada vez. Claro, estoy de acuerdo contigo. Este es un ejemplo de
-alguien unsando la API incorrectamente. Pero como no es mucho trabajo, probablemente estaríamos
+alguien usando la API incorrectamente. Pero como no es mucho trabajo, probablemente estaríamos
 de acuerdo en hacer esto imposible.
 
 Entonces, cómo podríamos agarrar el valor inicial real e ignorar cualquier cambio a esta
@@ -148,7 +148,7 @@ componente no se afectaría.
 Otra cosa que quisiera resaltar es que realmente puedes reiniciar un componente muy fácil sin
 necesidad de una API específicamente para ello. Existe una API embebida en React para todos los componentes:
 la propiedad `key`. Simplemente proporcionas una `key` y estableces esa propiedad `key` con un nuevo valor cada
-vez que quieras reiniciar el componente. Esto desmontará and montará el componente como nuevo. Compruébalo
+vez que quieras reiniciar el componente. Esto desmontará y montará el componente como nuevo. Compruébalo
 en el siguiente código:
 
 ```tsx
@@ -165,7 +165,7 @@ function Counter({ reset }: { reset: () => void }) {
 }
 ```
 
-Y aquí está rendereado:
+Y aquí está renderizado:
 
 <div className="demo">
   <KeyPropReset initialCount={10} />
@@ -178,7 +178,7 @@ Adicionalmente, desmontar y montar el componente nuevamente (que es lo que la pr
 implicaciones. Por ejemplo en mi taller **Patrones Avanzados de React** [(Advanced React Patterns)](https://kentcdodds.com/workshops/advanced-react-patterns), tenemos una animación
 cuando el estado cambia. Mira el impacto de la propiedad `key` en esto:
 
-**Con el enfoque reincio por `key`** (aviso no hay animación):
+**Con el enfoque reinicio por `key`** (aviso no hay animación):
 
 [![Haciendo clic en el componente `toggle`, luego en el botón de reiniciar (reset) no muestra animación por reiniciar](https://res.cloudinary.com/kentcdodds-com/image/upload/v1636121505/kentcdodds.com/content/blog/the-state-initializer-pattern/key-reset.gif)](https://advanced-react-patterns-next.netlify.app/isolated/examples/resetting-via-key-prop.tsx)
 
@@ -191,6 +191,7 @@ También desmontar y remontar componentes hará llamadas a la función de limpie
 
 ## Conclusión
 
-El patrón inicializador de estado es muy simple. De hecho, lo omití durante un largo período de mi taller **Patrones Avanzados de React** [(Advanced React Patterns)](https://kentcdodds.com/workshops/advanced-react-patterns)
-porque pensaba que no merecía dedicarle tiempo. Pero durante varios talleres sin este la
-gente me preguntaba por questiones que este resuelve, por lo que decidí añadirlo. Espero que este artículo te ayude con tu trabajo. Buena suerte!!
+El patrón inicializador de estado es muy simple. De hecho, lo omití durante un largo período de mi taller **Patrones Avanzados de React**
+[(Advanced React Patterns)](https://kentcdodds.com/workshops/advanced-react-patterns) porque pensaba que no merecía dedicarle tiempo.
+Pero durante varios talleres sin este la gente me preguntaba por cuestiones que este resuelve, por lo que decidí añadirlo. Espero que
+este artículo te ayude con tu trabajo. Buena suerte!!
