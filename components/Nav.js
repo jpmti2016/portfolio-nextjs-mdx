@@ -7,6 +7,7 @@ import Image from "next/image";
 import jpmti2016 from "../public/images/jpmti2016.jpeg";
 import Menu from "./Menu";
 import MobileButton from "./MobileButton";
+import ChangeLanguage from "./ChangeLanguage";
 
 export default function Nav() {
   const [mounted, setMounted] = useState(false);
@@ -57,9 +58,11 @@ export default function Nav() {
             <MoonIcon className="w-5 h-5 sm:h-8 sm:w-8" />
           )}
         </button>
+        <div className="block sm:hidden">
+          <ChangeLanguage />
+        </div>
         <MobileButton setToggled={setToggled} toggled={toggled} />
       </div>
-
       <Menu setToggled={setToggled} toggled={toggled} />
     </nav>
   );

@@ -62,11 +62,11 @@ export default function Blog({ posts }) {
                 <a className="no-underline">
                   <div className="">
                     <div>
-                      <h2 className="text-xl font-semibold sm:text-3xl">
+                      <h2 className="text-2xl font-semibold sm:text-3xl">
                         {post?.data?.title}
                       </h2>
                     </div>
-                    <p className="text-xl">
+                    <p className="text-lg">
                       {`${
                         locale === "en"
                           ? `Updated ${dayjs(post?.data?.date).format(
@@ -83,7 +83,7 @@ export default function Blog({ posts }) {
                             )} min de lectura`
                       }`}
                     </p>
-                    <p className="pt-4 text-2xl sm:text-2xl">
+                    <p className="pt-4 text-xl sm:text-2xl line-clamp-3 sm:line-clamp-5">
                       {post?.data?.description}
                     </p>
                   </div>
