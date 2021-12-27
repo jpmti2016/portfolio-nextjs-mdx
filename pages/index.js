@@ -188,31 +188,35 @@ export default function Home({ projects }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
   const projectsPath = folderPath("projects");
   const projectFilesPath = filesPath(projectsPath);
 
+  const localeFilePathRegex = `.${locale}.mdx?$`;
+
   const projects = await Promise.all(
-    projectFilesPath.map(async (filePath) => {
-      const source = fs.readFileSync(path.join(projectsPath, filePath));
+    projectFilesPath
+      .filter((filePath) => filePath.match(localeFilePathRegex))
+      .map(async (filePath) => {
+        const source = fs.readFileSync(path.join(projectsPath, filePath));
 
-      const { content, data } = matter(source);
+        const { content, data } = matter(source);
 
-      const mdxSource = await serialize(content, {
-        // Optionally pass remark/rehype plugins
-        mdxOptions: {
-          remarkPlugins: [],
-          rehypePlugins: [],
-        },
-        scope: data,
-      });
+        const mdxSource = await serialize(content, {
+          // Optionally pass remark/rehype plugins
+          mdxOptions: {
+            remarkPlugins: [],
+            rehypePlugins: [],
+          },
+          scope: data,
+        });
 
-      return {
-        content,
-        data,
-        mdxSource,
-      };
-    })
+        return {
+          content,
+          data,
+          mdxSource,
+        };
+      })
   );
 
   projects.sort((p1, p2) => p1.data.id - p2.data.id);
