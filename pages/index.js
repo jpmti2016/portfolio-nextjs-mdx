@@ -118,7 +118,7 @@ export default function Home({ projects }) {
             <p className="mb-3">
               <span className="font-medium">
                 <a
-                  className="text-amber-700 dark:text-amber-500 hover:dark:text-amber-300 hover:text-amber-500"
+                  className="text-amber-800 dark:text-amber-600 hover:dark:text-amber-300 hover:text-amber-500"
                   href="https://epicreact.dev/"
                   target="_blank"
                   rel="noreferrer noopener"
@@ -129,7 +129,7 @@ export default function Home({ projects }) {
               {t("main:aboutEpicReactStatus")}
               <span className="font-medium">
                 <a
-                  className="text-amber-700 dark:text-amber-500 hover:dark:text-amber-300 hover:text-amber-500"
+                  className="text-amber-800 dark:text-amber-600 hover:dark:text-amber-300 hover:text-amber-500"
                   href="https://epicreact.dev/"
                   target="_blank"
                   rel="noreferrer noopener"

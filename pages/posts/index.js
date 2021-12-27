@@ -70,7 +70,7 @@ export default function Blog({ posts }) {
                       {`${
                         locale === "en"
                           ? `Updated ${dayjs(post?.data?.date).format(
-                              "MMMM-DD-YYYY"
+                              "MM-DD-YYYY"
                             )}`
                           : `Actualizado ${dayjs(post?.data?.date).format(
                               "DD-MM-YYYY"
