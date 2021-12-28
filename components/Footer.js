@@ -10,8 +10,8 @@ export default function Footer() {
     >
       <div className="">
         {/* <div className="text-yellow-600 dark:bg-blue-900"> */}
-        <div className="flex flex-col items-center content-center justify-center text-xl">
-          <div className="flex mb-3 space-x-5 text-2xl sm:text-5xl sm:space-x-10">
+        <div className="flex flex-col items-center content-center justify-center ">
+          <div className="flex mb-3 space-x-5 sm:space-x-10">
             <a
               className="block"
               aria-label={t("linkTwitterAriaLabel")}
@@ -111,10 +111,8 @@ export default function Footer() {
               </svg>
             </a>
           </div>
-          <p className="text-lg sm:text-xl font-playfair">
-            {t("authorFooter")}
-          </p>
-          <p className="text-lg sm:text-xl font-code">{t("copyRightFooter")}</p>
+          <p className="m-0 font-playfair">{t("authorFooter")}</p>
+          <p className="m-0 font-code">{t("copyRightFooter")}</p>
         </div>
       </div>
     </footer>

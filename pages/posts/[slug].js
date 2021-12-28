@@ -78,7 +78,7 @@ export default function Post({ source, frontMatter, timeToRead }) {
             <div>{`${updated} | ${time}`}</div>
           </div>
         </header>
-        <main className="mt-2 prose-lg dark:prose-p:text-gray-300 md:prose-xl dark:prose-dark dark:md:prose-xl-dark sm:mt-4 prose-p:text-gray-700 prose-code:text-gray-900 prose-pre:shadow-sm prose-img:rounded-lg prose-pre:shadow-gray-300 dark:prose-headings:text-gray-200 dark:prose-blockquote:border-l-gray-700 dark:prose-blockquote:text-gray-300 dark:prose-hr:border-gray-700 dark:prose-ol:text-gray-400 dark:prose-ul:text-gray-400 dark:prose-tr:text-gray-400 dark:prose-thead:text-gray-200 dark:prose-tr:border-b-gray-700 dark:prose-strong:text-gray-300 dark:prose-code:text-gray-200 prose-a:text-amber-800 dark:prose-a:text-amber-500 hover:dark:prose-a:text-amber-300 hover:prose-a:text-amber-500 sm:max-w-3xl">
+        <main className="prose-lg sm:prose-xl dark:prose-invert prose-h1:text-4xl sm:prose-h1:text-6xl prose-pre:shadow-sm prose-pre:shadow-gray-300 prose-pre:bg-gray-800 prose-img:rounded-md prose-a:text-amber-800 dark:prose-a:text-amber-500 hover:dark:prose-a:text-amber-300 hover:prose-a:text-amber-500 sm:max-w-3xl prose-blockquote:border-l-gray-400 prose-blockquote:border-l-4 prose-ul:list-disc prose-blockquote:italic">
           <MDXRemote {...source} components={{ ...MDXComponents }} />
         </main>
         <Subscribe locale={locale} />

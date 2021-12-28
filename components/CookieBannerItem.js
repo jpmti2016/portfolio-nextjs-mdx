@@ -61,7 +61,7 @@ export default function CookieBannerItem({
   return (
     <div className="" id={`${classification}`}>
       <div className="py-2">
-        <div className="flex items-baseline py-2 text-xl font-semibold">
+        <div className="flex items-baseline py-2  font-semibold">
           <input
             id={`${classification}-checkbox`}
             type="checkbox"

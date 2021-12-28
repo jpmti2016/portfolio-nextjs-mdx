@@ -48,9 +48,7 @@ export default function Blog({ posts }) {
         <meta name="twitter:image" content={meta.image} />
       </Head>
       <div>
-        <h1 className="mb-4 text-4xl font-bold sm:mt-10 sm:mb-0">
-          {t("blogTitle")}
-        </h1>
+        <h1 className="mb-4 font-bold sm:mt-10 sm:mb-0">{t("blogTitle")}</h1>
         <Subscribe className="mb-8 sm:mb-24" locale={locale} />
         <div className="space-y-6 sm:space-y-20">
           {posts?.map((post) => (
@@ -62,11 +60,11 @@ export default function Blog({ posts }) {
                 <a className="no-underline">
                   <div className="">
                     <div>
-                      <h2 className="text-2xl font-semibold sm:text-3xl">
+                      <h2 className="my-0 font-semibold">
                         {post?.data?.title}
                       </h2>
                     </div>
-                    <p className="text-lg">
+                    <p className="my-0">
                       {`${
                         locale === "en"
                           ? `Updated ${dayjs(post?.data?.date).format(
@@ -83,7 +81,7 @@ export default function Blog({ posts }) {
                             )} min de lectura`
                       }`}
                     </p>
-                    <p className="pt-4 text-xl sm:text-2xl line-clamp-3 sm:line-clamp-5">
+                    <p className="pt-4 my-0 line-clamp-5">
                       {post?.data?.description}
                     </p>
                   </div>

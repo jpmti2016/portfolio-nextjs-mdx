@@ -56,25 +56,25 @@ export default function Home({ projects }) {
         <meta name="twitter:image" content={meta.image} />
       </Head>
       {/* Welcome */}
-      <section id="welcome" className="text-xl bg-gray-100 dark:bg-gray-800">
+      <section id="welcome" className="bg-gray-100 dark:bg-gray-800">
         <div className="flex pt-20 pb-32 sm:pt-0">
           <div className="container text-center sm:py-14 md:py-16 xl:py-[18] sm:max-w-4xl">
-            <p className="mb-2 font-normal font-playfair sm:text-2xl">
+            <p className="mb-2 font-normal sm:text-2xl font-playfair">
               {t("greeting")}
             </p>
-            <h1 className="mb-2 font-normal font-roboto sm:text-3xl">
+            <h1 className="my-0 mb-2 text-xl font-normal sm:text-3xl font-roboto">
               {t("main:fullName")}
             </h1>
-            <h2 className="mb-3 text-2xl font-extrabold tracking-wide sm:mb-6 font-playfair sm:text-5xl">
+            <h2 className="my-0 mb-3 text-3xl font-extrabold tracking-wide sm:text-5xl sm:mb-6 font-playfair">
               {t("main:position")}
             </h2>
-            <p className="mb-10 font-normal leading-8 font-fira sm:text-2xl sm:leading-10">
+            <p className="mb-10 font-normal leading-8 font-fira sm:leading-10">
               {t("main:techs")}
             </p>
-            <p className="mb-2 font-semibold tracking-wide font-playfair sm:text-2xl">
+            <p className="my-0 mb-2 text-xl font-semibold tracking-wide font-playfair">
               {t("main:jobStatus")}
             </p>
-            <p className="mb-4 leading-8 font-fira sm:text-2xl">
+            <p className="my-0 mb-4 leading-8 font-fira">
               {t("main:jobStatusValue")}
             </p>
 
@@ -90,13 +90,10 @@ export default function Home({ projects }) {
       </section>
 
       {/* About */}
-      <section
-        id="about"
-        className="text-lg leading-7 bg-gray-200 sm:text-xl dark:bg-gray-900"
-      >
+      <section id="about" className="leading-7 bg-gray-200 dark:bg-gray-900">
         <div className="container sm:max-w-5xl">
           <div className="flex flex-col mx-4 mt-6 sm:mt-7">
-            <h2 className="mb-3 text-2xl font-bold tracking-wide font-playfair sm:mb-8 sm:text-6xl">
+            <h2 className="mb-3 font-bold tracking-wide font-playfair sm:mb-8">
               {t("main:aboutTitle")}
             </h2>
             <p className="mb-3">
@@ -171,7 +168,7 @@ export default function Home({ projects }) {
       >
         <div className="py-4">
           <div className="mx-4 mt-6 sm:mt-7">
-            <h2 className="mb-3 text-2xl font-bold tracking-wide font-playfair sm:mb-8 sm:text-6xl">
+            <h2 className="mb-3 font-bold tracking-wide font-playfair sm:mb-8">
               {t("main:projectsTitle")}
             </h2>
             <div className="space-y-6 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-8 ">

@@ -34,9 +34,9 @@ export default function Subscribe({ className, ...rest }) {
       onSubmit={subscribe}
       {...rest}
     >
-      <h2 className={"mb-1 font-bold text-lg sm:text-2xl"}>
+      <p className="my-0 text-2xl font-semibold sm:text-3xl">
         {t("subscribeTitle")}
-      </h2>
+      </p>
 
       <div className="relative w-full my-4">
         <input

@@ -9,7 +9,7 @@ export default function Menu({ toggled, setToggled }) {
 
   return (
     <div
-      className={`sm:flex sm:flex-row sm:space-x-2 ml-auto items-center text-xl ${
+      className={`sm:flex sm:flex-row sm:space-x-2 ml-auto items-center  ${
         toggled ? "" : "hidden"
       }`}
     >
@@ -55,20 +55,6 @@ export default function Menu({ toggled, setToggled }) {
           </a>
         </Link>
       </div>
-
-      {/* <div className="p-2" onClick={() => setToggled((prev) => !prev)}>
-        <Link href={{ pathname: "/", hash: "about" }}>
-          <a
-            className={`${
-              asPath === "/#about"
-                ? "underline nav-item sm:text-sm lg:text-xl"
-                : "no-underline nav-item sm:text-sm lg:text-xl"
-            }`}
-          >
-            {t("navLinkAbout")}
-          </a>
-        </Link>
-      </div> */}
     </div>
   );
 }
