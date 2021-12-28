@@ -1,5 +1,7 @@
 {
   "blogTitle": "Blog",
   "metaTitle": "Collection of posts that cover my journey around code, SEO and learning",
-  "metaDescription": "Yes, sometimes the best way to learn is to explain something to someone else. And revisiting that content later, when you are about to forget it, is when you really can learn. Then better have my things about code, SEO and learning in a place easy to find and share. And this blog was born..."
+  "metaDescription": "Yes, sometimes the best way to learn is to explain something to someone else. And revisiting that content later, when you are about to forget it, is when you really can learn. Then better have my things about code, SEO and learning in a place easy to find and share. And this blog was born...",
+  "postNotFound": "The post that you are looking for doesn't exist.",
+  "postNotFoundFallback": "Here are our most recent posts."
 }

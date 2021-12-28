@@ -9,7 +9,7 @@ export default function RelatedPosts({ related, locale }) {
           {locale === "en" ? "Related Posts" : "Artículos Relacionados"}
         </h2>
       )}
-      {related &&
+      {related.length > 0 &&
         related.map((r) => {
           return (
             <Link href={`/posts/${r?.slug}`} key={r?.slug}>

@@ -82,69 +82,80 @@ export default function Post({ source, frontMatter, timeToRead }) {
           <MDXRemote {...source} components={{ ...MDXComponents }} />
         </main>
         <Subscribe locale={locale} />
-        <RelatedPosts related={frontMatter.related} locale={locale} />
+        <RelatedPosts related={frontMatter?.related} locale={locale} />
       </div>
     </div>
   );
 }
 
 export const getStaticProps = async ({ params, locale }) => {
-  const postsPath = folderPath("posts");
+  try {
+    const postsPath = folderPath("posts");
+    const postFilePath = path.join(postsPath, `${params.slug}.${locale}.mdx`);
 
-  const postFilePath = path.join(postsPath, `${params.slug}.${locale}.mdx`);
-  const source = fs.readFileSync(postFilePath);
-
-  const { content, data } = matter(source);
-
-  // related is an array containing the slugs without locale
-  // for the current post
-  const { related: relatedSlugs } = data;
-
-  // get the data of the related posts
-  const relatedPostsInfo = [];
-  for (let slug of relatedSlugs) {
-    const postFilePath = path.join(postsPath, `${slug}.${locale}.mdx`);
     const source = fs.readFileSync(postFilePath);
 
-    const { content, data: relatedPost } = matter(source);
+    const { content, data } = matter(source);
 
-    const timeToRead = readingTime(content);
-    // add slug and timeToRead of  cause they are not in the front-matter data
-    const post = { ...relatedPost, slug, timeToRead };
-    relatedPostsInfo.push(post);
-  }
+    // related is an array containing the slugs without locale
+    // for the current post
+    const { related: relatedSlugs } = data;
 
-  const cleanRelatedPostsInfo = relatedPostsInfo.map((post) => {
+    // get the data of the related posts
+    const relatedPostsInfo = [];
+    for (let slug of relatedSlugs) {
+      const postFilePath = path.join(postsPath, `${slug}.${locale}.mdx`);
+      const source = fs.readFileSync(postFilePath);
+
+      const { content, data: relatedPost } = matter(source);
+
+      const timeToRead = readingTime(content);
+      // add slug and timeToRead of  cause they are not in the front-matter data
+      const post = { ...relatedPost, slug, timeToRead };
+      relatedPostsInfo.push(post);
+    }
+
+    const cleanRelatedPostsInfo = relatedPostsInfo.map((post) => {
+      return {
+        title: post.title,
+        description: post.description,
+        date: post.date,
+        slug: post.slug,
+        timeToRead: post.timeToRead,
+      };
+    });
+
+    const mdxSource = await serialize(content, {
+      mdxOptions: {
+        remarkPlugins: [],
+        rehypePlugins: [],
+      },
+      scope: data,
+    });
+
+    const stats = readingTime(content);
+
+    //change related slugs to the related posts data
+    const related = cleanRelatedPostsInfo;
+    const withRelatedPostsData = { ...data, related };
+
     return {
-      title: post.title,
-      description: post.description,
-      date: post.date,
-      slug: post.slug,
-      timeToRead: post.timeToRead,
+      props: {
+        source: mdxSource,
+        frontMatter: withRelatedPostsData,
+        timeToRead: stats,
+      },
     };
-  });
-
-  const mdxSource = await serialize(content, {
-    mdxOptions: {
-      remarkPlugins: [],
-      rehypePlugins: [],
-    },
-    scope: data,
-  });
-
-  const stats = readingTime(content);
-
-  //change related slugs to the related posts data
-  const related = cleanRelatedPostsInfo;
-  const withRelatedPostsData = { ...data, related };
-
-  return {
-    props: {
-      source: mdxSource,
-      frontMatter: withRelatedPostsData,
-      timeToRead: stats,
-    },
-  };
+  } catch (err) {
+    if (err) {
+      return {
+        redirect: {
+          destination: "/posts/no-translated",
+          permanent: false,
+        },
+      };
+    }
+  }
 };
 
 export const getStaticPaths = async () => {

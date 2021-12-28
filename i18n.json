@@ -4,6 +4,7 @@
   "pages": {
     "*": ["common"],
     "/": ["main"],
-    "/posts": ["posts"]
+    "/posts": ["posts"],
+    "/posts/no-translated": ["posts"]
   }
 }

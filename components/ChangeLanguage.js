@@ -13,7 +13,12 @@ export default function ChangeLanguage() {
     if (lng === lang) return null;
 
     return (
-      <Link href="/" locale={lng} key={lng} className="">
+      <Link
+        href={asPath === "/posts/no-translated" ? "/" : asPath}
+        locale={lng}
+        key={lng}
+        className=""
+      >
         <a className="flex items-center px-1 ml-4 rounded-md ring-1 ring-gray-800 dark:ring-gray-100 hover:text-gray-100 hover:bg-gray-800">
           <svg
             xmlns="http://www.w3.org/2000/svg"

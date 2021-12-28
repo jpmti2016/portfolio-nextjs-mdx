@@ -1,5 +1,7 @@
 {
   "blogTitle": "Blog",
   "metaTitle": "Colección de artículos que cubre mi tránsito sobre código, SEO y aprendizaje",
-  "metaDescription": "Sí, algunas veces la mejor manera de aprender es teniendo que explicar algún concepto a alguien. Y revisitando ese contenido poco tiempo después, cuando estás a punto de olvidarlo, que es cuando realmente aprendemos. Así que mejor tener mis cosas sobre código, SEO y aprendizaje en un lugar de fácil acceso. De esa idea nació este blog..."
+  "metaDescription": "Sí, algunas veces la mejor manera de aprender es teniendo que explicar algún concepto a alguien. Y revisitando ese contenido poco tiempo después, cuando estás a punto de olvidarlo, que es cuando realmente aprendemos. Así que mejor tener mis cosas sobre código, SEO y aprendizaje en un lugar de fácil acceso. De esa idea nació este blog...",
+  "postNotFound": "EL artículo que buscas no ha sido traducido al español todavía.",
+  "postNotFoundFallback": "Estos son los artículos que han sido traducidos:"
 }

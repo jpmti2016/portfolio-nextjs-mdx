@@ -16,6 +16,7 @@ const prettier = require('prettier')
         '!pages/_*.js',
         '!pages/api',
         '!pages/404.js',
+        '!pages/500.js',
     ])
     pages.push('/posts')
 
@@ -66,6 +67,7 @@ const prettier = require('prettier')
         '!pages/_*.js',
         '!pages/api',
         '!pages/404.js',
+        '!pages/500.js',
     ])
 
     const mdxPostsPaths = mdxPosts.map((page) => {
