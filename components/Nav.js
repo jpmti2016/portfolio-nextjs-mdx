@@ -36,6 +36,8 @@ export default function Nav() {
                 className="rounded-full"
                 layout="responsive"
                 alt="Yampier Medina avatar"
+                height={100}
+                width={100}
               />
             </div>
           </a>
