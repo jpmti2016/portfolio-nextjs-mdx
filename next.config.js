@@ -5,7 +5,6 @@ module.exports = nextTranslate({
     strictPostcssConfiguration: true,
   },
   reactStrictMode: true,
-
   async headers() {
     return [
       {
