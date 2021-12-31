@@ -20,14 +20,14 @@ export default function Nav() {
   if (!mounted) return null;
 
   return (
-    <nav className="sticky top-0 z-50 w-full px-4 bg-gray-200 dark:bg-gray-900 sm:items-center sm:flex sm:flex-row sm:py-6 md:px-24 md: font-fira">
+    <nav className="sticky top-0 z-50 w-full px-4 bg-gray-200 dark:bg-gray-900 sm:items-center sm:flex sm:flex-row sm:py-6 md:px-24 font-fira">
       <div className="flex flex-row items-center justify-center w-full p-2 sm:w-auto">
         <Link href={{ pathname: "/", hash: "about" }}>
           <a
             className={`${
               asPath === "/#about"
-                ? "nav-item lg: underline rounded-full p-0 m-0"
-                : "nav-item lg: no-underline rounded-full p-0 m-0"
+                ? "nav-item underline rounded-full p-0 m-0"
+                : "nav-item no-underline rounded-full p-0 m-0"
             }`}
           >
             <div className="w-8 h-8 border-2 border-gray-900 rounded-full dark:border-gray-100 sm:h-10 sm:w-10 lg:h-16 lg:w-16">
