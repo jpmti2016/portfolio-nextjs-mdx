@@ -1,6 +1,12 @@
-const nextTranslate = require("next-translate");
+const withPlugins = require("next-compose-plugins");
 
-module.exports = nextTranslate({
+const nextTranslate = require("next-translate")({});
+
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+const nextConfiguration = {
   future: {
     strictPostcssConfiguration: true,
   },
@@ -21,7 +27,12 @@ module.exports = nextTranslate({
 
     return config;
   },
-});
+};
+
+module.exports = withPlugins(
+  [[nextTranslate], [withBundleAnalyzer]],
+  nextConfiguration
+);
 
 // https://securityheaders.com
 const ContentSecurityPolicy = `
