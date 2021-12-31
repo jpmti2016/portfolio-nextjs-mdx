@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import jpmti2016 from "../public/images/jpmti2016.jpeg";
+import jpmti2016 from "../public/images/jpmti2016-100x100.jpg";
 import Menu from "./Menu";
 import MobileButton from "./MobileButton";
 import ChangeLanguage from "./ChangeLanguage";
@@ -36,6 +36,8 @@ export default function Nav() {
                 className="rounded-full"
                 layout="responsive"
                 alt="Yampier Medina avatar"
+                height={100}
+                width={100}
               />
             </div>
           </a>
