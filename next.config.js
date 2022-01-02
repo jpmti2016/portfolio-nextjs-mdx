@@ -11,7 +11,6 @@ const nextConfiguration = {
     strictPostcssConfiguration: true,
   },
   reactStrictMode: true,
-
   async headers() {
     return [
       {
