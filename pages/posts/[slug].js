@@ -17,10 +17,7 @@ import RelatedPosts from "../../components/RelatedPosts";
 import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
 hljs.registerLanguage("javascript", javascript);
-<<<<<<< HEAD
-=======
 
->>>>>>> fix-highligth-es
 import "highlight.js/styles/tomorrow-night-bright.css";
 
 export default function Post({ source, frontMatter, timeToRead }) {
@@ -36,7 +33,7 @@ export default function Post({ source, frontMatter, timeToRead }) {
       ? `Updated ${dayjs(frontMatter?.date).format("MM-DD-YYYY")}`
       : `Actualizado ${dayjs(frontMatter?.date).format("DD-MM-YYYY")}`;
 
-  useEffect(async () => {
+  useEffect(() => {
     hljs.highlightAll();
   }, [frontMatter]);
 
