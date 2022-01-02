@@ -8,21 +8,10 @@ import { folderPath, filesPath } from "../../utils/mdxUtils";
 import dayjs from "dayjs";
 import readingTime from "reading-time";
 import useTranslation from "next-translate/useTranslation";
-import { useEffect } from "react";
-
-import hljs from "highlight.js/lib/core";
-import javascript from "highlight.js/lib/languages/javascript";
-hljs.registerLanguage("javascript", javascript);
-
-import "highlight.js/styles/tomorrow-night-bright.css";
 
 export default function NoTranslated({ posts }) {
-  const { asPath, locale, isFallback } = useRouter();
+  const { asPath, locale } = useRouter();
   const { t, lang } = useTranslation("posts");
-
-  useEffect(() => {
-    hljs.highlightAll();
-  }, [posts]);
   return (
     <div className="px-4 py-6 sm:flex sm:items-center sm:flex-col">
       <Head>
