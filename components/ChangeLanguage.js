@@ -17,9 +17,8 @@ export default function ChangeLanguage() {
         href={asPath === "/posts/no-translated" ? "/" : asPath}
         locale={lng}
         key={lng}
-        className=""
       >
-        <a className="flex items-center px-1 ml-4 rounded-md ring-1 ring-gray-800 dark:ring-gray-100 hover:text-gray-100 hover:bg-gray-800">
+        <a className="flex items-center px-1 ml-4 mr-4 rounded-md sm:mx-0 ring-1 ring-gray-800 dark:ring-gray-100 hover:text-gray-100 hover:bg-gray-800">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5 sm:w-7 sm:h-7"

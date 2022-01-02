@@ -14,7 +14,10 @@ import readingTime from "reading-time";
 import Subscribe from "../../components/Subscribe";
 import RelatedPosts from "../../components/RelatedPosts";
 
-import hljs from "highlight.js";
+import hljs from "highlight.js/lib/core";
+import javascript from "highlight.js/lib/languages/javascript";
+hljs.registerLanguage("javascript", javascript);
+
 import "highlight.js/styles/tomorrow-night-bright.css";
 
 export default function Post({ source, frontMatter, timeToRead }) {
