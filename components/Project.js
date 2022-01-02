@@ -15,14 +15,14 @@ export default function Project({
     <div className="flex flex-col p-4 bg-gray-200 shadow-lg dark:bg-gray-900 sm:p-8">
       <div>
         <h3 className="mb-1 font-semibold font-playfair">{title}</h3>
-        <div className="my-3 rounded-lg shadow-2xl sm:my-4 sm:w-full">
+        <div className="my-3 shadow-lg shadow-gray-700 dark:shadow-gray-200 rounded-xl sm:my-4 sm:w-full">
           <Image
-            className="absolute inset-0 object-cover w-full h-full"
+            className="absolute inset-0 object-cover w-full h-full rounded-xl"
             src={image}
             alt="css grid album"
             layout="responsive"
-            width="700"
-            height="500"
+            width="640"
+            height="360"
           />
 
           {/* <Image src={image} alt="css grid album" layout="responsive" /> */}
