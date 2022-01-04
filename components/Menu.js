@@ -1,25 +1,31 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useTranslation from "next-translate/useTranslation";
+import ChangeLanguage from "./ChangeLanguage";
 
 export default function Menu({ toggled, setToggled }) {
   const { asPath } = useRouter();
+  const { t, lang } = useTranslation("common");
 
   return (
     <div
-      className={`sm:flex sm:flex-row sm:space-x-2 ml-auto ${
+      className={`sm:flex sm:flex-row sm:space-x-2 ml-auto items-center  ${
         toggled ? "" : "hidden"
       }`}
     >
+      <div className="hidden sm:block">
+        <ChangeLanguage />
+      </div>
       <div className="p-2" onClick={() => setToggled((prev) => !prev)}>
         <Link href={{ pathname: "/", hash: "welcome" }}>
           <a
             className={`${
               asPath === "/#welcome" || asPath === "/"
-                ? "underline nav-item sm:text-sm lg:text-xl"
-                : "no-underline nav-item sm:text-sm lg:text-xl"
+                ? "underline nav-item"
+                : "no-underline nav-item"
             }`}
           >
-            Home
+            {t("navLinkHome")}
           </a>
         </Link>
       </div>
@@ -28,11 +34,11 @@ export default function Menu({ toggled, setToggled }) {
           <a
             className={`${
               asPath === "/#projects"
-                ? "underline nav-item sm:text-sm lg:text-xl"
-                : "no-underline nav-item sm:text-sm lg:text-xl"
+                ? "underline nav-item"
+                : "no-underline nav-item"
             }`}
           >
-            Projects
+            {t("navLinkProjects")}
           </a>
         </Link>
       </div>
@@ -41,24 +47,11 @@ export default function Menu({ toggled, setToggled }) {
           <a
             className={`${
               asPath.includes("posts")
-                ? "underline nav-item sm:text-sm lg:text-xl"
-                : "no-underline nav-item sm:text-sm lg:text-xl"
+                ? "underline nav-item"
+                : "no-underline nav-item"
             }`}
           >
-            Blog
-          </a>
-        </Link>
-      </div>
-      <div className="p-2" onClick={() => setToggled((prev) => !prev)}>
-        <Link href={{ pathname: "/", hash: "about" }}>
-          <a
-            className={`${
-              asPath === "/#about"
-                ? "underline nav-item sm:text-sm lg:text-xl"
-                : "no-underline nav-item sm:text-sm lg:text-xl"
-            }`}
-          >
-            About
+            {t("navLinkBlog")}
           </a>
         </Link>
       </div>

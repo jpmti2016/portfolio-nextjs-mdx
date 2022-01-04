@@ -7,7 +7,7 @@ export default function Layout({ children }) {
   return (
     <div id="welcome">
       <Nav />
-      <main className="min-h-screen sm:py-6 md:text-xl">{children}</main>
+      <main className="min-h-screen sm:py-6 md:">{children}</main>
       <Footer />
       <div className="fixed z-10 p-1 bg-gray-300 rounded-sm bottom-4 right-4 dark:bg-gray-700">
         <Link href="#welcome">

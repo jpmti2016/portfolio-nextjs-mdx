@@ -2,6 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 import Subscribe from "./Subscribe";
 
+import {
+  SimpleCounter,
+  InitialCounterAlmostThere,
+  BugReproduced,
+  FinishedCounter,
+  KeyPropReset,
+} from "./components";
+
 const CustomLink = (props) => {
   const href = props.href;
   const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
@@ -24,10 +32,10 @@ const Notice = ({
   ...otherProps
 }) => (
   <div
-    className={`mb-1 bg-red-200 p-4 sm:p-10 text-red-600 font-medium ${className}`}
+    className={`not-prose mb-1 bg-red-200 p-4 sm:p-10 text-red-800 font-medium ${className}`}
     {...otherProps}
   >
-    <div className="flex flex-row items-center font-bold">
+    <div className="flex flex-row items-center mb-2 font-bold sm:mb-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="w-6 h-6"
@@ -44,7 +52,7 @@ const Notice = ({
       </svg>
       <p className="ml-1 sm:ml-2">{title}</p>
     </div>
-    <div>{children}</div>
+    <div className="">{children}</div>
   </div>
 );
 
@@ -53,6 +61,11 @@ const MDXComponents = {
   a: CustomLink,
   Notice,
   Subscribe,
+  SimpleCounter,
+  InitialCounterAlmostThere,
+  BugReproduced,
+  FinishedCounter,
+  KeyPropReset,
 };
 
 export default MDXComponents;

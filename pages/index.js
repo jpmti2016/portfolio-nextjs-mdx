@@ -10,15 +10,15 @@ import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import Project from "../components/Project";
 
+import useTranslation from "next-translate/useTranslation";
+
 export default function Home({ projects }) {
+  let { t, lang } = useTranslation("main");
   const { asPath } = useRouter();
   const meta = {
-    title: "Yampier Medina personal website",
-    description:
-      "I am a Software Engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me.",
     type: "website",
     site_name: "Yampier Medina",
-    image: "https://jpmti2016.com/images/personal-portfolio_559.jpg",
+    image: "https://jpmti2016.com/images/home-page.jpg",
     date: "2021-07-01",
   };
 
@@ -31,47 +31,51 @@ export default function Home({ projects }) {
     <>
       {/* SEO */}
       <Head>
-        <title>{meta.title}</title>
-        <meta name="robots" content="follow, index" />
-        <meta content={meta.description} name="description" />
-        <meta property="og:url" content={`https://jpmti2016.com${asPath}`} />
+        {/* Primary Meta Tags */}
+        <title>{t("metaTitle")}</title>
         <link rel="canonical" href={`https://jpmti2016.com${asPath}`} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="follow, index" />
+        {meta.date && (
+          <meta name="description" content={t("metaDescription")} />
+        )}
+        <meta property="article:published_time" content={meta.date} />
+        {/* Open Graph / Facebook */}
         <meta property="og:type" content={meta.type} />
+        <meta property="og:url" content={`https://jpmti2016.com${asPath}`} />
+        <meta property="og:title" content={t("metaTitle")} />
+        <meta property="og:description" content={t("metaDescription")} />
         <meta property="og:site_name" content={meta.site_name} />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:title" content={meta.title} />
         <meta property="og:image" content={meta.image} />
+        <meta property="og:image:alt" content={t("metaTitle")} />
+        {/* Open Graph / Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@jpmti2016" />
-        <meta name="twitter:title" content={meta.title} />
-        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:title" content={t("metaTitle")} />
+        <meta name="twitter:description" content={t("metaDescription")} />
         <meta name="twitter:image" content={meta.image} />
-        {meta.date && (
-          <meta property="article:published_time" content={meta.date} />
-        )}
       </Head>
       {/* Welcome */}
       <section id="welcome" className="bg-gray-100 dark:bg-gray-800">
-        <div className="flex pt-24 pb-32 sm:pt-0">
-          <div className="container text-center sm:py-20 md:py-24 xl:py-32">
-            <p className="mb-2 text-lg font-normal font-playfair sm:text-2xl">
-              Welcome
+        <div className="flex pt-20 pb-32 sm:pt-0">
+          <div className="container text-center sm:py-14 md:py-16 xl:py-[18] sm:max-w-4xl">
+            <p className="mb-2 font-normal sm:text-2xl font-playfair">
+              {t("greeting")}
             </p>
-            <h1 className="mb-2 text-xl font-normal font-roboto sm:text-3xl">
-              I'm Yampier Medina
+            <h1 className="my-0 mb-2 text-xl font-normal sm:text-3xl font-roboto">
+              {t("main:fullName")}
             </h1>
-            <h2 className="mb-3 text-2xl font-extrabold tracking-wide font-playfair sm:text-5xl">
-              A Software Engineer
+            <h2 className="my-0 mb-3 text-3xl font-extrabold tracking-wide sm:text-5xl sm:mb-6 font-playfair">
+              {t("main:position")}
             </h2>
-            <p className="mb-10 text-lg font-normal font-fira sm:text-xl">
-              I like AWS serverless computing, React, Next.js, GraphQL and ES
-              Next.
+            <p className="mb-10 font-normal leading-8 font-fira sm:leading-10">
+              {t("main:techs")}
             </p>
-            <p className="mb-2 text-xl font-semibold tracking-wide font-playfair sm:text-xl">
-              Job status
+            <p className="my-0 mb-2 text-xl font-semibold tracking-wide font-playfair">
+              {t("main:jobStatus")}
             </p>
-            <p className="mb-4 text-lg leading-8 font-fira sm:text-xl">
-              Searching, 100% Remote
+            <p className="my-0 mb-4 leading-8 font-fira">
+              {t("main:jobStatusValue")}
             </p>
 
             <a
@@ -79,80 +83,79 @@ export default function Home({ projects }) {
               className="btn btn-blue"
               onClick={handleClickHireMe}
             >
-              Hire me
+              {t("main:mainCTA")}
             </a>
           </div>
         </div>
       </section>
 
       {/* About */}
-      <section id="about" className="bg-gray-200 dark:bg-gray-900 ">
+      <section id="about" className="leading-7 bg-gray-200 dark:bg-gray-900">
         <div className="container sm:max-w-5xl">
           <div className="flex flex-col mx-4 mt-6 sm:mt-7">
-            <h2 className="mb-3 text-2xl font-bold tracking-wide font-playfair sm:text-3xl">
-              About
+            <h2 className="mb-3 font-bold tracking-wide font-playfair sm:mb-8">
+              {t("main:aboutTitle")}
             </h2>
-            <p className="mb-3 sm:text-lg">
-              I am a
-              <span className="font-semibold"> Computer Science Engineer </span>
-              turned to the <span className="font-semibold"> JS universe</span>.
-              I know SWE, testing, SQA and PM (Lead teams of 20-50 people).
-            </p>
-            <p className="mb-3 sm:text-lg">
-              I build secure and scalable cloud web apps with AWS Amplify (and
-              other AWS services), maintaining predictability and order in the
-              process from prototyping to deployment.
-            </p>
-
-            <p className="mb-3 sm:text-lg">
-              I care about UX/UI, SEO and performance. Currently learning from
-              the Refactoring UI book and the Tailwind CSS framework. I have
-              also used Bootstrap and Semantic UI.
-            </p>
-
-            <p className="mb-3 sm:text-lg">
-              I use VS Code, Git/Github, Chrome Developer Tools and Amplify CLI
-              daily. I code on a Dell Inspiron 15 7000 Series (Ubuntu 21.04 LTS)
-              plugged to an external Dell UltraSharp 27 4K Monitor.
-            </p>
-            <p className="mb-3 sm:text-lg">
-              I speak English (continuously improving) and Spanish (native).
-            </p>
-            <p className="mb-3 sm:text-lg">
-              When I am not coding I like to read or to learn something new.
-            </p>
-            <p className="mb-3 sm:text-lg">
-              Recent learnings (... in the path to Pro):
-            </p>
-            <p className="mb-3 sm:text-lg">
-              <span className="font-medium">
-                Epic React workshops by Kent C. Dodds{" "}
-              </span>
-              [technical, completed] and
-              <span className="font-medium">
+            <p className="mb-3">
+              {t("main:aboutIntro")}
+              <span className="font-semibold"> {t("main:aboutDegree")} </span>
+              {t("main:aboutTransition")}
+              <span className="font-semibold">
                 {" "}
-                Testing JavaScript by Kent C. Dodds{" "}
-              </span>
-              [technical, pending]
+                {t("main:aboutUniverse")}
+              </span>. {t("main:aboutKnowledge")}
             </p>
-            <p className="mb-3 sm:text-lg">Recent readings:</p>
-            <p className="mb-3 sm:text-lg">
+            <p className="mb-3">{t("main:aboutBuild")}</p>
+
+            <p className="mb-3">{t("main:aboutCare")}</p>
+
+            <p className="mb-3">{t("main:aboutUse")}</p>
+            <p className="mb-3">{t("main:aboutSpeak")}</p>
+            <p className="mb-3 font-semibold">{t("main:aboutLearningIntro")}</p>
+            <p className="mb-3">
               <span className="font-medium">
-                Composing Software by Eric Elliot{" "}
+                <a
+                  className="text-amber-800 dark:text-amber-600 hover:dark:text-amber-300 hover:text-amber-500"
+                  href="https://epicreact.dev/"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {t("main:aboutWorkshopEpicReact")} {""}
+                </a>
               </span>
-              [technical, completed] and{" "}
+              {t("main:aboutEpicReactStatus")}
               <span className="font-medium">
-                The Startup Owners's Manual by Steve Blank & Bob Dorf{" "}
+                <a
+                  className="text-amber-800 dark:text-amber-600 hover:dark:text-amber-300 hover:text-amber-500"
+                  href="https://epicreact.dev/"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {t("main:aboutWorkshopTestingJS")}
+                </a>
               </span>
-              [technical, pending].
+              {} {t("main:aboutTestingJSStatus")}
             </p>
-            <p className="mb-3 sm:text-lg">
-              <span className="font-medium">The Choice by Edith Eva Eger </span>
-              [non-technical, completed] and{" "}
+            <p className="mb-3 font-semibold">{t("main:aboutReadingIntro")}</p>
+            <p className="mb-3">
               <span className="font-medium">
-                Fluent Forever by Gabriel Wyner{" "}
+                {t("main:aboutReadingComposing")}
               </span>
-              [non-technical, in progress].
+              {t("main:aboutReadingComposingStatus")}
+              <span className="font-medium">
+                {t("main:aboutReadingStartup")}{" "}
+              </span>
+              {t("main:aboutReadingStartupStatus")}
+            </p>
+            <p className="mb-3">
+              <span className="font-medium">
+                {t("main:aboutReadingChoice")}
+              </span>
+              {t("main:aboutReadingChoiceStatus")}
+              <span className="font-medium">
+                {t("main:aboutReadingFluent")}
+              </span>
+              {t("main:aboutReadingFluentStatus")}
             </p>
           </div>
         </div>
@@ -165,8 +168,8 @@ export default function Home({ projects }) {
       >
         <div className="py-4">
           <div className="mx-4 mt-6 sm:mt-7">
-            <h2 className="mb-3 text-2xl font-bold tracking-wide font-playfair sm:text-3xl">
-              Projects
+            <h2 className="mb-3 font-bold tracking-wide font-playfair sm:mb-8">
+              {t("main:projectsTitle")}
             </h2>
             <div className="space-y-6 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-8 ">
               {projects?.map((project) => (
@@ -182,31 +185,35 @@ export default function Home({ projects }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
   const projectsPath = folderPath("projects");
   const projectFilesPath = filesPath(projectsPath);
 
+  const localeFilePathRegex = `.${locale}.mdx?$`;
+
   const projects = await Promise.all(
-    projectFilesPath.map(async (filePath) => {
-      const source = fs.readFileSync(path.join(projectsPath, filePath));
+    projectFilesPath
+      .filter((filePath) => filePath.match(localeFilePathRegex))
+      .map(async (filePath) => {
+        const source = fs.readFileSync(path.join(projectsPath, filePath));
 
-      const { content, data } = matter(source);
+        const { content, data } = matter(source);
 
-      const mdxSource = await serialize(content, {
-        // Optionally pass remark/rehype plugins
-        mdxOptions: {
-          remarkPlugins: [],
-          rehypePlugins: [],
-        },
-        scope: data,
-      });
+        const mdxSource = await serialize(content, {
+          // Optionally pass remark/rehype plugins
+          mdxOptions: {
+            remarkPlugins: [],
+            rehypePlugins: [],
+          },
+          scope: data,
+        });
 
-      return {
-        content,
-        data,
-        mdxSource,
-      };
-    })
+        return {
+          content,
+          data,
+          mdxSource,
+        };
+      })
   );
 
   projects.sort((p1, p2) => p1.data.id - p2.data.id);

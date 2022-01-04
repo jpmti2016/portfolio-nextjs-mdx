@@ -1,4 +1,7 @@
+import useTranslation from "next-translate/useTranslation";
+
 export default function Footer() {
+  const { t, lang } = useTranslation("common");
   return (
     <footer
       id="contact"
@@ -7,17 +10,17 @@ export default function Footer() {
     >
       <div className="">
         {/* <div className="text-yellow-600 dark:bg-blue-900"> */}
-        <div className="flex flex-col items-center content-center justify-center text-xl">
-          <div className="flex mb-3 space-x-2 text-2xl sm:text-3xl sm:space-x-4">
+        <div className="flex flex-col items-center content-center justify-center ">
+          <div className="flex mb-3 space-x-5 sm:space-x-10">
             <a
               className="block"
-              aria-label="personal tweeter account"
+              aria-label={t("linkTwitterAriaLabel")}
               href="https://twitter.com/jpmti2016"
               target="_blank"
               rel="noreferrer noopener"
             >
               <svg
-                className="w-8 h-8 rounded-full fill-current dark:text-gray-200 ring-gray-900 dark:ring-gray-200 ring-2 sm:h-10 sm:w-10 hover:bg-gray-600 hover:text-gray-200 dark:hover:text-gray-900"
+                className="w-8 h-8 rounded-full fill-current dark:text-gray-200 ring-gray-900 dark:ring-gray-200 ring-2 sm:h-12 sm:w-12 hover:bg-gray-600 hover:text-gray-200 dark:hover:text-gray-900"
                 clipRule="evenodd"
                 fillRule="evenodd"
                 strokeLinejoin="round"
@@ -33,7 +36,7 @@ export default function Footer() {
             </a>
             <a
               className="block"
-              aria-label="personal linkedin account"
+              aria-label={t("linkLinkedinAriaLabel")}
               href="https://www.linkedin.com/in/yampier-medina-423641169"
               target="_blank"
               rel="noreferrer noopener"
@@ -43,7 +46,7 @@ export default function Footer() {
                 width="2500"
                 height="2500"
                 viewBox="7.025 7.025 497.951 497.95"
-                className="w-8 h-8 text-gray-200 bg-gray-900 border-gray-600 rounded-full fill-current dark:bg-gray-200 ring-gray-900 dark:ring-gray-200 ring-2 dark:text-gray-900 hover:text-gray-600 hover:bg-gray-200 dark:hover:text-gray-600 dark:hover:bg-gray-900 sm:h-10 sm:w-10"
+                className="w-8 h-8 text-gray-200 bg-gray-900 border-gray-600 rounded-full fill-current dark:bg-gray-200 ring-gray-900 dark:ring-gray-200 ring-2 dark:text-gray-900 hover:text-gray-600 hover:bg-gray-200 dark:hover:text-gray-600 dark:hover:bg-gray-900 sm:h-12 sm:w-12"
               >
                 <linearGradient
                   id="a"
@@ -65,13 +68,13 @@ export default function Footer() {
             </a>
             <a
               className="block"
-              aria-label="personal email account"
+              aria-label={t("linkEmailAriaLabel")}
               href="mailto:jpmti2016@gmail.com"
               target="_blank"
               rel="noreferrer noopener"
             >
               <svg
-                className="w-8 h-8 text-gray-200 bg-gray-900 rounded-full fill-current dark:bg-gray-200 sm:h-10 sm:w-10 ring-2 ring-gray-900 dark:ring-gray-200 dark:text-gray-900 hover:text-gray-600 hover:bg-gray-200 dark:hover:text-gray-600 dark:hover:bg-gray-900"
+                className="w-8 h-8 text-gray-200 bg-gray-900 rounded-full fill-current dark:bg-gray-200 sm:h-12 sm:w-12 ring-2 ring-gray-900 dark:ring-gray-200 dark:text-gray-900 hover:text-gray-600 hover:bg-gray-200 dark:hover:text-gray-600 dark:hover:bg-gray-900"
                 clipRule="evenodd"
                 fillRule="evenodd"
                 imageRendering="optimizeQuality"
@@ -88,13 +91,13 @@ export default function Footer() {
             </a>
             <a
               className="block w-8 h-8"
-              aria-label="personal github account"
+              aria-label={t("linkGithubAriaLabel")}
               href="https://github.com/jpmti2016"
               target="_blank"
               rel="noreferrer noopener"
             >
               <svg
-                className="w-8 h-8 text-gray-200 bg-gray-900 rounded-full fill-current dark:bg-gray-200 dark:text-gray-900 ring-gray-900 dark:ring-gray-200 ring-2 sm:h-10 sm:w-10 hover:bg-gray-200 hover:text-gray-600 dark:hover:text-gray-600 dark:hover:bg-gray-900"
+                className="w-8 h-8 text-gray-200 bg-gray-900 rounded-full fill-current dark:bg-gray-200 dark:text-gray-900 ring-gray-900 dark:ring-gray-200 ring-2 sm:h-12 sm:w-12 hover:bg-gray-200 hover:text-gray-600 dark:hover:text-gray-600 dark:hover:bg-gray-900"
                 height="32"
                 viewBox="0 0 16 16"
                 version="1.1"
@@ -108,8 +111,8 @@ export default function Footer() {
               </svg>
             </a>
           </div>
-          <p className="text-base font-playfair">Created by Yampier Medina</p>
-          <p className="text-sm font-code">© 2020 MIT Licence</p>
+          <p className="m-0 font-playfair">{t("authorFooter")}</p>
+          <p className="m-0 font-code">{t("copyRightFooter")}</p>
         </div>
       </div>
     </footer>

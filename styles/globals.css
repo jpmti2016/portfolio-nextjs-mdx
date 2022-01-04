@@ -53,11 +53,21 @@
   }
 
   img {
-    @apply filter dark:brightness-[0.8] dark:contrast-[1.2];
+    @apply filter dark:brightness-[0.8] dark:contrast-[1.2] max-w-full block;
   }
 }
 
 @layer components {
+  body {
+    @apply prose-lg sm:prose-xl dark:prose-invert;
+  }
+  .demo {
+    @apply flex justify-center p-8 text-gray-700 bg-gray-200 dark:bg-gray-700;
+  }
+  pre > code {
+    @apply !bg-gray-800;
+  }
+
   .btn {
     @apply inline-block px-4 py-1 mb-2 font-medium tracking-wider uppercase rounded-lg font-fira;
   }
@@ -67,7 +77,7 @@
   }
 
   .btn-blue {
-    @apply text-gray-100 bg-blue-700;
+    @apply text-blue-100 bg-blue-900 dark:bg-blue-700;
   }
 
   .btn-blue:hover {
@@ -102,7 +112,7 @@
   }
 
   .nav-item {
-    @apply block px-1 py-1 mt-1 text-lg tracking-wide uppercase rounded-md sm:p-4 hover:text-gray-100 hover:bg-gray-800;
+    @apply block px-1 py-1 mt-1 tracking-wide uppercase rounded-md sm:p-2 hover:text-gray-100 hover:bg-gray-800;
   }
 
   .social {

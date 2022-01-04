@@ -9,7 +9,7 @@ export default {
       "I am a Software engineer that know javascript, reactjs, nextjs, graphql, sql, aws amplify, css, html5, taildwindcss, bulma, postcss and git. Searching for job, 100% remote. Hire me.",
     url: "https://portfolio-nextjs-mdx.vercel.app",
     image:
-      "https://portfolio-nextjs-mdx.vercel.app/images/personal-portfolio_559.jpg",
+      "https://portfolio-nextjs-mdx.vercel.app/images/portfolio-1920-opt.jpg",
   },
   twitter: {
     handle: "@jpmti2016",

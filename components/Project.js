@@ -12,19 +12,17 @@ export default function Project({
   openToPublic,
 }) {
   return (
-    <div className="flex flex-col p-4 bg-gray-200 shadow-lg dark:bg-gray-900 sm:p-4">
+    <div className="flex flex-col p-4 bg-gray-200 shadow-lg dark:bg-gray-900 sm:p-8">
       <div>
-        <h3 className="mb-1 text-xl font-semibold leading-tight font-playfair">
-          {title}
-        </h3>
-        <div className="my-3 rounded-lg shadow-2xl sm:my-4 sm:w-full">
+        <h3 className="mb-1 font-semibold font-playfair">{title}</h3>
+        <div className="my-3 shadow-lg shadow-gray-700 dark:shadow-gray-200 rounded-xl sm:my-4 sm:w-full">
           <Image
-            className="absolute inset-0 object-cover w-full h-full"
+            className="absolute inset-0 object-cover w-full h-full rounded-xl"
             src={image}
             alt="css grid album"
             layout="responsive"
-            width="700"
-            height="500"
+            width="640"
+            height="360"
           />
 
           {/* <Image src={image} alt="css grid album" layout="responsive" /> */}
@@ -33,17 +31,17 @@ export default function Project({
           {stack?.map((tech) => (
             <span
               key={tech}
-              className="inline-block px-2 mr-1 text-xs font-semibold tracking-wide uppercase bg-gray-100 rounded-full dark:bg-gray-800 sm:mb-1"
+              className="inline-block px-2 mb-1 mr-1 font-medium tracking-wide uppercase bg-gray-100 rounded-full md: dark:bg-gray-800 sm:mb-2"
             >
               {tech}
             </span>
           ))}
         </p>
       </div>
-      <div className="mt-2 prose md:prose-lg dark:prose-dark dark:md:prose-lg-dark sm:mt-4">
+      <div className="mt-2 prose-pre:shadow-sm prose-pre:shadow-gray-300 prose-pre:bg-gray-800 prose-img:rounded-md prose-a:text-amber-800 dark:prose-a:text-amber-500 hover:dark:prose-a:text-amber-300 hover:prose-a:text-amber-500 sm:max-w-3xl">
         <MDXRemote {...mdxSource} components={{ ...MDXComponents }} />
       </div>
-      <div className="mt-4 text-sm sm:pt-6 sm:text-base sm:mt-auto">
+      <div className="mt-4 md: sm:pt-6 sm:mt-auto">
         <a
           className="shadow-lg btn btn-blue"
           href={demo}
@@ -55,7 +53,7 @@ export default function Project({
         <a
           className={
             openToPublic
-              ? "shadow-lg btn btn-gray"
+              ? "shadow-lg btn btn-gray sm:ml-8 ml-5"
               : "hidden shadow-lg btn btn-red"
           }
           href={openToPublic ? info : "#"}
@@ -64,7 +62,9 @@ export default function Project({
         >
           {openToPublic ? "Info" : "Private"}
         </a>
-        <span className={openToPublic ? "hidden" : "ml-2"}>Private Repo</span>
+        <span className={openToPublic ? "hidden" : "ml-5 sm:ml-8"}>
+          Private Repo
+        </span>
       </div>
     </div>
   );

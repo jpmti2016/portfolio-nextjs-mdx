@@ -1,9 +1,10 @@
-module.exports = {
+const nextTranslate = require("next-translate");
+
+module.exports = nextTranslate({
   future: {
     strictPostcssConfiguration: true,
   },
   reactStrictMode: true,
-
   async headers() {
     return [
       {
@@ -19,7 +20,7 @@ module.exports = {
 
     return config;
   },
-};
+});
 
 // https://securityheaders.com
 const ContentSecurityPolicy = `

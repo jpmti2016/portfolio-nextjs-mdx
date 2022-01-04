@@ -1,0 +1,18 @@
+{
+  "navLinkHome": "Home",
+  "navLinkProjects": "Projects",
+  "navLinkBlog": "Blog",
+  "navLinkAbout": "About",
+  "authorFooter": "Created by Yampier Medina",
+  "copyRightFooter": "© 2020 MIT Licence",
+  "linkTwitterAriaLabel": "personal twitter account",
+  "linkLinkedinAriaLabel": "personal linkedin account",
+  "linkEmailAriaLabel": "personal email account",
+  "linkGithubAriaLabel": "personal github account",
+  "subscribeTitle": "Keep me in the loop!",
+  "subscribeInputPlaceholder": "jhondoe@email.com",
+  "subscribeInputSubmitLoading": "Loading",
+  "subscribeInputSubmitText": "Subscribe",
+  "subscribeSuccessMessage": "Awesome, thanks for your subscription!",
+  "subscribeErrorMessage": "Something went wrong. Please send me an email to jpmti2016@gmail.com and I will add you personally."
+}
