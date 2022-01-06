@@ -13,7 +13,7 @@ import { filesPath, folderPath } from "../../utils/mdxUtils";
 import MDXComponents from "../../components/MDXComponents";
 import readingTime from "reading-time";
 
-// import hljs from "highlight.js";
+import hljs from "highlight.js";
 import "highlight.js/styles/tomorrow-night-bright.css";
 
 const Subscribe = dynamic(() => import("../../components/Subscribe"));
@@ -33,7 +33,6 @@ export default function Post({ source, frontMatter, timeToRead }) {
       : `Actualizado ${dayjs(frontMatter?.date).format("DD-MM-YYYY")}`;
 
   useEffect(async () => {
-    const hljs = await (await import("highlight.js")).default;
     hljs.highlightAll();
   }, [frontMatter]);
 
