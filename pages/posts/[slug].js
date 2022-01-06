@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import fs from "fs";
 import path from "path";
 import { useEffect } from "react";
@@ -11,11 +12,12 @@ import { useRouter } from "next/router";
 import { filesPath, folderPath } from "../../utils/mdxUtils";
 import MDXComponents from "../../components/MDXComponents";
 import readingTime from "reading-time";
-import Subscribe from "../../components/Subscribe";
-import RelatedPosts from "../../components/RelatedPosts";
 
-import hljs from "highlight.js";
+// import hljs from "highlight.js";
 import "highlight.js/styles/tomorrow-night-bright.css";
+
+const Subscribe = dynamic(() => import("../../components/Subscribe"));
+const RelatedPosts = dynamic(() => import("../../components/RelatedPosts"));
 
 export default function Post({ source, frontMatter, timeToRead }) {
   const { asPath, isFallback, locale } = useRouter();
@@ -30,7 +32,8 @@ export default function Post({ source, frontMatter, timeToRead }) {
       ? `Updated ${dayjs(frontMatter?.date).format("MM-DD-YYYY")}`
       : `Actualizado ${dayjs(frontMatter?.date).format("DD-MM-YYYY")}`;
 
-  useEffect(() => {
+  useEffect(async () => {
+    const hljs = await (await import("highlight.js")).default;
     hljs.highlightAll();
   }, [frontMatter]);
 

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import Subscribe from "./Subscribe";
 
 import {
   SimpleCounter,
@@ -60,7 +59,6 @@ const MDXComponents = {
   Image,
   a: CustomLink,
   Notice,
-  Subscribe,
   SimpleCounter,
   InitialCounterAlmostThere,
   BugReproduced,

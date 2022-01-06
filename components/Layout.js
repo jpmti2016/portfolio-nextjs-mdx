@@ -1,7 +1,8 @@
+import dynamic from "next/dynamic";
 import Nav from "../components/Nav";
 import Link from "next/link";
 import { ArrowUpIcon } from "@heroicons/react/solid";
-import Footer from "./Footer";
+const Footer = dynamic(() => import("./Footer"));
 
 export default function Layout({ children }) {
   return (
