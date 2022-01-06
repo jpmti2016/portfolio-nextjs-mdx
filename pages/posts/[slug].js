@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import fs from "fs";
 import path from "path";
 import { useEffect } from "react";
@@ -16,8 +15,8 @@ import readingTime from "reading-time";
 import hljs from "highlight.js";
 import "highlight.js/styles/tomorrow-night-bright.css";
 
-const Subscribe = dynamic(() => import("../../components/Subscribe"));
-const RelatedPosts = dynamic(() => import("../../components/RelatedPosts"));
+import Subscribe from "../../components/Subscribe";
+import RelatedPosts from "../../components/RelatedPosts";
 
 export default function Post({ source, frontMatter, timeToRead }) {
   const { asPath, isFallback, locale } = useRouter();
