@@ -37,6 +37,7 @@ export default function Nav() {
                 layout="responsive"
                 alt="Yampier Medina avatar"
                 priority
+                sizes="10vw"
                 height={100}
                 width={100}
               />
