@@ -12,8 +12,8 @@ import { filesPath, folderPath } from "../../utils/mdxUtils";
 import MDXComponents from "../../components/MDXComponents";
 import readingTime from "reading-time";
 
-import hljs from "highlight.js";
-import "highlight.js/styles/tomorrow-night-bright.css";
+import Prism from "prismjs";
+import "prismjs/themes/prism-okaidia.min.css";
 
 import Subscribe from "../../components/Subscribe";
 import RelatedPosts from "../../components/RelatedPosts";
@@ -31,9 +31,11 @@ export default function Post({ source, frontMatter, timeToRead }) {
       ? `Updated ${dayjs(frontMatter?.date).format("MM-DD-YYYY")}`
       : `Actualizado ${dayjs(frontMatter?.date).format("DD-MM-YYYY")}`;
 
-  useEffect(async () => {
-    hljs.highlightAll();
-  }, [frontMatter]);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      Prism.highlightAll();
+    }
+  }, []);
 
   if (isFallback) {
     return <div>Loading...</div>;
