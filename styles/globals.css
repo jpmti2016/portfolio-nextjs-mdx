@@ -66,10 +66,6 @@
     @apply flex justify-center p-8 text-gray-700 bg-gray-200 dark:bg-gray-700;
   }
 
-  pre[class*="language-"] {
-    @apply bg-gray-800 !important;
-  }
-
   pre > code {
     @apply bg-gray-800 font-fira text-base sm:text-lg !important;
   }

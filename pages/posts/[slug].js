@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import { useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import matter from "gray-matter";
@@ -11,9 +10,9 @@ import { useRouter } from "next/router";
 import { filesPath, folderPath } from "../../utils/mdxUtils";
 import MDXComponents from "../../components/MDXComponents";
 import readingTime from "reading-time";
+import rehypeHighlight from "rehype-highlight";
 
-import Prism from "prismjs";
-import "prismjs/themes/prism-okaidia.min.css";
+import "highlight.js/styles/stackoverflow-dark.css";
 
 import Subscribe from "../../components/Subscribe";
 import RelatedPosts from "../../components/RelatedPosts";
@@ -30,12 +29,6 @@ export default function Post({ source, frontMatter, timeToRead }) {
     locale === "en"
       ? `Updated ${dayjs(frontMatter?.date).format("MM-DD-YYYY")}`
       : `Actualizado ${dayjs(frontMatter?.date).format("DD-MM-YYYY")}`;
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      Prism.highlightAll();
-    }
-  }, []);
 
   if (isFallback) {
     return <div>Loading...</div>;
@@ -131,7 +124,7 @@ export const getStaticProps = async ({ params, locale }) => {
     const mdxSource = await serialize(content, {
       mdxOptions: {
         remarkPlugins: [],
-        rehypePlugins: [],
+        rehypePlugins: [rehypeHighlight],
       },
       scope: data,
     });
