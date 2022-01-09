@@ -24,9 +24,12 @@ related:
 
 ## TLDR
 
-When working with AWS DataStore you have to deal with async/await operations. Updating a list of items when the order of async operations
-execution is not mandatory is viable to do with `Promise.all()` and `map`. Updating related items, where the promise result from the
-previous item is needed as input for the next item, can be achieved with the `for await...of` statement. [Try the working demo](https://www.beawareofbefore.com/calculator).
+When working with AWS DataStore you have to deal with async/await operations.
+
+Updating a list of items when the order of async operations
+execution is not mandatory is viable to do with `Promise.all()` and `map`.
+
+Updating related items, where the promise result from the previous item is needed as input for the next item, can be achieved with the `for await...of` statement. [Try the working demo](https://www.beawareofbefore.com/calculator).
 
 ## Introduction
 
@@ -59,13 +62,15 @@ type SalesPlanner @model @auth(rules: [{ allow: public }]) {
 
 In this model I decided to include calculated fields like accSold, accProfit and sharesRemain as part of the SaleItem entity.
 
-The main reason for that decision was that in the current state of computing vs storage, storage is less expensive than computing. DynamoDB was built with that constraint in mind, optimized for reading versus saving space in storage. To take full advantage of that we should use a single table design model, for now we use a relational model with a DynamoDB database under it.
+The main reason for that decision was that in the current state of computing vs storage, storage is less expensive than computing.
+DynamoDB was built with that constraint in mind, optimized for reading versus saving space in storage. To take full advantage of that we
+should use a single table design model, for now we use a relational model with a DynamoDB database under it.
 
 In my use case having the calculated values stored on the database makes it easier to do CRUD operations because we don’t have to calculate them recursively, avoiding recursive operations complexity and improving UX responsiveness for large datasets.
 
 A [single table design approach](https://youtube.com/watch?v=KYy8X8t4MB8) is recommended after we have certainty that the access patterns are not going to change too much. I am in the first iterations of the app so I will stick to the [relational approach](https://docs.amplify.aws/lib/datastore/relational/q/platform/js). Also I will assume that you know how to model it.
 
-In this case we have a `one to many` relationship between SalesPlanner and SaleItem. That kind of relational modeling is easier using [Amplify Admin UI](https://docs.amplify.aws/console/adminui/intro), where visually you can add Models (entities), relationship and auth rules to your model. It allows sharing your model and managing content like a CMS. You can even use it without an AWS account.
+In this case we have a `one to many` relationship between SalesPlanner and SaleItem. That kind of relational modeling is easier using [Amplify Studio](https://docs.amplify.aws/console/adminui/intro), where visually you can add Models (entities), relationship and auth rules to your model. It allows sharing your model and managing content like a CMS. You can even use it without an AWS account.
 
 The AWS DataStore api is very straightforward, [check the docs for more info](https://docs.amplify.aws/lib/datastore/data-access/q/platform/js#create-and-update).
 
@@ -99,11 +104,16 @@ useEffect(() => {
 }, [salesplannerID]);
 ```
 
-The types are created when you use the CLI command `amplify codegen models`. Then ` import { SaleItem } from "../src/models";`
+The types are created when you use the CLI command `amplify codegen models`. Then
+
+```javascript
+import { SaleItem } from "../src/models";
+```
 
 ## Add SaleItem
 
-Here the main point is to consider the case when there is a previous element in the list because it is used to calculate accSold, accProfit and sharesRemain. The new item is added to the end of the list like in a FIFO data structure, so only the previous item is relevant.
+Here the main point is to consider the case when there is a previous element in the list because it is used to calculate `accSold`,
+`accProfit` and `sharesRemain`. The new item is added to the end of the list like in a FIFO data structure, so only the previous item is relevant.
 
 `salesItems` is a state variable. The `data` param is passed from the form created with [react-hook-form api](https://react-hook-form.com/api/).
 
@@ -161,13 +171,20 @@ Here we get from the state `salesItems` only the slice of items that we have to 
 const saleItemsToUpdate = salesItems.slice(index + 1);
 ```
 
-So we need to do async operations on a list but when you delete an item, it behaves like a constant cause we are going to add or subtract the same amount to the calculated fields, we get rid of the `items related ` constraint for the async operations. This means that there is no need to wait for the current operation to finish to do the next.
+So we need to do async operations on a list but when you delete an item, it behaves like a constant cause we are going to add or subtract
+the same amount to the calculated fields, we get rid of the `items related ` constraint for the async operations. This means that there is
+no need to wait for the current operation to finish to do the next.
 
-Also it is helpful because we don’t have a guarantee that DataStore would return the values in the order specified in the map iterations. Some take more time than others, even when all are accessed in the local store in the browser.
+Also it is helpful because we don’t have a guarantee that DataStore would return the values in the order specified in the map iterations.
+Some take more time than others, even when all are accessed in the local store in the browser.
 
-DataSore tries to access the data locally first, if not found it connects to the database. The updated data is synced in the background. The DataStore [sync explanation and conflict detection / resolution strategies](https://docs.amplify.aws/lib/datastore/sync/q/platform/js#update-and-delete-with-predicate) are outside of the scope of this post.
+DataSore tries to access the data locally first, if not found it connects to the database. The updated data is synced in the background.
+The DataStore [sync explanation and conflict detection / resolution strategies](https://docs.amplify.aws/lib/datastore/sync/q/platform/js#update-and-delete-with-predicate)
+are outside of the scope of this post.
 
-In this scenario [Promise.all()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all), serves your purpose. It executes in parallel (almost) the iterable of promises passed as input and returns a Promise when all the promises have resolved or rejects immediately when any of the input promises rejects.
+In this scenario [Promise.all()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all), serves your
+purpose. It executes in parallel (almost) the iterable of promises passed as input and returns a Promise when all the promises have
+resolved or rejects immediately when any of the input promises rejects.
 
 We are not going to use the returned promise in this case, we just need to guarantee that all fail if any of the async operations fails.
 
@@ -207,11 +224,14 @@ SaleItem.copyOf(toUpdate, (updated) => {
 
 ## Update SaleItems
 
-With the update operation (when we hit the update button) we have a different situation. The next item depends on the previous item, in consequence the order must be respected.
+With the update operation (when we hit the update button) we have a different situation. The next item depends on the previous item, in
+consequence the order must be respected.
 
-If we try to use Promise.all with map we could encounter in the situation that the `prev` item is not updated in time before the next iteration.
+If we try to use Promise.all with map we could encounter in the situation that the `prev` item is not updated in time before the next
+iteration.
 
-To guarantee that we have access to the updated `prev`, we use `for await of`, [it iterates over async iterables objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of), waiting to complete the previous pending operations before continuing to the next iteration.
+To guarantee that we have access to the updated `prev`, we use `for await of`, [it iterates over async iterables objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of),
+waiting to complete the previous pending operations before continuing to the next iteration.
 
 ```javascript
 const updateSaleItemsOnUpdate = async (data) => {

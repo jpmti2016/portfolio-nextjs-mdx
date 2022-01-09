@@ -24,10 +24,12 @@ related: ["async-update-related-items", "gdpr-consent-mode-analytics-4-nextjs"]
 ## TLDR
 
 Update the **AWS Route 53 domain’s nameservers or, A and CNAME record types** with the values provided by **Vercel** under
-`ProjectName / Settings / Domains` after you added a domain to the project. It will show the info needed to configure
-`greatdomain.com` and redirect to `www.greatdomain.com` or vice versa. After you tried to add the domain to your project
-unsuccessfully that information will also be sent to your email explaining what to do. Vercel allows you to configure A (recommended)
-and CNAME records.
+`ProjectName / Settings / Domains` after you added a domain to the project.
+
+It will show the info needed to configure `greatdomain.com` and redirect to `www.greatdomain.com` or vice versa. After you tried to add
+the domain to your project unsuccessfully that information will also be sent to your email explaining what to do.
+
+Vercel allows you to configure A (recommended) and CNAME records.
 
 ## Some background
 
@@ -111,6 +113,7 @@ If you are unfamiliar with the DNS terminology relevant to this task, here is th
   width={1920}
   height={1080}
   layout="responsive"
+  quality={30}
 />
 
 Allways after updating the Nameservers or, the A and CNAME records you have to **wait some time for the changes to be applied**.
@@ -139,8 +142,9 @@ Replace those _awsdns_ name servers on the `Route 53 / Domains / Registered Doma
 Copy the **A Record** value from your project dashboard in Vercel. It should look like `76.76.21.21`.
 
 Go to your `AWS Route 53 / Hosted Zones / greatdomain.com / Create Record` (It should be an **A** record by default, if not select an A
-type from the Record Type dropdown), and paste it in the field Value. If you need _further information_ for each field you can hit the
-**Info** link over the field or consult the [Amazon Route 53 documentation](https://docs.aws.amazon.com/route53/?id=docs_gateway). Leave
+type from the Record Type dropdown), and paste it in the field Value.
+
+If you need _further information_ for each field you can hit the **Info** link over the field or consult the [Amazon Route 53 documentation](https://docs.aws.amazon.com/route53/?id=docs_gateway). Leave
 the **name** empty and it should take a valid default.
 
 Do the same for the **CNAME type**, copy your Vercel CNAME record value `cname.vercel-dns.com` and paste it in the Route 53 Record value

@@ -3,9 +3,9 @@ import dayjs from "dayjs";
 
 export default function RelatedPosts({ related, locale }) {
   return (
-    <div>
+    <div className="p-4 space-y-6 sm:space-y-20">
       {related.length > 0 && (
-        <h2 className="pt-10 font-semibold">
+        <h2 className="pt-10 font-semibold ">
           {locale === "en" ? "Related Posts" : "Artículos Relacionados"}
         </h2>
       )}
@@ -15,7 +15,7 @@ export default function RelatedPosts({ related, locale }) {
             <Link href={`/posts/${r?.slug}`} key={r?.slug}>
               <a className="no-underline">
                 <div className="flex flex-col items-start p-4 my-10 no-underline bg-gray-200 rounded-md shadow-xl sm:max-w-3xl sm:p-10 dark:bg-gray-600/10">
-                  <h2 className="font-semibold ">{r?.title}</h2>
+                  <h2 className="mt-3 mb-1 font-semibold">{r?.title}</h2>
                   <p className="">
                     {`${
                       locale === "en"

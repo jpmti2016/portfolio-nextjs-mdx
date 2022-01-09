@@ -61,11 +61,17 @@
   body {
     @apply prose-lg sm:prose-xl dark:prose-invert;
   }
+
   .demo {
     @apply flex justify-center p-8 text-gray-700 bg-gray-200 dark:bg-gray-700;
   }
+
   pre > code {
-    @apply !bg-gray-800;
+    @apply bg-gray-800 font-fira text-base sm:text-lg !important;
+  }
+
+  p > code {
+    @apply font-fira text-base sm:text-lg font-semibold after:content-['`'] before:content-['`'] !important;
   }
 
   .btn {

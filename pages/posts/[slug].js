@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import { useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import matter from "gray-matter";
@@ -11,11 +10,12 @@ import { useRouter } from "next/router";
 import { filesPath, folderPath } from "../../utils/mdxUtils";
 import MDXComponents from "../../components/MDXComponents";
 import readingTime from "reading-time";
+import rehypeHighlight from "rehype-highlight";
+
+import "highlight.js/styles/stackoverflow-dark.css";
+
 import Subscribe from "../../components/Subscribe";
 import RelatedPosts from "../../components/RelatedPosts";
-
-import hljs from "highlight.js";
-import "highlight.js/styles/tomorrow-night-bright.css";
 
 export default function Post({ source, frontMatter, timeToRead }) {
   const { asPath, isFallback, locale } = useRouter();
@@ -29,10 +29,6 @@ export default function Post({ source, frontMatter, timeToRead }) {
     locale === "en"
       ? `Updated ${dayjs(frontMatter?.date).format("MM-DD-YYYY")}`
       : `Actualizado ${dayjs(frontMatter?.date).format("DD-MM-YYYY")}`;
-
-  useEffect(() => {
-    hljs.highlightAll();
-  }, [frontMatter]);
 
   if (isFallback) {
     return <div>Loading...</div>;
@@ -128,7 +124,7 @@ export const getStaticProps = async ({ params, locale }) => {
     const mdxSource = await serialize(content, {
       mdxOptions: {
         remarkPlugins: [],
-        rehypePlugins: [],
+        rehypePlugins: [rehypeHighlight],
       },
       scope: data,
     });
