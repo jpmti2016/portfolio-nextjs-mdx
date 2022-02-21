@@ -10,6 +10,10 @@ import readingTime from "reading-time";
 import useTranslation from "next-translate/useTranslation";
 
 export default function NoTranslated({ posts }) {
+  const orderedByDate = posts
+    .slice()
+    .sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+
   const { asPath, locale } = useRouter();
   const { t, lang } = useTranslation("posts");
   return (
@@ -32,7 +36,7 @@ export default function NoTranslated({ posts }) {
 
         {/* <Subscribe className="mb-8 sm:mb-24" locale={locale} /> */}
         <div className="space-y-6 sm:space-y-20">
-          {posts?.map((post) => (
+          {orderedByDate?.map((post) => (
             <div
               key={post?.filePath}
               className="p-4 no-underline bg-gray-200 rounded-md shadow-xl sm:max-w-3xl sm:p-10 dark:bg-gray-600/10"
