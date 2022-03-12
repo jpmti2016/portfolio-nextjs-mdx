@@ -211,7 +211,7 @@ export async function getStaticProps({ locale }) {
         // create eventName subs for the analytics of each project
         const { title } = data;
 
-        const replacedSpaces = title?.replaceAll(" ", "-");
+        const replacedSpaces = title?.replace(/" "/g, "-");
         const upToFirstCharPos = replacedSpaces.indexOf("-");
         const eventName = replacedSpaces
           .substring(0, upToFirstCharPos)
