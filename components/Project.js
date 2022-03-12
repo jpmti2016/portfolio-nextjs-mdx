@@ -1,7 +1,14 @@
 import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote";
 import MDXComponents from "./MDXComponents";
-import { useState, useEffect } from "react";
+
+const getEventName = (title) => {
+  const replacedSpaces = title?.replaceAll(" ", "-");
+  const upToFirstCharPos = replacedSpaces.indexOf("-");
+  const name = replacedSpaces.substring(0, upToFirstCharPos).toLowerCase();
+
+  return name;
+};
 
 export default function Project({
   title,
@@ -12,14 +19,6 @@ export default function Project({
   mdxSource,
   openToPublic,
 }) {
-  const [eventName, setEventName] = useState("");
-  useEffect(() => {
-    const replacedSpaces = title?.replaceAll(" ", "-");
-    const upToFirstCharPos = replacedSpaces.indexOf("-");
-    const name = replacedSpaces.substring(0, upToFirstCharPos).toLowerCase();
-    setEventName(name);
-  }, []);
-
   return (
     <div className="flex flex-col p-4 bg-gray-200 shadow-lg dark:bg-gray-900 sm:p-8">
       <div>
@@ -52,7 +51,9 @@ export default function Project({
       </div>
       <div className="mt-4 md: sm:pt-6 sm:mt-auto">
         <a
-          className={`shadow-lg btn btn-blue umami--click--${eventName}-demo`}
+          className={`shadow-lg btn btn-blue umami--click--${getEventName(
+            title
+          )}-demo`}
           href={demo}
           target="_blank"
           rel="noreferrer noopener"
@@ -62,7 +63,9 @@ export default function Project({
         <a
           className={
             openToPublic
-              ? `shadow-lg btn btn-gray sm:ml-8 ml-5 umami--click--${eventName}-info`
+              ? `shadow-lg btn btn-gray sm:ml-8 ml-5 umami--click--${getEventName(
+                  title
+                )}-info`
               : "hidden shadow-lg btn btn-red"
           }
           href={openToPublic ? info : "#"}
