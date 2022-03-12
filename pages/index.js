@@ -80,7 +80,7 @@ export default function Home({ projects }) {
 
             <a
               href="mailto:jpmti2016@gmail.com"
-              className="btn btn-blue"
+              className="btn btn-blue umami--click--hire-me"
               onClick={handleClickHireMe}
             >
               {t("main:mainCTA")}

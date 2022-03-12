@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="flex flex-col items-center content-center justify-center ">
           <div className="flex mb-3 space-x-5 sm:space-x-10">
             <a
-              className="block"
+              className="block umami--click--twitter-footer"
               aria-label={t("linkTwitterAriaLabel")}
               href="https://twitter.com/jpmti2016"
               target="_blank"
@@ -35,7 +35,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              className="block"
+              className="block umami--click--linkedIn-footer"
               aria-label={t("linkLinkedinAriaLabel")}
               href="https://www.linkedin.com/in/yampier-medina-423641169"
               target="_blank"
@@ -67,7 +67,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              className="block"
+              className="block umami--click--email-footer"
               aria-label={t("linkEmailAriaLabel")}
               href="mailto:jpmti2016@gmail.com"
               target="_blank"
@@ -90,7 +90,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              className="block w-8 h-8"
+              className="block w-8 h-8 umami--click--github-footer"
               aria-label={t("linkGithubAriaLabel")}
               href="https://github.com/jpmti2016"
               target="_blank"

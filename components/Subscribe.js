@@ -49,7 +49,7 @@ export default function Subscribe({ className, ...rest }) {
         />
         <input
           className={
-            "absolute flex items-center justify-center px-3 h-9 font-bold capitalize rounded-r-sm shadow-lg right-1 top-1 sm:w-28 text-blue-200 hover:text-blue-900 hover:bg-blue-600 dark:hover:text-gray-900 dark:hover:bg-blue-600 bg-blue-900"
+            "absolute flex items-center justify-center px-3 h-9 font-bold capitalize rounded-r-sm shadow-lg right-1 top-1 sm:w-28 text-blue-200 hover:text-blue-900 hover:bg-blue-600 dark:hover:text-gray-900 dark:hover:bg-blue-600 bg-blue-900 umami--click--subscribe-btn"
           }
           type="submit"
           value={
