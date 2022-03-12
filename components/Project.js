@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote";
 import MDXComponents from "./MDXComponents";
+import { useState, useEffect } from "react";
 
 export default function Project({
   title,
@@ -11,9 +12,13 @@ export default function Project({
   mdxSource,
   openToPublic,
 }) {
-  let eventName = title?.toLowerCase()?.replaceAll(" ", "-");
-  const upToFirstCharPos = eventName?.indexOf("-");
-  eventName = eventName?.substring(0, upToFirstCharPos);
+  const [eventName, setEventName] = useState("");
+  useEffect(() => {
+    const replacedSpaces = title?.replaceAll(" ", "-");
+    const upToFirstCharPos = replacedSpaces.indexOf("-");
+    const name = replacedSpaces.substring(0, upToFirstCharPos).toLowerCase();
+    setEventName(name);
+  }, []);
 
   return (
     <div className="flex flex-col p-4 bg-gray-200 shadow-lg dark:bg-gray-900 sm:p-8">
