@@ -2,16 +2,9 @@ import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote";
 import MDXComponents from "./MDXComponents";
 
-const getEventName = (title) => {
-  const replacedSpaces = title?.replaceAll(" ", "-");
-  const upToFirstCharPos = replacedSpaces.indexOf("-");
-  const name = replacedSpaces.substring(0, upToFirstCharPos).toLowerCase();
-
-  return name;
-};
-
 export default function Project({
   title,
+  eventName,
   image,
   stack,
   demo,
@@ -51,9 +44,7 @@ export default function Project({
       </div>
       <div className="mt-4 md: sm:pt-6 sm:mt-auto">
         <a
-          className={`shadow-lg btn btn-blue umami--click--${getEventName(
-            title
-          )}-demo`}
+          className={`shadow-lg btn btn-blue umami--click--${eventName}-demo`}
           href={demo}
           target="_blank"
           rel="noreferrer noopener"
@@ -63,9 +54,7 @@ export default function Project({
         <a
           className={
             openToPublic
-              ? `shadow-lg btn btn-gray sm:ml-8 ml-5 umami--click--${getEventName(
-                  title
-                )}-info`
+              ? `shadow-lg btn btn-gray sm:ml-8 ml-5 umami--click--${eventName}-info`
               : "hidden shadow-lg btn btn-red"
           }
           href={openToPublic ? info : "#"}
