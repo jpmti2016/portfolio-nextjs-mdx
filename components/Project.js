@@ -11,9 +11,9 @@ export default function Project({
   mdxSource,
   openToPublic,
 }) {
-  let eventName = title.toLowerCase().replaceAll(" ", "-");
-  const upToFirstCharPos = eventName.indexOf("-");
-  eventName = eventName.substring(0, upToFirstCharPos);
+  let eventName = title?.toLowerCase()?.replaceAll(" ", "-");
+  const upToFirstCharPos = eventName?.indexOf("-");
+  eventName = eventName?.substring(0, upToFirstCharPos);
 
   return (
     <div className="flex flex-col p-4 bg-gray-200 shadow-lg dark:bg-gray-900 sm:p-8">
