@@ -208,18 +208,9 @@ export async function getStaticProps({ locale }) {
           scope: data,
         });
 
-        // create eventName subs for the analytics of each project
-        const { title } = data;
-
-        const replacedSpaces = title?.replace(/" "/g, "-");
-        const upToFirstCharPos = replacedSpaces.indexOf("-");
-        const eventName = replacedSpaces
-          .substring(0, upToFirstCharPos)
-          .toLowerCase();
-
         return {
           content,
-          data: { ...data, eventName },
+          data,
           mdxSource,
         };
       })
