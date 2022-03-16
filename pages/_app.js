@@ -3,6 +3,21 @@ import "../styles/globals.css";
 import Layout from "../components/Layout";
 import Script from "next/script";
 
+export function reportWebVitals(metric) {
+  console.log("web vitals", metric);
+
+  if (label === "web-vital") {
+    const url = process.env.WEBVITAL_URL;
+    const body = JSON.stringify(metric);
+
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(url, body);
+    } else {
+      fetch(url, { body, method: "POST", keepalive: true });
+    }
+  }
+}
+
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class">
