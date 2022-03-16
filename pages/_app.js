@@ -5,6 +5,7 @@ import Script from "next/script";
 
 export function reportWebVitals(metric) {
   console.log("web vitals", metric);
+  const { label } = metric;
 
   if (label === "web-vital") {
     const url = process.env.WEBVITAL_URL;
