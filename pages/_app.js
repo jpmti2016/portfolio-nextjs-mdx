@@ -8,7 +8,7 @@ export function reportWebVitals(metric) {
   const { label } = metric;
 
   if (label === "web-vital") {
-    const url = process.env.WEBVITAL_URL;
+    const url = `${process.env.WEBVITAL_URL}/api/collect`;
     const body = JSON.stringify(metric);
 
     if (navigator.sendBeacon) {
