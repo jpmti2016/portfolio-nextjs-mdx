@@ -11,7 +11,6 @@ import Subscribe from "../../components/Subscribe";
 import useTranslation from "next-translate/useTranslation";
 
 export default function Blog({ posts }) {
-  console.log("posts", posts);
   const orderedByDate = posts
     .slice()
     .sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
