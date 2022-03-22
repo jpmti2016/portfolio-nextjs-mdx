@@ -38,6 +38,7 @@ export default function Post({ source, frontMatter, timeToRead }) {
     <div className="px-4 py-10 sm:flex sm:items-center sm:flex-col">
       <Head>
         <title>{frontMatter?.title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="follow, index" />
         <meta content={frontMatter?.description} name="description" />
         <meta
