@@ -8,8 +8,8 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider attribute="class">
       <Script
         strategy="afterInteractive"
-        data-website-id="4ba2c90b-d8db-4811-a7ba-a99cdc097786"
-        src="https://umami-three-neon.vercel.app/umami.js"
+        data-website-id={process.env.DATA_WEBSITE_ID}
+        src={process.env.UMAMI_SCRIPT}
       />
 
       <Layout>
