@@ -8,8 +8,8 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider attribute="class">
       <Script
         strategy="afterInteractive"
-        data-website-id={process.env.DATA_WEBSITE_ID}
-        src={process.env.UMAMI_SCRIPT}
+        data-website-id={process.env.NEXT_PUBLIC_DATA_WEBSITE_ID}
+        src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT}
       />
 
       <Layout>
