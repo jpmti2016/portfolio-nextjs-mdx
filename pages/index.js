@@ -110,7 +110,6 @@ export default function Home({ projects }) {
             <p className="mb-3">{t("main:aboutCare")}</p>
 
             <p className="mb-3">{t("main:aboutUse")}</p>
-            <p className="mb-3">{t("main:aboutSpeak")}</p>
             <p className="mb-3 font-semibold">{t("main:aboutLearningIntro")}</p>
             <p className="mb-3">
               <span className="font-medium">
