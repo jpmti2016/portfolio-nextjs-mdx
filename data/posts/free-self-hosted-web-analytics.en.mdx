@@ -1,0 +1,362 @@
+---
+title: Free self-hosted web analytics with Umami, PlanetScale, Prisma and Vercel.
+description: "Having my own self-hosted web analytics with Umami, PlanetScale, Prisma and Vercel, is helping me compose a whole picture of my website's web analytics, without platform bias, with a simple and privacy focused solution, and  free of charge. Additionally, because I am interested in the technical side, it has been a good opportunity to interact with SQL database alternatives like PlanetScale, Node.js ORM like Prisma, and deployments to Vercel. This guide covers how I adapted the Umami’s installation process to work with PlanetScale."
+type: "article"
+site_name: "Yampier Medina personal website"
+image: "https://www.jpmti2016.com/images/self-hosted-umami-web-analytics.jpg"
+date: "2022-03-27"
+isTranslated: false
+related:
+  [
+    "gdpr-consent-mode-analytics-4-nextjs",
+    "vercel-aws-route-53-custom-domain",
+  ]
+---
+
+# Free self-hosted web analytics with Umami, PlanetScale, Prisma and Vercel.
+
+<Image
+  alt="List of resources to learn Rust"
+  src="/images/self-hosted-umami-web-analytics.jpg"
+  width={1920}
+  height={1080}
+  layout="responsive"
+  quality={30}
+  priority
+/>
+
+## TLDR
+
+Having my own self-hosted web analytics with Umami, PlanetScale, Prisma and Vercel, is helping me compose a whole picture of my website's web analytics, without platform bias, with a simple and privacy focused solution, and  free of charge.
+
+Additionally, because I am interested in the technical side, it has been a good opportunity to interact with SQL database alternatives like PlanetScale, Node.js ORM like Prisma, and deployments to Vercel.
+
+This guide covers how I adapted the Umami’s installation process to work with PlanetScale.
+
+
+## Intro
+
+Having at least an overview of how many views your website is getting could be a good practice to inform your content publishing strategy or website technical improvement.
+
+You may have issues with free web analytics like Google Analytics for its approach to privacy, complexity, learning curve or just for being overkill for your project size. Also you may just want to dive into a self-hosted web analytics solution to understand how it works, before embarking on a  more complex free or paid web analytics solution.
+
+Did you know that search engines have different criterias to index your pages? It happened to me that some posts were being indexed in Bing and not in Google. I was just using Google Analytics that resulted in losing data points related to posts that were not indexed in Google, but were indexed on other search engines and were being viewed on referrer sites like social media and specialized content aggregators.
+
+Controlling my own self-hosted web analytics with Umami, PlanetScale, Prisma and Vercel, is helping me have a whole picture of my website's web analytics, without platform bias, in a simple and privacy focused solution, and  free of charge.
+
+Additionally, because I am interested in the technical side, it has been a good opportunity to interact with SQL database alternatives like PlanetScale, Node.js ORM like Prisma, and deployments to Vercel. If you need some help with the technical side, don’t hesitate to reach out and I will be glad to help.
+
+This guide covers how I adapted the Umami’s installation process to work with PlanetScale.
+
+
+## Overview of Umami, PlannetScale, Prisma, and Vercel.
+
+### Umami
+
+Looking for an alternative to Google Analytic and other paid analytics services?
+
+Take a look at [Umami](https://umami.is/docs/about).
+
+> Umami is a simple, easy to use, self-hosted web analytics solution. The goal is to provide you with a friendlier,
+> privacy-focused alternative to Google Analytics and a free, open-sourced alternative to paid solutions. Umami collects only
+> the metrics you care about and everything fits on a single page.
+
+Umami is designed with simplicity in mind by just collecting important metrics like pageviews, url, devices, etc., without
+getting into the labyrinth of the marketing funnel and user tracking behaviors. From your dashboard you can have an overall view of
+the performance of all of your websites, and the option to dive into specific project's metrics.
+
+A single Umami installation can be used to collect web analytics of unlimited websites, and to create multiple accounts for
+external stakeholders where each account can have an independent dashboard for its own websites. You own the data of your websites and
+have the possibility of sharing it publicly with a generated url.
+
+[Umami is GDPR compliant](https://umami.is/docs/faq) and has support for more than 30 languages including English, Spanish, Chinese, Arabic, Japanese and
+Hindi.
+
+> Umami does not collect any personally identifiable information and anonymizes all data collected. Users cannot be identified
+> and are never tracked across websites
+
+The code is open source (MIT), [available to audit and improve on Github](https://github.com/mikecao/umami). The resulting script is ligth-weight (2KB),
+compatible with IE and able to bypass ad-blockers.
+
+To host your service you will need a database (MySQL or Postgresql) and a server compatible with Node.js (10.13 or newer).
+
+The app can be hosted on Vercel, Netlify, Render, and Railway.
+
+To speed your process you can use a managed database provider like DigitalOcean, Scaleway (EU), Amazon Web Services, Google
+Cloud SQL, Microsoft Azure, Render, Heroku, or Railway.
+
+Because Umami uses Prisma, in this article I will explain how to use PlanetScale to host your MySQL-compatible database, and how to connect to it
+with little additional configuration.
+
+### PlanetScale
+
+[PlanetScale](https://planetscale.com/) offers a MySQL-compatible serverless database platform capable of handling workloads of the size of YouTube, where with just a few
+actions you will have a working database, without worries about rebalancing, scaling, and query planning.
+
+It uses a novel database development workflow that is powered by database branching (treat the database like code) and non-blocking schema changes.
+Makes it easier to experiment with your database in a development branch and safer to deploy schema changes to production.
+
+It is compatible with many frameworks and languages like JavaScript, Python, Java, Ruby, PHP, .NET and Go. And supports unlimited connections and
+horizontal sharding.
+
+Importing your data is as easy as just needing to connect your database to PlanetScale and it will do the hard work for you.
+
+With its CLI you are able to experiment with your database branching structure from the comfort of your command line. The ```pscale``` CLI puts in your hand
+powerful tools to script, automate, and scale your development lifecycle.
+
+Its [Developer Plan](https://planetscale.com/pricing) includes up to 10GB storage/month, 1 billion row reads/month, 10 million row writes/month, 3 branches
+per database, 1000 concurrent connections, automated daily backups and community support.
+
+For $29/month you can upgrade to a **Scaler Plan** that more than double the **Developer Plan** limits, plus getting access to advanced features like
+autoscaling and standard support.
+
+### Prisma
+
+[Prisma](https://www.prisma.io/) is a server-side library self-presented as a **next-generation Node.js and Type ORM**. It offers a opens source toolkit for PostgreSQL, 
+MySQL, SQL Server, SQLite and MongoDB (preview). Allows your app to read and write to the database.
+
+Prisma datamodel revolve around the schema where you declaratively describe, in a human-readable format, your app's data models and their relations.
+
+It brings a type-safe database client that gets auto-generated from the Prisma schema with types specifics for your app. The Primsa Client allows you to build 
+queries that compose the way you think.
+
+It has a Visual Studio Code extension with auto-completion, linting, formating, etc. Additionally the use of TypeScript helps with making fewer errors 
+and empathize with extensive type safety for your development life cycle.
+
+Prisma allows hassle-free migration with specially created script commands like ```prisma deb push``` and ```npx prisma migrate```.
+
+The [Prisma Studio](https://www.prisma.io/studio) makes the exploration and manipulation of your data as easy as to run the command ```npx prisma studio``` and interact with a 
+browser app.
+
+As an ORM the integration of Prisma with other tools like Next.js, GraphQL, Express, Apollo, NestJS, and hapi, is easy and powerful avoiding 
+headaches around database access, repetitive CRUD boilerplate and type safety.  
+
+Its workflow is organized around Plan (model your data), Code (query your data), Test (run unit and integration tests), Deploy (deploy using any 
+paradigm), Monitor (monitor and spot performance bottlenecks) and Operate (troubleshoot production issues). 
+
+### Vercel
+
+[Vercel](https://vercel.com/) is the "best place to deploy any frontend app" with first class support for Next.js (the open source React framework).
+
+It has a **develop** / **preview** / **ship** workflow organized around the goal of providing the best developer experience (fast refresh, flexible data 
+fetching, edge on localhost) and end-user performance obsession. It facilitates team collaboration and seamless integration with GitHub, GitLab, and 
+Gitbucket.
+
+Its global edge network, with zero configuration by your side, routes requests to the correct / nearest serverless function (or edge function) and 
+static file.   
+
+Vercel benefits app's SEO, speed and security by providing static content caching, dynamic code execution, SSL encryption, asset compression and 
+cache invalidation. 
+
+Vercel’s **Hobby** plan is generous enough to host your side projects (MVPs) with 100 GB of bandwidth, 100 GB-hours serverless function execution, 10 seconds serverless function execution timeout, 100K edge functions invocation per day, 6K minutes of build execution, 1K source images powered by image optimization, unlimited serverless functions invocations, unlimited previewers, 50 domains per projects, 100 deployments per day, limited analytics (only data points for the last 24 hours), HTTPS / SSL by default, DDoS mitigation, and email support.
+
+If you want access to advanced features like historic analytics data points, multi-region serverless functions, adding team member to the project, preview deployment suffix, SAML single-sign on and 2FA, dedicated customer success engineer, code audit and professional services, etc., you should upgrade your plan to **Pro** ($ 20 / month per member) or **Enterprise** (Custom price). For a [full plans comparison](https://vercel.com/pricing) check their pricing page.
+
+## Umami installation with PlanetScale, Prisma and Vercel
+
+You can [install](https://umami.is/docs/install) and [host](https://umami.is/docs/hosting) Umami using several alternatives.
+
+This guide adapts the process to work with a PlanetScale database and a deployment on Vercel.
+
+### Clone Umami repo locally using git
+
+```javascript
+git clone https://github.com/mikecao/umami.git
+```
+### Move into the Umami directory and install the dependencies
+
+```bash
+cd umami
+npm install
+```
+
+### Delete entry from ```.gitignore``` file to preserve local changes to the ```schema.prisma```.
+
+```javascript
+/prisma/schema.prisma
+```
+The ```schema.prisma``` file will be recreated again at deployment time by the Umami installation script, but that will not affect your setup 
+because the PlanetScale database is created manually only.  
+
+Preciscely we are using alternative steps because the installation script doesn't work with PlanetScale.
+
+### Create prisma schema
+
+Generate the schema with the Umami models that will be used by the Prisma cli to create the PlanetScale database.
+
+```bash
+npm run build
+```
+
+### Configure the ```datasource``` and the ```generator``` to work with a PlaneScale database.
+
+The ```build``` command generates a ```schema.prisma``` under the ```prisma``` directory with the models and a generic configuration for a ```mysql``` 
+database but the ```schema.prisma``` needs to have the following adjustments to work properly with a PlanetScale database.
+
+```javascript
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+    provider             = "mysql"
+    url                  = env("DATABASE_URL")
+    referentialIntegrity = "prisma"
+}
+```
+
+If for any reason you have to rebuild / regenerate this file, add the previous configuration again if it's being overridden. 
+
+
+### Push your repo to GitHub.
+
+You previously created a local repository by cloning the Umami repo. Now is time to push your local changes to a GitHub repository that will be used by Vercel to create your project.
+
+Create a new repository on GitHub, with your preferred ```reponame``` and push your local changes to it.
+
+```bash
+git branch -M main
+git remote add origin https://github.com/yourusername/reponame.git
+git push -u origin main
+```
+
+### Prepare PlanetScale
+
+[Sign up](https://planetscale.com/) on PlanetScale.
+
+You can create the database on your PlanetScale dashboard (you will have authorization to create only one database under the Developer Plan) by selecting 
+the **New Database** option followed by **Create new database**.
+
+Alternatively you can create the database using the [PlaneScale cli](https://planetscale.com/cli) with ```pscale database create <databasename>```.
+
+```bash
+pscale database create umami
+````
+A new database is created with a ```main``` branch by default. This database has no tables at the moment.
+
+You may have to login in the ```pscale``` cli before creating the database. If needed, execute the ```pscale auth login``` command and confirm the browser prompt.
+
+```bash
+pscale auth login
+````
+
+### Create connection to the database
+
+You will need a password to connect to the database. 
+
+Be sure to save the password, and the other parameters, you will need them later to configure the database connection. 
+
+For creating the password go to the PlanetScale dashboard, select the database by its name, and select **New password**. Fill the form and click on 
+**Generate password**. 
+
+Alternatively with the ```pscale``` cli use the command ```pscale password create <DATABASE_NAME> <BRANCH_NAME> <PASSWORD_NAME>```. Like in this example:
+
+```bash
+pscale password create umami main webanalytics
+```
+Go to your ```.env``` file and add the ```DATABASE_URL``` environment variable (use the output of the above password creation) with the following format:
+
+```sql
+DATABASE_URL='mysql://<USERNAME>:<PASSWORD>@<ACCESS_HOST_URL>/<DATABASE_NAME>?sslaccept=strict'
+```
+You will need to create the ```DATABASE_URL``` environment variable later on Vercel to configure your production environment.
+
+###  Push the database schema to your PlanetScale database using Prisma
+
+Prisma will use the ```DATABASE_URL``` and the ```prisma/schema.prisma```. 
+
+```bash
+npx prisma db push
+```
+
+The ```prisma db push``` is used to [quickly prototype and iterate](https://www.prisma.io/docs/concepts/components/prisma-migrate/db-push) but it may 
+result in data loss if the schema differs. We are using it because it is a fresh project.  
+
+For a [more complete workflow](https://www.prisma.io/docs/guides/database/prototyping-schema-db-push) you may need to use ```prisma migrate``` and 
+```prisma db push``` together.
+
+In this case you are only deploying a given scheme as is, without further changes, so ```npx prisma db push``` is enough.
+
+### Configure the ```automatically copy migration data``` (optional)
+
+Go to your database’s settings in PlanetScale, check the option ```Automatically copy migration data```, and select ```Prisma``` under ```Migration framework```. We don’t need this setup but it is good to be prepared in case you decide to do your own changes and work with the more complex [PlanetScale workflow that uses data migration](https://docs.planetscale.com/concepts/branching#automatically-copy-migration-data).
+
+### Create a admin user using the PlanetScale console
+
+<Notice>
+You must change the admin’s password immediately after login in the Umami app for security reasons.
+</Notice>
+
+Go to your PlanetScale dashboard, select your database (click), got to **Branches**, select main (click), go to the tab **Console** and execute the 
+following command:
+
+```sql
+insert into account (username, password, is_admin) values ('admin', '$2b$10$BUli0c.muyCW1ErNJc3jL.vFRFtFJWrT8/GcR4A.sUdCznaXiqFXa', true);
+```
+This is necessary because the app script doesn't create the admin user for a PlaneScale database. And if you create the admin 
+with the ```prisma studio``` the password will not be encrypted, so Umami will fail to decrypt something unencrypted.
+
+You can verify that the user was created by running the following SQL query in the PlanetScale console:
+
+```sql
+select * from account;
+```
+
+### Deploy Umami to Vercel
+
+With your Umami git repo hosted on Github and the MySQL database created on PlanetScale you are ready to deploy the Umami app to Vercel.
+
+Head on to your Vercel dashboard, select **New Project** (click), import the **umami** repository - or whatever you named it.
+
+This will transition to the **Configure Project** window. We will leave the default Next.js setup and add the ```DATABASE_URL``` environment variable 
+for the production environment, with the same connection value that you created for your local environment in the .env file.
+
+Finally **Deploy** (click) your Vercel project.
+
+## Configure your website to send web analytics to your Umami installation
+
+<Notice>
+You must change the admin password!!!
+</Notice>
+
+From here you can continue with the same steps outlined in the Umami website, [login and change the admin password](https://umami.is/docs/login), [add websites](https://umami.is/docs/collect-data), [collect data](https://umami.is/docs/collect-data), etc, .
+
+### Add the Umami script to a Next.js website to collect its web analytics (optional)
+
+Create the environment variables for ```NEXT_PUBLIC_DATA_WEBSITE_ID``` and ```NEXT_PUBLIC_SRC_UMAMI_SCRIPT``` in your Next.js project with the values provided by **
+Get tracking code** as [explained here](https://umami.is/docs/collect-data).
+
+The provided code is something like this:
+
+```JavaScript
+<script async defer data-website-id="32c7y32h-98ah-5160-j7kw-e383hj3yem38" src="https://mydomaim.com/umami.js"></script>
+```
+
+You can just copy it as plain text in your code, but it is not generally recommended.
+
+Normally the Umami ```script``` goes in the page’s ```head```.  For performance considerations in a Next.js app, the Umami ```script``` goes into a ```Script component``` in the ```_app.js``` file.
+
+```JavaScript
+import Script from 'next/script'
+
+export default function MyApp() {
+  return (
+    <>
+    <Script
+        strategy="afterInteractive"
+        data-website-id={process.env.NEXT_PUBLIC_DATA_WEBSITE_ID}
+        src={process.env.NEXT_PUBLIC_SRC_UMAMI_SCRIPT}
+      />
+    </>
+  )
+}
+```
+
+## Conclusion
+
+Umami can be configured to work with a MySQL-compatible PlanetScale database, while retaining the benefits of a self-hosted web analytics solution that avoid platform bias, focus on simplicity and privacy, and remain free of charge.
+
+Additionally, because I am interested in the technical side, it has been a good opportunity to interact with SQL database alternatives like PlanetScale, Node.js ORM like Prisma, and deployments to Vercel.
+
+This guide covers how I adapted the Umami’s installation process to work with PlanetScale.
