@@ -6,7 +6,7 @@ site_name: "Yampier Medina personal website"
 image: "https://www.jpmti2016.com/images/consent-mode-google-analytics.jpg"
 date: "2021-07-10"
 isTranslated: false
-related: ["async-update-related-items", "vercel-aws-route-53-custom-domain"]
+related: ["free-self-hosted-web-analytics", "async-update-related-items", "vercel-aws-route-53-custom-domain"]
 ---
 
 # GDPR privacy, consent mode ‘denied’ status, Google Analytics 4 and Next.js.
@@ -325,6 +325,25 @@ the traffic to your website even when script are blocked consider using paying s
 
 They have affordable options to select. Plausible starts at $6 / month for 10k pageviews and Fathom
 starts at $14 / month for 100k pageviews. Fathom is a referral link, I would get a commision if you use it from my referral.
+
+### Self-hosting your own analytics and web vitals for free
+
+Let admit it, sometimes we prefer to implement our own services for the sake of learning.
+
+In this guide I discuss [how to self-host you own web analytics](https://www.jpmti2016.com/posts/free-self-hosted-web-analytics) using Next.js (ReactJS framework), Umami (self-hosted web analytics solution),
+PlanetScale (MySQL-compatible serverless database platform), Vercel (Next.js specialized hosting), and Prisma (Next-generation Node.js and
+TypeScript ORM).
+
+[With Umami](https://umami.is/docs/about) you can own your website analytics, using a free, friendly, simple, privacy-focused alternative
+to Google Analytics. In the same page you can have a eagle view of all of your websites.
+
+Umami cannot register the core web vitals of your website yet. Noneless you can also [self-host your own web vitals service collector](https://nextjs.org/docs/advanced-features/measuring-performance#web-vitals) to
+measure the performance of your Next.js websites with real world values of Time to First Byte (TTFB), First Contentful Paint (FCP), Largest
+Contentful Paint (LCP), First Input Delay (FID), and Cumulative Layout Shift (CLS). This approach use the `reportWebVitals` function
+exposed by Next.js with the metrics about the web vitals.
+
+Web vitals are crucial to evaluate user experience, and are important to SEO and page ranking. They may inform you how to prioritize your
+website improvement tasks.
 
 ### Others consent management platforms
 
