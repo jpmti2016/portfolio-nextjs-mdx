@@ -8,6 +8,10 @@ module.exports = nextTranslate({
   async headers() {
     return [
       {
+        source: "/",
+        headers: securityHeaders,
+      },
+      {
         source: "/(.*)",
         headers: securityHeaders,
       },
@@ -25,7 +29,7 @@ module.exports = nextTranslate({
 // https://securityheaders.com
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com *.googletagmanager.com umamix-virid.vercel.app;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com umamix-virid.vercel.app;
   child-src *.youtube.com *.google.com *.twitter.com;
   style-src 'self' 'unsafe-inline' *.googleapis.com;
   img-src * blob: data:;
