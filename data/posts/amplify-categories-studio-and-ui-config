@@ -1,0 +1,107 @@
+---
+title: Reconciling AWS Amplify categories, Studio and UI configuration.
+description: "Reconciling AWS Amplify categories, Studio and UI configuration"
+type: "article"
+site_name: "Yampier Medina personal website"
+image: "https://www.jpmti2016.com/images/vercel-domain-dashboard.jpg"
+date: "2023-03-16"
+isTranslated: false
+related: ["async-update-related-items"]
+---
+
+# How to configure AWS Amplify to avoid conflicts with Auth, API, Storage, Studio, DataStore and UI.
+
+<Image
+  alt={`Vercel custom domain dashboard`}
+  src={`/images/vercel-domain-dashboard.jpg`}
+  width={1920}
+  height={1080}
+  layout="responsive"
+  quality={30}
+  priority
+/>
+
+## TLDR
+
+## Some background
+
+AWS Amplify, AWS Amplify Studio and AWS Amplify UI help font-end developers get to speed setting their serverless backends in AWS using a 
+graphical user interface or a command line interface. 
+
+The cost is that with any missconfiguration the categories (services) would stop working with each other and not as a direct result of code that 
+you have written. 
+
+And it could happen inadvertilly because for a layman / begginer, the Amplify documentation is not fully clear how everything fit together 
+or do not explains all configurations and interactions of a specific service and the limitations of a specific library version. It is like 
+it asumes a deep knowledge of all aws services. 
+
+That contrast with my perception that it is marketed as begginer friendly and easy to use.
+
+Gives the impression that it is half backed / tested (prematurelly released), the documentation don't keeps pace with the releases hopping 
+that the developer community will be the testing horde or that don't care about explaining complex interactions or configuration of the 
+services.
+
+Also you may expect that when you use AWS Amplify Studio it will generate everithing needed rigth of the bat or it may warns you about 
+conflicting configurations, unsuported features, icompatible libraries in your project or additional steps. After all, suposelly it would 
+makes your life easier abstracting the complexity of the AWS services and allowing you to focus in the front-end code and bussiness logic.
+
+## Creating backend services (categories) with AWS Amplify Studio
+
+### API (GraphQL)
+
+When using AWS Amplify Studio the default auth provided for the API category is API `@auth(rules: [{ allow: public }])`. With this configuration the Amplify UI generated  
+forms and the GraphQL local server work as intended.
+
+The data is sent to the database after you create an instance of a model with a form like "TestCreateForm" in Amplify Studio (UI Library / Configure / View as end user) or importing it in your 
+front-end.
+
+TODO show front-end code
+
+If you test it locally with the GraphQL server (`amplify mock api`) the data is added locally to the server (Because it is not been pushed to 
+the cloud yet??).
+
+`mutation MyMutation {
+  createTest(input: {id: "1", title: "test"}) {
+    id
+  }
+}
+`
+After querying it with `listTests` or `getTest` it shows with aditional fields like  `createdA`t and `updatedAt` because the [GraphQL API 
+`@model` directive automatically adds `createdAt` and `updatedAt` timestamps to each entity](https://docs.amplify.aws/cli/graphql/data-modeling/#customize-creation-and-update-timestamps). 
+Customizable as `@model(timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" })`.
+
+`query MyQuery {
+  listTests {
+    nextToken
+    startedAt
+    items {
+      id
+      createdAt
+      updatedAt
+      title
+    }
+  }
+}
+`
+
+`query MyQuery {
+  getTest(id: "1") {
+    id
+    updatedAt
+    title
+    createdAt
+  }
+}
+
+To create Amplify Studio UI forms with the `createdAt` and `updatedAt` fields you have to add them to the model.
+
+`
+type Test @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String
+  description: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  }
+  `
+  
