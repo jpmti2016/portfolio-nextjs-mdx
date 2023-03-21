@@ -105,3 +105,29 @@ type Test @model @auth(rules: [{allow: public}]) {
   }
   `
   
+  ## Authenticator does not allows to use email mechanism
+  
+  Suppouseley the followung code should show the email login field but shows the user field instead.
+  
+  `
+  <Authenticator loginMechanisms={["email"]}>
+      {({ signOut, user }) => (
+        <main>
+          <h1>Hello {user.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+
+          <Flex width={"100%"}>
+            <Image
+              src="https://images.unsplash.com/photo-1558185348-c1e6420f12d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+              width="50%"
+              alt="image"
+            />
+            <WordCardCollection />
+          </Flex>
+        </main>
+      )}
+    </Authenticator>
+    `
+  
+  /home/front-end/Pictures/Screenshots/Screenshot from 2023-03-21 04-04-46.png
+  
