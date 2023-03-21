@@ -131,3 +131,10 @@ type Test @model @auth(rules: [{allow: public}]) {
   
   /home/front-end/Pictures/Screenshots/Screenshot from 2023-03-21 04-04-46.png
   
+  ## How to create responsive  collection with AWS Amplify UI / AWS Amp[lify Studio UI Library??
+  
+  In the GUI you only can a flex or grid property.
+  
+  
+  
+  
