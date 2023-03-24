@@ -28,44 +28,64 @@ related: ["async-update-related-items"]
 AWS Amplify, AWS Amplify Studio and AWS Amplify UI help font-end developers get to speed setting their serverless backends in AWS using a 
 graphical user interface or a command line interface. 
 
-The cost is that with any missconfiguration the categories (services) would stop working with each other and not as a direct result of code that 
+The drawback is that with any missconfiguration the categories (services) would stop working with each other and not as a direct result of code that 
 you have written. 
 
 And it could happen inadvertilly because for a layman / begginer, the Amplify documentation is not fully clear how everything fit together 
 or do not explains all configurations and interactions of a specific service and the limitations of a specific library version. It is like 
-it asumes a deep knowledge of all aws services. 
+it asumes a deep knowledge of all AWS services and AWS Amplify. 
 
 That contrast with my perception that it is marketed as begginer friendly and easy to use.
 
-Gives the impression that it is half backed / tested (prematurelly released), the documentation don't keeps pace with the releases hopping 
-that the developer community will be the testing horde or that don't care about explaining complex interactions or configuration of the 
-services.
+Therefore giving the impression that AWS Amplify is half backed / tested (prematurelly released), the documentation does not keeps pace with the 
+releases hopping that the developer community will be the testing horde or that don't care about explaining complex interactions or configuration 
+of the services that the developer should be aware of.
 
-Also you may expect that when you use AWS Amplify Studio it will generate everithing needed rigth of the bat or it may warns you about 
-conflicting configurations, unsuported features, icompatible libraries in your project or additional steps. After all, suposelly it would 
-makes your life easier abstracting the complexity of the AWS services and allowing you to focus in the front-end code and bussiness logic.
+Also you may expect that when you use AWS Amplify Studio it will generate everything needed rigth of the bat or it may warns you about 
+conflicting configurations, unsuported features, incompatible libraries in your project or missing steps . After all, supouselly it would 
+makes your life easier abstracting the complexity of the AWS services and allowing you to focus in the front-end code and the bussiness logic.
 
 ## Creating backend services (categories) with AWS Amplify Studio
 
 ### API (GraphQL)
 
-When using AWS Amplify Studio the default auth provided for the API category is API `@auth(rules: [{ allow: public }])`. With this configuration the Amplify UI generated  
-forms and the GraphQL local server work as intended.
+When using AWS Amplify Studio the default auth provided for the API category is API `@auth(rules: [{ allow: public }])`. With this configuration the 
+forms generated with Amplify Studio UI and the GraphQL local server work as intended.
 
 The data is sent to the database after you create an instance of a model with a form like "TestCreateForm" in Amplify Studio (UI Library / Configure / View as end user) or importing it in your 
 front-end.
 
 TODO show front-end code
 
-If you test it locally with the GraphQL server (`amplify mock api`) the data is added locally to the server (Because it is not been pushed to 
-the cloud yet??).
+If you test it locally with the GraphQL server (`amplify mock api`) it creates the mock data.
 
-`mutation MyMutation {
-  createTest(input: {id: "1", title: "test"}) {
+`
+mutation MyMutation {
+  createTest(
+    input: {result: "Result", title: "Title", description: "Description"}
+  ) {
     id
+    title
+    createdAt
+    updatedAt
   }
 }
 `
+
+`
+MyMutation result:
+{
+  "data": {
+    "createTest": {
+      "id": "86981147-9e20-4dd8-ab62-6ecc8f4e7769",
+      "title": "Title",
+      "createdAt": "2023-03-24T15:00:41.641Z",
+      "updatedAt": "2023-03-24T15:00:41.641Z"
+    }
+  }
+}
+`
+
 After querying it with `listTests` or `getTest` it shows with aditional fields like  `createdA`t and `updatedAt` because the [GraphQL API 
 `@model` directive automatically adds `createdAt` and `updatedAt` timestamps to each entity](https://docs.amplify.aws/cli/graphql/data-modeling/#customize-creation-and-update-timestamps). 
 Customizable as `@model(timestamps: { createdAt: "createdOn", updatedAt: "updatedOn" })`.
@@ -104,32 +124,6 @@ type Test @model @auth(rules: [{allow: public}]) {
   updatedAt: AWSDateTime
   }
   `
-  
-  ## Authenticator does not allows to use email mechanism
-  
-  Suppouseley the followung code should show the email login field but shows the user field instead.
-  
-  `
-  <Authenticator loginMechanisms={["email"]}>
-      {({ signOut, user }) => (
-        <main>
-          <h1>Hello {user.username}</h1>
-          <button onClick={signOut}>Sign out</button>
-
-          <Flex width={"100%"}>
-            <Image
-              src="https://images.unsplash.com/photo-1558185348-c1e6420f12d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-              width="50%"
-              alt="image"
-            />
-            <WordCardCollection />
-          </Flex>
-        </main>
-      )}
-    </Authenticator>
-    `
-  
-  /home/front-end/Pictures/Screenshots/Screenshot from 2023-03-21 04-04-46.png
   
   ## How to create responsive  collection with AWS Amplify UI / AWS Amp[lify Studio UI Library??
   
