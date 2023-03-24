@@ -137,5 +137,39 @@ type Test @model @auth(rules: [{allow: public}]) {
   
   /home/front-end/Pictures/Screenshots/Screenshot from 2023-03-21 09-08-18.png
   
+  ## Auth component use the default Auth configuration
+  
+  The `withAuthenticator` component  and the `Authenticator` component use the [default login mechanisms](https://ui.docs.amplify.aws/react/connected-components/authenticator/configuration) 
+  obtained from `amplify pull`.
+  
+  The `Auhenticator` can be custmized to match your custom auth flow, desired loging fields, etc.
+  
+  <Authenticator initialState="signUp" loginMechanisms={['username'] signUpAttributes={[
+      'address',
+      'birthdate',
+      'email',
+      'family_name',
+      'gender',
+      'given_name',
+      'locale',
+      'middle_name',
+      'name',
+      'nickname',
+      'phone_number',
+      'picture',
+      'preferred_username',
+      'profile',
+      'updated_at',
+      'website',
+      'zoneinfo',
+    ] socialProviders={['amazon', 'apple', 'facebook', 'google'] variation="modal">
+      {({ signOut, user }) => (
+        <main>
+          <h1>Hello {user.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+        </main>
+      )}
+    </Authenticator>
+  
   
   
