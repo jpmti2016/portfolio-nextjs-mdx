@@ -1,0 +1,44 @@
+Calls to Stripe's API may result in multiple [events](https://stripe.com/docs/api/events) being created like `checkout.session.completed` and 
+`payment_intent.succeeded` after you are happily done with your checkout.
+
+It is the case for low-code integrations like the `stripe-pricing-table`, cause after you "Pay" you go to the Checkout page and your actions there 
+trigger many Stripe events. The trick is to think of the events as a state machine, where each path may trigger a few events, and they may not be 
+exclusionary to each other.
+
+Also the payload content (data) change depending on the fired event and there is not a guaranteed order in wich the events will be delivered to your 
+application.
+
+So if you have a webhook with the following code to handle the integration of your embeddable 
+[stripe-pricing-table](https://stripe.com/docs/no-code/pricing-table) with your app, the 'DOING SOMETHING' block is executed twice after a successful 
+checkout because both events are fired.
+` if (
+      event.type === "payment_intent.succeeded" ||
+      event.type === "checkout.session.completed"
+    ) {
+      const paymentIntent = event.data.object;
+      console.log(
+        `Payment intent ${event.type}: ${JSON.stringify(paymentIntent)}`
+      );
+
+      //DOING SOMETHING
+      }`
+      
+ Additionally you should [configure your webhook endpoints](https://stripe.com/docs/webhooks/best-practices) to only receive the event types (request) 
+ that are needed for your integration to save resources in your server.
+ 
+ // Screenshot from 2023-04-06 20-05-00.png
+ 
+ Respond inmediately acknowledging the receipt of the event like `res.json({ received: true })` before doing heavy calculations, api / database calls, 
+ that may result in a client timeout exceeded. 
+ 
+ `[ERROR] Failed to POST: Post "http://localhost:3000/api/stripe-webhook": context deadline exceeded (Client.Timeout exceeded while awaiting headers)`
+ 
+ For next.js apps when testing your webhook check that your local server url contain the `api` path, used to serve api call in next.js, like 
+ `http://localhost:3000/api/stripe-webhook` to avoid the 404 error, cause the examples in the docs may mislead you as they represent other types of 
+ servers in some cases.
+ 
+ `[404] POST http://localhost:3000/stripe-webhook [evt_3MtzcNHzH8l6MYRO1KI243HE]`
+ 
+ 
+      
+      
