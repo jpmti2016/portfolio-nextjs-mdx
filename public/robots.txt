@@ -1,4 +1,13 @@
 User-agent: *
-Sitemap: https://www.jpmti2016.com/sitemap.xml
+Allow: /
+
+User-agent: EtaoSpider
+Disallow: /
+
 User-agent: GPTBot
-Disallow:/
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://www.jpmti2016.com/sitemap.xml
