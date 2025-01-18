@@ -31,7 +31,7 @@ To fix `Error: Module not found: Can't resolve '../../amplify_outputs.json'`:
 
 - In the Amplify console update the app hosting build settings to add the build command `- npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID`:
 
-	`yml
+	```yml
 	version: 1
 	backend:
 	  phases:
@@ -52,10 +52,12 @@ To fix `Error: Module not found: Can't resolve '../../amplify_outputs.json'`:
 	    paths:
 	      - .next/cache/**/*
 	      - .npm/**/*
-	`
+	```
 
 If you get permission errors like "AccessDeniedError: Unable to get backend outputs due to insufficient permissions.Resolution: Ensure you have permissions to call cloudformation:GetTemplateSummary":
 
 - Attach the `AdministratorAccess-Amplify` policy (under AWS managed policies) to the amplify-policy for the user created in the IAM Identity Center as explained in the [Amplify docs](https://docs.amplify.aws/react/start/account-setup/), or to the role / group that you are using for the project.
 
- Take into account the less privilege principle, that policy could be too broad for your needs.
+<Notice className="">
+ <p>Take into account the less privilege principle, that policy could be too broad for your needs.</p>
+</Notice>
