@@ -1,2 +1,42 @@
+User-agent: Googlebot
+Allow: /
+
+User-agent: EtaoSpider
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-Agent: Google-Extended
+Disallow: *
+
+User-Agent: FacebookBot
+Disallow: *
+
+User-agent: facebookexternalhit
+Disallow: *
+
+User-agent: Discordbot
+Disallow: *
+
+# User-agent: Bingbot
+# Disallow: *
+
+# Every bot that might possibly read and respect this file
+# ========================================================
 User-agent: *
+Disallow: /
+
+
+# WHAT-4882 - Block indexing of links in notification emails. This applies to all bots.
+# =====================================================================================
+Disallow: /i/u
+Noindex: /i/u
+
+# Wait 1 second between successive requests. See ONBOARD-2698 for details.
+Crawl-delay: 1
+
 Sitemap: https://www.jpmti2016.com/sitemap.xml
