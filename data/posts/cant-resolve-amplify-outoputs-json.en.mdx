@@ -4,7 +4,7 @@ description: "To fix the can't resolve amplify_outputs.json build error add `npx
 type: "article"
 site_name: "Yampier Medina personal website"
 image: "https://www.jpmti2016.com/images/cant-resolve-amplify-outputs-json.jpg"
-date: "2025-01-17"
+date: "2025-02-19"
 isTranslated: false
 related: ["async-update-related-items", "vercel-aws-route-53-custom-domain"]
 ---
@@ -50,32 +50,36 @@ To fix `Error: Module not found: Can't resolve '../../amplify_outputs.json'`:
         - .npm/**/*
   ```
 
+### AccessDeniedError: Unable to get backend outputs due to insufficient permissions.
+
 If you get permission errors like "AccessDeniedError: Unable to get backend outputs due to insufficient permissions.Resolution: Ensure you have permissions to call cloudformation:GetTemplateSummary":
 
 - Attach the `AdministratorAccess-Amplify` policy (under AWS managed policies) to the amplify-policy for the user created in the IAM Identity Center as explained in the [Amplify docs](https://docs.amplify.aws/react/start/account-setup/), or to the role / group that you are using for the project.
 
 <Notice className="">
   <p>
-    Take into account the less privilege principle, that policy could be too
-    broad for your needs.
+    Take into account the less <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege">privilege
+    principle</a>,
+    that policy could be too broad for your needs.
   </p>
 </Notice>
 
 ## Command `npx ampx pipeline-deploy`
 
-The command `npx ampx pipeline-deploy` is used to deploy an AWS Amplify application's backend resources through a pipeline. When used with the flags --branch and --app-id, it (deploys the backend infrastructure)[https://aws.amazon.com/blogs/mobile/deploy-a-single-page-application-in-less-than-10-minutes-using-amazon-codecatalyst/] for a specific branch of your Amplify application.
+The command `npx ampx pipeline-deploy` is used to deploy an AWS Amplify application's backend resources through a pipeline. When used with the flags --branch and --app-id, it [deploys the backend infrastructure](https://aws.amazon.com/blogs/mobile/deploy-a-single-page-application-in-less-than-10-minutes-using-amazon-codecatalyst/) for a specific branch of your Amplify application.
 
 This command is typically used in CI/CD contexts to:
 
-- Deploy backend resources (like APIs, databases, functions) defined in your Amplify project
+- Deploy backend resources (like APIs, databases, functions) defined in your Amplify project.
 
-- Ensure the backend deployment is synchronized with your frontend deployment
+- Ensure the backend deployment is synchronized with your frontend deployment.
 
-- Handle the deployment of infrastructure changes in an automated way
+- Handle the deployment of infrastructure changes in an automated way.
 
-For example, in a (build configuration)[https://docs.aws.amazon.com/code-library/latest/ug/cli_2_codepipeline_code_examples.html] it might look like: [2]
+For example, in a [build configuration](https://docs.aws.amazon.com/code-library/latest/ug/cli_2_codepipeline_code_examples.html) it might look like:
 
-```build:
+```
+build:
   commands:
     - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
 ```
@@ -84,54 +88,54 @@ The command helps prevent issues with stale or outdated backend versions by ensu
 
 If you're using this in a CI/CD pipeline, make sure you have:
 
-- Proper AWS credentials configured
+- Proper AWS credentials configured.
 
-- The correct branch name specified
+- The correct branch name specified.
 
-- The correct Amplify app ID specified
+- The correct Amplify app ID specified.
 
-- Required permissions to deploy Amplify resources
+- Required permissions to deploy Amplify resources.
 
 ## Command `npm ci --cache .npm --prefer-offline`
 
-1. `npm ci` (clean install):
+### `npm ci` (clean install):
 
-   - This is a more strict and faster version of npm install
+- This is a more strict and faster version of npm install.
 
-   - It's designed for automated environments like CI/CD pipelines
+- It's designed for automated environments like CI/CD pipelines.
 
-   - It always deletes the existing node_modules folder before installing
+- It always deletes the existing node_modules folder before installing.
 
-   - It requires a package-lock.json file and will error if it's missing
+- It requires a package-lock.json file and will error if it's missing.
 
-   - It won't modify package.json or package-lock.json files
+- It won't modify package.json or package-lock.json files.
 
-2. `--cache .npm`:
+### `--cache .npm`:
 
-   - This specifies a custom location for the (npm cache directory)[https://stackoverflow.com/questions/20836317/when-use-npm-cache-and-why]
+- This specifies a custom location for the [npm cache directory](https://stackoverflow.com/questions/20836317/when-use-npm-cache-and-why).
 
-   - In this case, it sets the cache location to `.npm` in your (current directory)[https://towardsdev.com/package-manager-85d3c2d60468]
+- In this case, it sets the cache location to `.npm` in your [current directory](https://towardsdev.com/package-manager-85d3c2d60468).
 
-   - By default, npm uses a global cache directory (typically ~/.npm on Linux/Mac or %AppData%/npm-cache on Windows)
+- By default, npm uses a global cache directory (typically `~/.npm on Linux/Mac` or `%AppData%/npm-cache` on Windows).
 
-3. `--prefer-offline`:
+### `--prefer-offline`:
 
-   - This flag tells npm to (use cached packages)[https://stackoverflow.com/questions/43709240/what-does-yarn-prefer-offline-do] when available
+- This flag tells npm to [use cached packages](https://stackoverflow.com/questions/43709240/what-does-yarn-prefer-offline-do) when available.
 
-   - It will first check the local cache before attempting to download from the registry
+- It will first check the local cache before attempting to download from the registry.
 
-   - If a package isn't in the cache, it will still download it from the internet
+- If a package isn't in the cache, it will still download it from the internet.
 
-   - This can significantly speed up installation time
+- This can significantly speed up installation time.
 
-   - It's useful for reproducible builds and when you want to minimize network requests
+- It's useful for reproducible builds and when you want to minimize network requests.
 
-This combination of flags is particularly useful when you want to:
+## This combination of flags is particularly useful when you want to:
 
-    - Ensure consistent, clean installations
+- Ensure consistent, clean installations.
 
-    - Speed up the installation process by using cached packages
+- Speed up the installation process by using cached packages.
 
-    - Keep the cache in a project-specific location
+- Keep the cache in a project-specific location.
 
-    - Minimize network usage by preferring cached versions of packages
+- Minimize network usage by preferring cached versions of packages.
