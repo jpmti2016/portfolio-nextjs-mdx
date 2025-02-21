@@ -1,0 +1,63 @@
+---
+title: "Attempted import error: 'useForm' is not exported from 'react-hook-form'."
+description: "To fix `Attempted import error: 'useForm' is not exported from 'react-hook-form' (imported as 'useForm')` add `'use client'` to your client component wrapper."
+type: "article"
+site_name: "Yampier Medina personal website"
+image: "https://www.jpmti2016.com/images/aws-amplify-useform-is-not-exported-from-react-hook-form.jpg"
+date: "2025-02-19"
+isTranslated: false
+related:
+  [
+    "cant-resolve-amplify-outoputs-json",
+    "async-update-related-items",
+    "vercel-aws-route-53-custom-domain",
+  ]
+---
+
+# Attempted import error: 'useForm' is not exported from 'react-hook-form' (imported as 'useForm').
+
+<Image
+  alt="useForm' is not exported from 'react-hook-form"
+  src="/images/aws-amplify-useform-is-not-exported-from-react-hook-form.jpg"
+  width={1920}
+  height={1080}
+  layout="responsive"
+  quality={60}
+  priority
+/>
+
+## TLDR
+
+To fix `Attempted import error: 'useForm' is not exported from 'react-hook-form' (imported as 'useForm')` add `'use client'` to your client component wrapper like:
+
+```
+'use client'
+import { Authenticator } from '@aws-amplify/ui-react'
+
+export function AuthenticatorClient({ children }) {
+  return <Authenticator>{({ signOut, user }) => <>{children}</>}</Authenticator>
+}
+```
+
+## Fixing `"Attempted import error: 'useForm' is not exported from 'react-hook-form' (imported as 'useForm')"`.
+
+When using AWS Amplify, Amplify UI and NextJS you may encounter the following error:
+
+```
+./node_modules/@aws-amplify/ui-react-core/dist/esm/components/FormCore/FormProvider.mjs
+Attempted import error: 'useForm' is not exported from 'react-hook-form' (imported as 'useForm').
+```
+
+It is realted to having to use a client side component in a server component, like the Authenticator from the [Amplify UI library](https://ui.docs.amplify.aws/react/getting-started/installation).
+
+To solve the error add `'use client'` to your client component wrapper, as explained in the NextJS documentation, when
+[using third party packages and providers](https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns) that use ReactJS client-only features like `useState` and don't implement the `'use client'` directive.
+
+```
+'use client'
+import { Authenticator } from '@aws-amplify/ui-react'
+
+export function AuthenticatorClient({ children }) {
+  return <Authenticator>{({ signOut, user }) => <>{children}</>}</Authenticator>
+}
+```
