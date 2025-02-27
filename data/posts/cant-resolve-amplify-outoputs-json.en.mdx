@@ -4,7 +4,7 @@ description: "To fix the can't resolve amplify_outputs.json build error add `npx
 type: "article"
 site_name: "Yampier Medina personal website"
 image: "https://www.jpmti2016.com/images/cant-resolve-amplify-outputs-json.jpg"
-date: "2025-02-19"
+date: "2025-02-27"
 isTranslated: false
 related:
   [
@@ -73,10 +73,73 @@ If you get permission errors like "AccessDeniedError: Unable to get backend outp
 
 ## Purpose of `amplify_outputs.json`
 
-The `amplify_outputs.json` file is generated in your [Amplify Gen 2] project by the CLI. It contains the your backend information needed to configure the client libraries that interact with your backend resources like Auhtentication,
-Data, Storage, Lambda functions, AI, etc.
+The `amplify_outputs.json` file is generated in your [Amplify Gen 2](https://docs.amplify.aws/react/reference/amplify_outputs/) project by the CLI. It contains the your backend information needed to configure the client libraries that
+interact with your backend resources like Auhtentication, Data, Storage, Lambda functions, AI, etc.
+
+Its content is very sensitive, must not be commited to your repository and generated at deployment time by your build command.
 
 When working locally it is generated when you run `npx ampx sandbox --profile profile-name`.
+
+```
+{
+  "auth": {
+    "user_pool_id": "your-user-pool-id",
+    "aws_region": "your-region",
+
+    "user_pool_client_id": "your-user-pool-client-id",
+    "identity_pool_id": "your-identity-pool-id",
+  ...
+  },
+  "data": {
+    "url": "your-appsync-graphql-endpoint",
+    "aws_region": "your-region",
+    "default_authorization_type": "your-default-authorization-type",
+    "authorization_types": [
+      "authorization_type-1", "authorization_type-2", ...
+    ],
+    "model_introspection": {
+      "version": 1,
+      "models": {
+        "Entity": {
+          "name": "your-entity-name",
+          "fields": {
+            "id": {
+              "name": "id",
+              "isArray": false,
+              "type": "ID",
+              "isRequired": true,
+              "attributes": []
+            },
+            ...
+          }
+          ...
+        }
+      }
+    }
+  },
+  "storage": {
+      "aws_region": "your-region",
+      "bucket_name": "your-bucket-name",
+      "buckets": [
+        {
+          "name": "project-name",
+          "bucket_name": "your-bucket-name",
+          "aws_region": "your-region",
+          "paths": {
+            "path-to-example-pictures/*": {
+              "guest": [
+                "get",
+                "list"
+              ]
+            },
+            ...
+          }
+        }
+      ]
+  },
+  ...
+}
+```
 
 ## Command `npx ampx pipeline-deploy`
 
@@ -93,9 +156,10 @@ This command is typically used in CI/CD contexts to:
 For example, in a [build configuration](https://docs.aws.amazon.com/code-library/latest/ug/cli_2_codepipeline_code_examples.html) it might look like:
 
 ```
+
 build:
-  commands:
-    - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+commands: - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+
 ```
 
 The command helps prevent issues with stale or outdated backend versions by ensuring your backend infrastructure is properly deployed and updated as part of your deployment pipeline.
@@ -153,3 +217,7 @@ If you're using this in a CI/CD pipeline, make sure you have:
 - Keep the cache in a project-specific location.
 
 - Minimize network usage by preferring cached versions of packages.
+
+```
+
+```
