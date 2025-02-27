@@ -71,6 +71,13 @@ If you get permission errors like "AccessDeniedError: Unable to get backend outp
   </p>
 </Notice>
 
+## Purpose of `amplify_outputs.json`
+
+The `amplify_outputs.json` file is generated in your [Amplify Gen 2] project by the CLI. It contains the your backend information needed to configure the client libraries that interact with your backend resources like Auhtentication,
+Data, Storage, Lambda functions, AI, etc.
+
+When working locally it is generated when you run `npx ampx sandbox --profile profile-name`.
+
 ## Command `npx ampx pipeline-deploy`
 
 The command `npx ampx pipeline-deploy` is used to deploy an AWS Amplify application's backend resources through a pipeline. When used with the flags --branch and --app-id, it [deploys the backend infrastructure](https://aws.amazon.com/blogs/mobile/deploy-a-single-page-application-in-less-than-10-minutes-using-amazon-codecatalyst/) for a specific branch of your Amplify application.
