@@ -1,25 +1,38 @@
-title: AWS Cognito User Pool Attributes Cannot Be Changed: A Deep Dive.
+---
+title: "AWS Cognito User Pool Attributes Cannot Be Changed: A Deep Dive."
 description: "User pool attributes cannot be changed after a user pool has been created because Cognito User Pool attributes are immutable after creation. Merging branches with different auth configs breaks deployments. Quick Fix: Delete the CloudFormation stack (aws cloudformation delete-stack --stack-name YOUR-STACK) and redeploy. ⚠️ This deletes all users. Prevent It: Define all user attributes and groups before your first production deploy. Use separate Amplify apps per environment instead of branch-based deployments."
 type: "article"
 site_name: "Yampier Medina personal website"
 image: "https://www.jpmti2016.com/images/cognito-immutable-attributes.jpg"
 date: "2025-12-21"
 isTranslated: false
-related: ["async-update-related-items", "cant-resolve-amplify-outoputs-json", "vercel-aws-route-53-custom-domain"]
-
+related:
+  [
+    "async-update-related-items",
+    "cant-resolve-amplify-outoputs-json",
+    "vercel-aws-route-53-custom-domain",
+  ]
 ---
 
 # AWS Cognito User Pool Attributes Cannot Be Changed: A Deep Dive
+
+<Image
+  alt="List of resources to learn Rust"
+  src="/images/cognito-immutable-attributes.jpg"
+  width={1920}
+  height={1080}
+  layout="responsive"
+  quality={30}
+  priority
+/>
 
 ## TLDR
 
 User pool attributes cannot be changed after a user pool has been created because Cognito User Pool attributes are immutable after creation. Merging branches with different auth configs breaks deployments. Quick Fix: Delete the CloudFormation stack (aws cloudformation delete-stack --stack-name YOUR-STACK) and redeploy. ⚠️ This deletes all users. Prevent It: Define all user attributes and groups before your first production deploy. Use separate Amplify apps per environment instead of branch-based deployments.
 
-# AWS Cognito User Pool Attributes Cannot Be Changed: A Deep Dive
+## Intro
 
 _How a simple merge broke my deployment and what I learned about Cognito's immutable attributes_
-
----
 
 If you've ever seen this error during an AWS Amplify deployment, you're not alone:
 
@@ -44,10 +57,10 @@ The feature branch deployed successfully. I merged it to `main`. Then... deploym
 
 Amazon Cognito User Pools have a fundamental limitation: **certain attributes cannot be modified after the User Pool is created**. This includes:
 
-1. **Standard attribute requirements** (required vs optional)
-2. **Custom attribute definitions**
-3. **Attribute data types**
-4. **Some attribute mutability settings**
+- **Standard attribute requirements** (required vs optional)
+- **Custom attribute definitions**
+- **Attribute data types**
+- **Some attribute mutability settings**
 
 When CloudFormation tries to update a User Pool with incompatible attribute changes, it fails and rolls back.
 
@@ -137,10 +150,10 @@ aws amplify start-job \
 
 If you need a code-based approach:
 
-1. Remove `defineAuth` from `amplify/backend.ts`
-2. Deploy (this deletes the User Pool)
-3. Add `defineAuth` back with new configuration
-4. Deploy again
+- Remove `defineAuth` from `amplify/backend.ts`
+- Deploy (this deletes the User Pool)
+- Add `defineAuth` back with new configuration
+- Deploy again
 
 ```typescript
 // Phase 1: backend.ts without auth
@@ -159,10 +172,10 @@ defineBackend({
 
 If you have users you need to preserve:
 
-1. **Export users** using Cognito's export functionality or a custom Lambda
-2. **Create a new User Pool** with the correct attributes
-3. **Import users** to the new pool
-4. **Use User Migration Lambda Trigger** for seamless authentication during transition
+- **Export users** using Cognito's export functionality or a custom Lambda
+- **Create a new User Pool** with the correct attributes
+- **Import users** to the new pool
+- **Use User Migration Lambda Trigger** for seamless authentication during transition
 
 ```typescript
 // User migration trigger example
@@ -232,10 +245,10 @@ This creates an isolated environment where you can catch schema conflicts early.
 
 Add auth configuration to your PR review checklist:
 
-- [ ] Auth schema changes reviewed
-- [ ] New attributes are additive only
-- [ ] Tested in sandbox environment
-- [ ] Migration plan documented (if breaking changes)
+- Auth schema changes reviewed
+- New attributes are additive only
+- Tested in sandbox environment
+- Migration plan documented (if breaking changes)
 
 ### 5. Document Your Auth Schema
 
