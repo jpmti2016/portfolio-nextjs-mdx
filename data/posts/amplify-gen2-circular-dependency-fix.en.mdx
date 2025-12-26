@@ -1,0 +1,337 @@
+---
+title: "Fixing CloudFormation Circular Dependency Errors in AWS Amplify Gen 2."
+description: "When your Lambda function needs both Cognito access AND is used as a data handler, use `resourceGroupName: 'auth'` in your function definition to avoid circular dependencies."
+type: "article"
+site_name: "Yampier Medina personal website"
+image: "https://www.jpmti2016.com/images/amplify-cloudformation-circular-dependency.jpg"
+date: "2025-12-26"
+isTranslated: false
+related:
+  [
+    "aws-cognito-user-pool-attributes-cannot-be-changed",
+    "cant-resolve-amplify-outoputs-json",
+    "async-update-related-items",
+  ]
+---
+
+# Fixing CloudFormation Circular Dependency Errors in AWS Amplify Gen 2
+
+<Image
+  alt="List of resources to learn Rust"
+  src="/images/amplify-cloudformation-circular-dependency.jpg"
+  width={1920}
+  height={1080}
+  layout="responsive"
+  quality={30}
+  priority
+/>
+
+## TLDR
+
+When your Lambda function needs both Cognito access AND is used as a data handler, use `resourceGroupName: "auth"` in your function definition to avoid circular dependencies.
+
+## The Problem
+
+If you're building with AWS Amplify Gen 2 and creating Lambda functions that interact with Cognito (for user management, group operations, etc.) while also using them as GraphQL resolvers, you've probably hit this frustrating error:
+
+```
+[ERROR] [CloudformationStackCircularDependencyError]
+The CloudFormation deployment failed due to circular dependency found
+between nested stacks [storage0YH5D, auth17956DE9, data74490FG5R, function164FR5G3]
+```
+
+This happens because Amplify Gen 2 organizes resources into separate CloudFormation nested stacks:
+
+- **Auth stack** - Cognito User Pool, groups, triggers.
+- **Data stack** - AppSync API, DynamoDB tables, resolvers.
+- **Function stack** - Lambda functions (by default).
+- **Storage stack** - S3 buckets.
+
+When your function needs resources from multiple stacks, CloudFormation can't determine the deployment order, creating a circular dependency.
+
+## Real-World Scenario
+
+I was building an admin panel for user role management. The Lambda functions needed to:
+
+- **Call Cognito APIs** (AdminAddUserToGroup, ListUsersInGroup, etc.).
+- **Be used as GraphQL mutation/query handlers** in the data schema.
+
+Here's what my initial setup looked like:
+
+```typescript
+// amplify/functions/add-user-to-group/resource.ts
+export const addUserToGroup = defineFunction({
+  name: "add-user-to-group",
+  entry: "./handler.ts",
+});
+
+// amplify/auth/resource.ts
+export const auth = defineAuth({
+  // ...
+  access: (allow) => [
+    allow.resource(addUserToGroup).to(["addUserToGroup", "listUsers"]),
+  ],
+});
+
+// amplify/data/resource.ts - using the function as a handler
+addUserToGroup: a
+  .mutation()
+  .handler(a.handler.function(addUserToGroup))
+  .authorization((allow) => [allow.group("ADMINS")]),
+```
+
+**Result:** Circular dependency error. The auth stack imports the function, the data stack imports the function, and the function stack depends on both 💥.
+
+## The Solution: `resourceGroupName`
+
+Amplify Gen 2 provides a simple but powerful property: `resourceGroupName`. This tells Amplify which nested stack to place your function in.
+
+### The Fix
+
+```typescript
+// amplify/functions/add-user-to-group/resource.ts
+export const addUserToGroup = defineFunction({
+  name: "add-user-to-group",
+  entry: "./handler.ts",
+  resourceGroupName: "auth", // ← This is the magic line
+});
+```
+
+By placing the function in the `auth` stack, we break the circular dependency:
+
+- The function is now **part of** the auth stack, not a separate dependency.
+- The data stack can still reference it as a handler.
+- Auth permissions are granted within the same stack.
+
+## Complete Working Example
+
+### 1. Function Definition
+
+```typescript
+// amplify/functions/add-user-to-group/resource.ts
+import { defineFunction } from "@aws-amplify/backend";
+
+export const addUserToGroup = defineFunction({
+  name: "add-user-to-group",
+  entry: "./handler.ts",
+  timeoutSeconds: 30,
+  memoryMB: 256,
+  resourceGroupName: "auth", // Place in auth stack
+});
+```
+
+### 2. Auth Resource with Access Grants
+
+```typescript
+// amplify/auth/resource.ts
+import { defineAuth } from "@aws-amplify/backend";
+import { addUserToGroup } from "../functions/add-user-to-group/resource";
+
+export const auth = defineAuth({
+  loginWith: { email: true },
+  groups: ["ADMINS", "EDITORS"],
+  access: (allow) => [
+    allow.resource(addUserToGroup).to(["addUserToGroup", "listUsers"]),
+  ],
+});
+```
+
+### 3. Data Schema Using the Function
+
+```typescript
+// amplify/data/resource.ts
+import { addUserToGroup } from "../functions/add-user-to-group/resource";
+
+const schema = a.schema({
+  addUserToGroup: a
+    .mutation()
+    .arguments({
+      email: a.string().required(),
+      groupName: a.string().required(),
+    })
+    .returns(
+      a.customType({
+        success: a.boolean(),
+        message: a.string(),
+      })
+    )
+    .handler(a.handler.function(addUserToGroup))
+    .authorization((allow) => [allow.group("ADMINS")]),
+});
+```
+
+### 4. Lambda Handler
+
+```typescript
+// amplify/functions/add-user-to-group/handler.ts
+import {
+  CognitoIdentityProviderClient,
+  AdminAddUserToGroupCommand,
+  ListUsersCommand,
+} from "@aws-sdk/client-cognito-identity-provider";
+import { env } from "$amplify/env/add-user-to-group";
+
+const cognitoClient = new CognitoIdentityProviderClient({});
+
+export const handler = async (event) => {
+  const { email, groupName } = event.arguments;
+
+  // Look up user by email
+  const listUsersResponse = await cognitoClient.send(
+    new ListUsersCommand({
+      UserPoolId: env.AMPLIFY_AUTH_USERPOOL_ID, // Auto-injected by Amplify
+      Filter: `email = "${email}"`,
+    })
+  );
+
+  const username = listUsersResponse.Users?.[0]?.Username;
+
+  // Add to group
+  await cognitoClient.send(
+    new AdminAddUserToGroupCommand({
+      UserPoolId: env.AMPLIFY_AUTH_USERPOOL_ID,
+      Username: username,
+      GroupName: groupName,
+    })
+  );
+
+  return { success: true, message: `User added to ${groupName}` };
+};
+```
+
+### 5. Don't Forget the package.json
+
+```json
+// amplify/functions/add-user-to-group/package.json
+{
+  "name": "add-user-to-group",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.0.0"
+  }
+}
+```
+
+Run `npm install` in the function directory!
+
+## Decision Guide
+
+| Your function needs...          | Use `resourceGroupName` | Why                                                                     |
+| ------------------------------- | ----------------------- | ----------------------------------------------------------------------- |
+| Cognito operations              | `"auth"`                | Function joins auth stack, gets permissions via `access` callback       |
+| Data API / AppSync              | `"data"`                | Function joins data stack, gets permissions via schema authorization    |
+| Both Cognito AND Data handler   | `"auth"`                | Prioritize auth since Cognito permissions require the `access` callback |
+| Auth trigger (pre-signup, etc.) | `"auth"`                | Must be in same stack as auth resource                                  |
+| Only S3 access                  | (default)               | Use IAM policies in `backend.ts`                                        |
+
+## Common Mistakes to Avoid
+
+### ❌ Don't manually grant IAM policies when `access` callback works
+
+```typescript
+// DON'T DO THIS for auth operations
+backend.myFunction.resources.lambda.addToRolePolicy(
+  new PolicyStatement({
+    actions: ["cognito-idp:AdminAddUserToGroup"],
+    resources: [userPoolArn],
+  })
+);
+```
+
+### ✅ Do use the Amplify-native `access` callback
+
+```typescript
+// DO THIS instead
+export const auth = defineAuth({
+  access: (allow) => [allow.resource(myFunction).to(["addUserToGroup"])],
+});
+```
+
+The `access` callback:
+
+- Automatically injects `AMPLIFY_AUTH_USERPOOL_ID` environment variable.
+- Grants least-privilege IAM permissions.
+- Works seamlessly with `resourceGroupName: "auth"`.
+
+## Debugging Tips
+
+- **Check your imports** - Make sure auth/resource.ts and data/resource.ts are importing from the same function definition file.
+
+- **Verify resourceGroupName** - The value must be exactly `"auth"` or `"data"` (lowercase strings).
+
+- **Clear the sandbox** - Sometimes you need to delete and recreate: `npx ampx sandbox delete && npx ampx sandbox`.
+
+- **Check CloudFormation** - In AWS Console, look at the nested stacks to see where resources ended up.
+
+## Preventing This Error with Kiro Steering Docs
+
+After hitting this error multiple times, I decided to create a **steering document** using [Kiro](https://kiro.dev) - an AI-powered IDE that supports contextual guidance through steering files.
+
+### What are Steering Docs?
+
+Steering docs are markdown files that provide context-aware guidance to AI assistants. They live in your `.kiro/steering/` directory and can be:
+
+- **Always included** - Applied to every AI interaction.
+- **File-matched** - Only included when working on specific files.
+- **Manual** - Included on-demand via context keys.
+
+### Creating a Circular Dependency Prevention Steering Doc
+
+I created `.kiro/steering/amplify-circular-dependency.md` with file matching:
+
+```markdown
+---
+inclusion: fileMatch
+fileMatchPattern: "amplify/**/*.ts"
+---
+
+# Amplify Gen 2 Circular Dependency Prevention
+
+## Checklist Before Creating Lambda Functions
+
+- [ ] Does this function need Cognito access? → Use `resourceGroupName: "auth"`
+- [ ] Does this function need Data API access? → Use `resourceGroupName: "data"`
+- [ ] Is this function used as a data handler AND needs Cognito? → Use `resourceGroupName: "auth"`
+
+## Decision Matrix
+
+| Function needs...  | resourceGroupName | Grant access via          |
+| ------------------ | ----------------- | ------------------------- |
+| Cognito operations | `"auth"`          | `auth.access` callback    |
+| Data API / AppSync | `"data"`          | Schema `.authorization()` |
+| Storage (S3) only  | (default)         | `backend.ts` IAM policy   |
+| Auth trigger       | `"auth"`          | `auth.triggers`           |
+```
+
+### How It Works
+
+Now, whenever I (or the AI assistant) work on any file in the `amplify/` directory, Kiro automatically includes this guidance. The AI is reminded to:
+
+- Check if the function needs Cognito access.
+- Use the correct `resourceGroupName`.
+- Grant permissions via the appropriate mechanism.
+
+This has completely eliminated the circular dependency errors from my workflow. The AI catches the issue before it happens, not after a failed deployment.
+
+### Why This Matters
+
+- **Proactive prevention** - Catch issues before they cause deployment failures.
+- **Team knowledge sharing** - New team members get the same guidance.
+- **AI-assisted development** - The AI learns your project's patterns.
+- **Living documentation** - Steering docs evolve with your codebase.
+
+Check out [Kiro](https://kiro.dev) to add steering docs to your own projects and prevent recurring errors like this one.
+
+## Conclusion
+
+The `resourceGroupName` property is a simple but essential tool for managing complex Amplify Gen 2 backends. When your Lambda functions need to interact with multiple Amplify resources (auth, data, storage), think about which stack they belong in to avoid circular dependencies.
+
+**Rule of thumb:** If your function needs Cognito access, put it in the auth stack. If it needs Data API access, put it in the data stack. If it needs both, auth usually wins because Cognito permissions require the `access` callback.
+
+And if you want to prevent this error from ever happening again, use [Kiro](https://kiro.dev) steering docs to encode this knowledge directly into your development workflow.
+
+## References
+
+- [Amplify Docs: Troubleshoot circular dependency](https://docs.amplify.aws/react-native/build-a-backend/troubleshooting/circular-dependency/)
+- [Amplify Docs: Grant access to auth resources](https://docs.amplify.aws/gen2/build-a-backend/auth/grant-access-to-auth-resources/)
+- [Amplify Docs: Custom functions](https://docs.amplify.aws/gen2/build-a-backend/functions/)
