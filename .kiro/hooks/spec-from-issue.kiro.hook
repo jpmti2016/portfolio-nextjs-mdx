@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Spec from GitHub Issue",
+  "description": "Manually triggered from the Agent Hooks panel. Fetches the next pending GitHub issue (or a specific one) and presents its title and description as context for starting a Kiro spec session.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run the script ~/.kiro/scripts/generate-spec-from-issues.sh to fetch the next pending GitHub issue. If the user named a specific issue number, pass it with the -n flag. Present the issue title and description clearly, then start (or suggest starting) a Kiro Spec session with this context (Kiro's built-in spec mode handles requirements -> design -> tasks). CRITICAL: name the spec folder with the issue number as a prefix followed by a dash and a kebab-case slug, e.g. '.kiro/specs/42-product-search-by-name-and-upc/'. The sync-kiro-specs.yml workflow extracts the issue number from the folder name prefix to update the issue/Project status (Todo -> In Progress -> Done); if the folder does not start with '<issue-number>-' the automation silently skips it and the status never updates. Use the 'Suggested spec folder' line printed by the script as the folder name. If the script reports an error (gh not authenticated, no open issues, etc.), surface it and suggest the fix."
+  }
+}
