@@ -1,6 +1,0 @@
-name: Probe Caller
-on:
-  workflow_dispatch: {}
-jobs:
-  call:
-    uses: jpmti2016/projects-workflow-ai/.github/workflows/probe-reusable.yml@main
