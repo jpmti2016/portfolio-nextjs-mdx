@@ -10,8 +10,10 @@ name: Sync Kiro Specs with GitHub Issues
 
 on:
   push:
-    # main only: issue/Project status is canonical and driven by the default
-    # branch. Feature-branch spec pushes must not flip Project status.
+    # staging only: it's the default/integration branch and the single source
+    # of issue/Project status. Feature-branch spec pushes must not flip status,
+    # and main (production) receives only promotion merges — issue status is
+    # "done when integrated on staging", not "done when released to prod".
     branches:
       - staging
     paths:
