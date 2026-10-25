@@ -81,6 +81,34 @@ jobs:
           fi
           echo "PROJECT_TOKEN is present — full status automation enabled."
 
+      - name: Refuse a broad token in a public repo
+        # A public repo runs this workflow on events anyone can cause, so its
+        # PROJECT_TOKEN must be the NARROW classic PAT (scope "project" only).
+        # The broad one ("repo") reaches every private repo; if a public repo
+        # holds it (e.g. it was just made public), fail closed here, before
+        # the token is used for anything. secure-public-repos.yml in
+        # projects-workflow-ai swaps in the narrow token daily; to fix it now
+        # run: ~/.kiro/scripts/setup-project-token.sh --public-token <token>
+        env:
+          REPO_IS_PRIVATE: ${{ github.event.repository.private }}
+        run: |
+          if [ "$REPO_IS_PRIVATE" = "true" ]; then
+            exit 0
+          fi
+          SCOPES=$(GH_TOKEN="$PROJECT_TOKEN" gh api -i /user 2>/dev/null | tr -d '\r' \
+            | sed -n 's/^[Xx]-[Oo][Aa]uth-[Ss]copes: *//p' | head -1)
+          for SCOPE in $(printf '%s' "$SCOPES" | tr ',' ' '); do
+            case "$SCOPE" in
+              project|read:project|read:org|read:user) ;;
+              *)
+                echo "::error::This repo is public but PROJECT_TOKEN has the \"$SCOPE\" scope (only \"project\" is allowed here;" \
+                  "the broad token reaches private repos). Store the project-only token:" \
+                  "~/.kiro/scripts/setup-project-token.sh --public-token <token> (PROJECT-WORKFLOW-GUIDE.md §6)."
+                exit 1
+                ;;
+            esac
+          done
+          echo "Public repo: PROJECT_TOKEN is narrow (${SCOPES:-fine-grained})."
       - name: Checkout (manual — no external action required)
         env:
           GH_TOKEN: ${{ env.REPO_TOKEN }}
