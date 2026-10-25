@@ -1,0 +1,36 @@
+name: Report Repo Made Public
+# Fires once, when this repository changes from private to public (GitHub's
+# `public` event; only an admin can cause it). It asks projects-workflow-ai to
+# re-secure the repo right away instead of waiting for the daily run of its
+# secure-public-repos workflow, which then swaps PROJECT_TOKEN for the
+# narrow "project"-only token and flags thin caller workflows that a public
+# repo can no longer run (public repos cannot call private reusable
+# workflows). Standalone on purpose: it must keep working after the repo goes
+# public, so it calls nothing in the private repo.
+#
+# Same file in private and public repos. Synced by sync-projects.sh;
+# source: projects-workflow-ai/templates/caller-workflows/report-made-public.yml.
+on:
+  public:
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
+      - name: Ask projects-workflow-ai to re-secure this repo
+        env:
+          # Still the broad token at this moment; this dispatch is its last use
+          # here before the narrow one replaces it.
+          GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::PROJECT_TOKEN is not set; the daily secure-public-repos run will handle this repo."
+            exit 0
+          fi
+          if gh api repos/jpmti2016/projects-workflow-ai/dispatches \
+               -f event_type=repo-made-public -f "client_payload[repo]=$REPO" >/dev/null; then
+            echo "Requested re-securing of $REPO."
+          else
+            echo "::warning::Dispatch failed (token may already be the narrow one); the daily run will handle it."
+          fi
